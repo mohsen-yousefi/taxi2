@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:layoutDirection="rtl">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layoutDirection="ltr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:adjustViewBounds="true"
+            android:foregroundGravity="center_horizontal"
+            android:src="@drawable/ic__arrow" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/iransans_bold"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="سفر یکشنبه 23 تیر"
+            android:textAllCaps="true"
+            android:textColor="#464126"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="-25dp"
+        app:cardBackgroundColor="#eeedee"
+        app:cardCornerRadius="25dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="25dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fillViewport="true"
+                android:paddingTop="0dp">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:paddingBottom="24dp">
+
+
+                    <fragment
+                        android:id="@+id/mSend_mapView"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mSend_mapView">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/ridedetail"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/driver_image"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@drawable/profile_ride"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.272" />
+
+                            <Button
+                                android:id="@+id/chatttt"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:text="chat"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="84dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/driver_image"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <TextView
+                                    android:id="@+id/textView23"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0.1dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/driver_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:fontFamily="@font/iransans_bold"
+                                    android:text="Úáí ãÍãÏí"
+                                    android:textColor="#090808"
+                                    android:textSize="12dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/textView23"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="1.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="1.0" />
+
+                                <TextView
+                                    android:id="@+id/driver_car"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/iransans_bold"
+                                    android:text="نوع پیک: سایپا پراید (زرد)"
+                                    android:textSize="12dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="1.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/driver_name"
+                                    app:layout_constraintVertical_bias="0.0" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/plauqeMotor"
+                                android:layout_width="65dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/oval42"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                                app:layout_constraintVertical_bias="0.0">
+
+                                <TextView
+                                    android:id="@+id/textView28"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0.1dp"
+                                    android:text="TextView"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/imageView16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="4dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/textView28"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/pelak_iran" />
+
+                                <TextView
+                                    android:id="@+id/driver_police_number1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_marginBottom="25dp"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="1 2 3"
+                                    android:textColor="#090808"
+                                    android:textSize="14dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView16"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/driver_police_number2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="1 2 3 4 5"
+                                    android:textColor="#090808"
+                                    android:textSize="14dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/plauqeMashin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:background="@drawable/oval42"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+
+                                <ImageView
+                                    android:id="@+id/imageView17"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="4dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/pelak_iran" />
+
+                                <TextView
+                                    android:id="@+id/driver_police_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="2dp"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="12"
+                                    android:textColor="#090808"
+                                    android:textSize="14dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView17"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/driver_police_numberr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="4 8"
+                                    android:textColor="#090808"
+                                    android:textSize="14dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/textView63"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView63"
+                                    android:layout_width="1dp"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="2dp"
+                                    android:background="#707990"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/driver_police_number"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </android.support.constraint.ConstraintLayout>
+
+
+                            <com.github.ornolfr.ratingview.RatingView
+                                android:id="@+id/ratingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="12dp"
+                                app:drawable_empty="@drawable/star_black"
+                                app:drawable_filled="@drawable/star_gold"
+                                app:drawable_half="@drawable/star_gold"
+                                app:drawable_margin="4.0dip"
+                                app:drawable_size="18.0dip"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:max_count="5"
+                                app:rating="1" />
+
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout18"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginEnd="14dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ridedetail">
+
+                            <TextView
+                                android:id="@+id/textView54"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/iransans_fa_num_bold"
+                                android:text="مبدا:"
+                                android:textColor="#4db565"
+                                android:textSize="14dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/textView58"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/iransans_fa_num_bold"
+                                android:text="بوشهر،خیابان هلالی کوچه 3"
+                                android:textColor="#303030"
+                                android:textSize="14dp"
+                                app:layout_constraintEnd_toStartOf="@+id/textView54"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView59"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/iransans_fa_num_bold"
+                                android:text="مقصد:"
+                                android:textColor="#4db565"
+                                android:textSize="14dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+
+                            <TextView
+                                android:id="@+id/textView57"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/iransans_fa_num_bold"
+                                android:text="بوشهر،خیابان هلالی کوچه 3"
+                                android:textColor="#303030"
+                                android:textSize="14dp"
+                                app:layout_constraintEnd_toStartOf="@+id/textView59"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="14dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout18">
+
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/c1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <TextView
+                                    android:id="@+id/textView62"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="تاریخ و ساعت سرویس:"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView65"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="چهار شنبه 5 تیر 1398"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView62"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/c2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/c1">
+
+                                <TextView
+                                    android:id="@+id/textView100"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="کد سرویس:"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView101"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="PEYKMAN-222"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView100"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/c3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/c2">
+
+                                <TextView
+                                    android:id="@+id/textView300"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="نوع سرویس:"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView303"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="پیک"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView300"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/c4"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/c3">
+
+                                <TextView
+                                    android:id="@+id/textView400"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="کل هزینه سرویس:"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView404"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="8000 تومان"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView400"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/c5"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/c4">
+
+                                <TextView
+                                    android:id="@+id/textView500"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="تخفیف:"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView505"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="8000 تومان"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView500"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/c6"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/c5">
+
+                                <TextView
+                                    android:id="@+id/textView600"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="مبلغ پرداختی:"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView606"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iransans_fa_num_bold"
+                                    android:text="8000 تومان"
+                                    android:textColor="#7f899d"
+                                    android:textSize="14dp"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView600"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </android.support.constraint.ConstraintLayout>
+
+
+                        </android.support.constraint.ConstraintLayout>
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </ScrollView>
+
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
+
+
