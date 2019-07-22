@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -67,6 +68,7 @@ import com.rachcode.peykman.model.UserData;
 import com.rachcode.peykman.model.json.user.GetBannerResponseJson;
 import com.rachcode.peykman.model.json.user.GetSaldoRequestJson;
 import com.rachcode.peykman.model.json.user.GetSaldoResponseJson;
+import com.rachcode.peykman.model.json.user.UserDataResponseJson;
 import com.rachcode.peykman.splash.SplashActivity;
 import com.rachcode.peykman.utils.ConnectivityUtils;
 import com.rachcode.peykman.utils.Log;
@@ -75,6 +77,7 @@ import com.rachcode.peykman.utils.SnackbarController;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.rachcode.peykman.utils.Utils;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -454,39 +457,26 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
     }
 
     private void updateMPayBalance() {
-        UserData loginUser = GoTaxiApplication.getInstance(getActivity()).getLoginUserD();
-        UserService userService = ServiceGenerator.createService(
-                UserService.class, loginUser.getEmail(), loginUser.getPassword());
+        UserService userService = ServiceGenerator.createService(UserService.class);
 
-        GetSaldoRequestJson param = new GetSaldoRequestJson();
-        param.setId(loginUser.getId());
-        userService.getSaldo(param).enqueue(new Callback<GetSaldoResponseJson>() {
+        final UserData loginUser = GoTaxiApplication.getInstance(getActivity()).getLoginUserD();
+        userService.getUserData(String.valueOf(loginUser.getPhone())).enqueue(new Callback<UserDataResponseJson>() {
             @Override
-            public void onResponse(Call<GetSaldoResponseJson> call, Response<GetSaldoResponseJson> response) {
-                if (response.isSuccessful()) {
-                    String formattedText = String.format(Locale.US, General.MONEY + " %s.00",
-                            NumberFormat.getNumberInstance(Locale.US).format(response.body().getData()));
-                    mPayBalance.setText(formattedText);
-                    mPayBalance.setVisibility(View.VISIBLE);
-                    loading_pay.setVisibility(View.GONE);
-                    successfulCall++;
-
-                    if (HomeFragment.this.getActivity() != null) {
-                        Realm realm = GoTaxiApplication.getInstance(HomeFragment.this.getActivity()).getRealmInstance();
-                        UserData loginUser = GoTaxiApplication.getInstance(HomeFragment.this.getActivity()).getLoginUserD();
-                        realm.beginTransaction();
-                        loginUser.setBalance(String.valueOf(response.body().getData()));
-                        realm.commitTransaction();
-                    }
+            public void onResponse(Call<UserDataResponseJson> call, Response<UserDataResponseJson> response) {
+                UserDataResponseJson responseUser = response.body();
+                if (responseUser.getStatus().equals("success")) {
+                    UserData user = response.body().getData().get(0);
+                    Utils.saveUser(getContext(),user);
+                     Toast.makeText(getContext(), "okkkk", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<GetSaldoResponseJson> call, Throwable t) {
+            public void onFailure(Call<UserDataResponseJson> call, Throwable t) {
 
             }
-
         });
+
     }
 
     @Override
