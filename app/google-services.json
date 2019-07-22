@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "275013166722",
+    "firebase_url": "https://peykeshahr-7c313.firebaseio.com",
+    "project_id": "peykeshahr-7c313",
+    "storage_bucket": "peykeshahr-7c313.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275013166722:android:061366eddd428d76",
+        "android_client_info": {
+          "package_name": "com.rahcode.peykman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275013166722-n6b6o5fa3d8qsiianobm0qpsk8lqd84v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rahcode.peykman",
+            "certificate_hash": "3b857154cb27e40d72dd93589480b58f4e287ae8"
+          }
+        },
+        {
+          "client_id": "275013166722-fejvgfe262q6ic2mjb6ccu0t4hjn7ceq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4FS4UJzgAT7mtjVGCpxi7-8qpJ0sCDDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275013166722-fejvgfe262q6ic2mjb6ccu0t4hjn7ceq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

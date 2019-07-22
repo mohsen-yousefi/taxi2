@@ -1,0 +1,55 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="8dp">
+
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/ripple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mrl_rippleAlpha="0.2"
+        app:mrl_rippleColor="@color/colorPrimary"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="true">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_main_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.rachcode.peykman.utils.view.RoundedImageView
+                android:id="@+id/imageView_main_adapter"
+                android:layout_width="110dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="1dp"
+                android:src="@drawable/ic_beli_bezoodi"
+                app:border_color="#fff"
+                app:border_width="0dip"
+                app:is_oval="true"
+                android:background="#fff"
+                app:round_background="true" />
+
+            <TextView
+                android:id="@+id/textView_main_adapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="پیک"
+                android:textColor="#222"
+                android:textSize="16dp"
+                android:fontFamily="@font/iransans_bold"/>
+
+        </LinearLayout>
+
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+
+</LinearLayout>

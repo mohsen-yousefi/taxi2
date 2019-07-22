@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:background="@color/colorPrimary">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layoutDirection="ltr">
+
+        <ImageView
+            android:id="@+id/btn_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:adjustViewBounds="true"
+            android:layout_centerVertical="true"
+            android:foregroundGravity="center_horizontal"
+            android:paddingTop="@dimen/spacing_regular"
+            android:src="@drawable/ic__arrow" />
+
+        <TextView
+            android:id="@+id/mSend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/iransans_bold"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingTop="@dimen/spacing_regular"
+            android:paddingRight="@dimen/spacing_large"
+            android:paddingBottom="@dimen/spacing_regular"
+            android:text="درباره پیک من"
+            android:textAllCaps="true"
+            android:textColor="#464126"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="-25dp"
+        app:cardBackgroundColor="#eeedee"
+        app:cardCornerRadius="25dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="25dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:layout_marginBottom="25dp">
+
+                <LinearLayout
+                    android:id="@+id/activity_rating_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:context=".mRideCar.RateDriverActivity">
+
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="40dp"
+                        app:srcCompat="@drawable/icon_logo" />
+
+                    <TextView
+                        android:id="@+id/driver_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/iransans_light"
+                        android:gravity="center_horizontal"
+                        android:text="مجموعه پیک من از سال 97 با همکاری اداره پست استان بوشهر در جهت رفاه حال همشهریان تصمیم به راه اندازی اپلیکیشن موبایل کرده اسن امیدواریم شما عزیزان مارا در رسیدن به این رسالت بزرگ راهنمایی و کمک کنید"
+                        android:textColor="#454345"
+                        android:textSize="14dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginLeft="24dp"/>
+
+                    <TextView
+                        android:id="@+id/txtVersionApp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/iransans_fa_num_bold"
+                        android:text="نسخه 1.0.0"
+                        android:textColor="#41413f"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="?actionBarSize"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/oval88"
+                        android:fontFamily="@font/iransans_medium"
+                        android:text="تماس با پشتیانی"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="14dp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="40dp"
+                        android:fontFamily="@font/iransans_bold"
+                        android:text="طراحی و توسعه پیک من با افتخار توسط:"
+                        android:textColor="#7e889c"
+                        android:textSize="14dp" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:layoutDirection="ltr">
+
+                        <ImageView
+                            android:id="@+id/imageView23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginRight="24dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_developer" />
+
+                        <TextView
+                            android:id="@+id/textView31"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:text="توسعه و پیاده سازی نرم افزار:"
+                            android:textSize="14dp"
+                            android:textColor="#7d879b"
+                            android:fontFamily="@font/iransans_light"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView23"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView23"
+                            app:layout_constraintHorizontal_bias="0.993"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/imageView23" />
+
+                        <TextView
+                            android:id="@+id/textView32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:text="رهکد"
+                            android:textSize="13dp"
+                            android:textColor="#7d879b"
+                            android:fontFamily="@font/iransans_medium"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView31"
+                            app:layout_constraintEnd_toStartOf="@+id/textView31"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+                        <ImageView
+                            android:id="@+id/imageView28"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="24dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView23"
+                            app:srcCompat="@drawable/ic_designer" />
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:text="طراحی رابط کاربری و تجربه کاربری (Ui/Ux):"
+                            android:textSize="14dp"
+                            android:textColor="#7d879b"
+                            android:fontFamily="@font/iransans_light"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView28"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView28"
+                            app:layout_constraintTop_toTopOf="@+id/imageView28" />
+
+                        <TextView
+                            android:id="@+id/textView34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:text="روزبه منفرد"
+                            android:textSize="13dp"
+                            android:textColor="#7d879b"
+                            android:fontFamily="@font/iransans_medium"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView33"
+                            app:layout_constraintEnd_toStartOf="@+id/textView33"
+                            app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
+
+
