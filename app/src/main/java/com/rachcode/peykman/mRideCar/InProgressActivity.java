@@ -271,8 +271,7 @@ public class InProgressActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 selectBoxNaghdi();
-                selectBoxNaghdi();
-            }
+             }
         });
 
         select_box_online.setOnClickListener(new View.OnClickListener() {
@@ -326,8 +325,7 @@ public class InProgressActivity extends AppCompatActivity
         if (request.getPrice() < Integer.parseInt(loginUser.getBalance())) {
             select_box_online.setClickable(false);
             Toast.makeText(InProgressActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
-            android.util.Log.i("chosesag", "chosesag:"+request.getIsPay());
-            switch (request.getType())
+              switch (request.getPay_type())
             {
                 case 0:
                     selectBoxPishKeraye();

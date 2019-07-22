@@ -43,6 +43,9 @@ public class Transaksi extends RealmObject implements Serializable {
     @SerializedName("is_pay")
     @Expose
     private int isPay;
+    @SerializedName("pay_type")
+    @Expose
+    private int pay_type;
     @SerializedName("item_name")
     @Expose
     private String itemName;
@@ -67,7 +70,7 @@ public class Transaksi extends RealmObject implements Serializable {
     @SerializedName("receiver_name")
     @Expose
     private String receiverName;
-    @SerializedName(" receiver_phone")
+    @SerializedName("receiver_phone")
     @Expose
     private String receiverPhone;
     @SerializedName("receiver_plaque")
@@ -156,6 +159,14 @@ public class Transaksi extends RealmObject implements Serializable {
 
     public void setIsPay(int isPay) {
         this.isPay = isPay;
+    }
+
+    public int getpay_type() {
+        return pay_type;
+    }
+
+    public void setpay_type(int isPay) {
+        this.pay_type = pay_type;
     }
 
     public String getItemName() {

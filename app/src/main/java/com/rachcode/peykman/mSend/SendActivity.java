@@ -863,7 +863,9 @@ public class SendActivity extends AppCompatActivity implements
                     param.receiver_floor_second = receiver_floor_second;
                     param.receiver_floor_third = receiver_floor_third;
                     param.receiver_floor_fourth = receiver_floor_fourth;
-                    param.pay_type =0;
+                    param.pay_type = 0;
+                    android.util.Log.i("xxxxxxxxxxxxxxxxxx", "pish keraye  param.pay_type :"+param.pay_type);
+
 
                     if (select_box_online.isSelected()) {
                         param.is_pay = 1;
@@ -934,6 +936,8 @@ public class SendActivity extends AppCompatActivity implements
                     param.receiver_floor_fourth = receiver_floor_fourth;
                     Log.e("M-PAY", "not using m pay");
                     param.pay_type = 1;
+                    android.util.Log.i("xxxxxxxxxxxxxxxxxx", "pas keraye  param.pay_type :"+param.pay_type);
+
                     if (select_box_online.isSelected()) {
                         param.is_pay = 1;
 

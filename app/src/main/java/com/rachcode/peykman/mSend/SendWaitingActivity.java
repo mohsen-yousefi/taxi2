@@ -310,7 +310,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setads_code(transaksi.getads_code());
             request.setads_credit(transaksi.getads_credit());
             request.setIsPay(transaksi.getIsPay());
-            request.settype(transaksi.getIsPay());
+             request.setpay_type(transaksi.getpay_type());
 
 
             String namaLengkap = String.format("%s %s", loginUser.getFirstName(), loginUser.getLastName());
@@ -385,6 +385,8 @@ public class SendWaitingActivity extends AppCompatActivity {
                     Intent intent = new Intent(activity, InProgressActivity.class);
                     intent.putExtra("driver", driver);
                     intent.putExtra("request", request);
+
+
                     intent.putExtra("time_distance", timeDistance);
                     startActivity(intent);
                     finish();

@@ -74,6 +74,7 @@ public class FragmentWallet extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+         updatetext();
 
         selectorBtnWallet10Toman();
 
@@ -130,8 +131,11 @@ public class FragmentWallet extends Fragment {
                 }
             }
         });
-
     }
+ private void updatetext(){
+     userLogin = GoTaxiApplication.getInstance(getContext()).getLoginUserD();
+     txtBalance.setText(formatMony(userLogin.getBalance()));
+ }
 
 
     private void selectorBtnWallet10Toman(){
@@ -165,31 +169,8 @@ public class FragmentWallet extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(isFirst){
 
-            UserService userService = ServiceGenerator.createService(UserService.class);
-            userService.getUserData(String.valueOf(userLogin.getPhone())).enqueue(new Callback<UserDataResponseJson>() {
-                @Override
-                public void onResponse(Call<UserDataResponseJson> call, Response<UserDataResponseJson> response) {
-                    UserDataResponseJson responseUser = response.body();
-                    if (responseUser.getStatus().equals("success")) {
-                        UserData user = response.body().getData().get(0);
-                        Utils.saveUser(getContext(),user);
-                        userLogin = GoTaxiApplication.getInstance(getContext()).getLoginUserD();
-                        txtBalance.setText(formatMony(userLogin.getBalance()));
-                        Toast.makeText(getContext(), "okkkk", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserDataResponseJson> call, Throwable t) {
-
-                }
-            });
-        }else{
-             userLogin = GoTaxiApplication.getInstance(getContext()).getLoginUserD();
-            txtBalance.setText(formatMony(userLogin.getBalance()));
-        }
+        updatetext();
 
     }
 

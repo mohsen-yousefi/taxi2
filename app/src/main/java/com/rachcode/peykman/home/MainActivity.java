@@ -58,9 +58,11 @@ import com.rachcode.peykman.api.service.UserService;
 import com.rachcode.peykman.home.submenu.home.HomeFragment;
 import com.rachcode.peykman.model.Fitur;
 import com.rachcode.peykman.model.json.user.GetFiturResponseJson;
+import com.rachcode.peykman.model.json.user.UserDataResponseJson;
 import com.rachcode.peykman.utils.GoTaxiTabProvider;
 import com.rachcode.peykman.utils.MenuSelector;
 import com.rachcode.peykman.utils.SnackbarController;
+import com.rachcode.peykman.utils.Utils;
 import com.rachcode.peykman.utils.view.CustomViewPager;
 
 import java.io.File;
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
             });
 
         }
-
+        updateFeature();
 
 /*
         // change language
@@ -434,7 +436,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
     protected void onResume() {
         super.onResume();
 
-        updateFeature();
+        updateMPayBalance();
     }
 
     @Override
@@ -446,7 +448,28 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
         }
         snackBar.show();
     }
+    private void updateMPayBalance() {
+        UserService userService = ServiceGenerator.createService(UserService.class);
 
+         userService.getUserData(String.valueOf(loginUser.getPhone())).enqueue(new Callback<UserDataResponseJson>() {
+            @Override
+            public void onResponse(Call<UserDataResponseJson> call, Response<UserDataResponseJson> response) {
+                UserDataResponseJson responseUser = response.body();
+                if (responseUser.getStatus().equals("success")) {
+                    UserData user = response.body().getData().get(0);
+                    Utils.saveUser(getApplication(),user);
+                    updateFeature();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDataResponseJson> call, Throwable t) {
+
+            }
+        });
+
+    }
     private void updateFeature() {
         loadImageFromStorage();
           loginUser = GoTaxiApplication.getInstance(this).getLoginUserD();
