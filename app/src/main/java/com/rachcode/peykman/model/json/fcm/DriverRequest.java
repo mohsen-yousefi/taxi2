@@ -93,6 +93,9 @@ public class DriverRequest implements Serializable {
     @SerializedName("product_id")
     @Expose
     private Integer productId;
+    @SerializedName("pay_type")
+    @Expose
+    private int pay_type;
     @SerializedName("receiver_floor")
     @Expose
     private String receiverFloor;
@@ -126,9 +129,8 @@ public class DriverRequest implements Serializable {
     @SerializedName("start_longitude")
     @Expose
     private Double startLongitude;
-    @Expose
-    @SerializedName("pay_type")
-    public int pay_type;
+
+
     public String getCustomerId() {
         return customerId;
     }
@@ -142,8 +144,8 @@ public class DriverRequest implements Serializable {
         return this.pay_type;
     }
 
-    public void settype(int customerId) {
-        this.pay_type = customerId;
+    public void setpay_type(int pay_type) {
+        this.pay_type = pay_type;
     }
 
     public String getid() {

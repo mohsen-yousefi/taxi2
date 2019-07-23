@@ -430,7 +430,6 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
                             }
                         });
         } else {
-            updateMPayBalance();
             loading_pay.setVisibility(View.VISIBLE);
             mPayBalance.setVisibility(View.GONE);
         }
@@ -456,28 +455,6 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
         getActivity().startActivity(intent);
     }
 
-    private void updateMPayBalance() {
-        UserService userService = ServiceGenerator.createService(UserService.class);
-
-        final UserData loginUser = GoTaxiApplication.getInstance(getActivity()).getLoginUserD();
-        userService.getUserData(String.valueOf(loginUser.getPhone())).enqueue(new Callback<UserDataResponseJson>() {
-            @Override
-            public void onResponse(Call<UserDataResponseJson> call, Response<UserDataResponseJson> response) {
-                UserDataResponseJson responseUser = response.body();
-                if (responseUser.getStatus().equals("success")) {
-                    UserData user = response.body().getData().get(0);
-                    Utils.saveUser(getContext(),user);
-                     Toast.makeText(getContext(), "okkkk", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserDataResponseJson> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     @Override
     public void onLocationChanged(Location location) {
