@@ -66,6 +66,9 @@ public class DriverRequest implements Serializable {
     @SerializedName("distance")
     @Expose
     private Double distance;
+    @SerializedName("destination_count")
+    @Expose
+    private int destination_count;
     @SerializedName("end_latitude")
     @Expose
     private Double endLatitude;
@@ -283,6 +286,14 @@ public class DriverRequest implements Serializable {
 
     public void setIsPay(int isPay) {
         this.isPay = isPay;
+    }
+
+    public int getdestination_count() {
+        return destination_count;
+    }
+
+    public void setdestination_count(int destination_count) {
+        this.destination_count = destination_count;
     }
 
     public String getItemName() {

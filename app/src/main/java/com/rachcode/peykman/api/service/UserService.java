@@ -17,6 +17,7 @@ import com.rachcode.peykman.model.json.menu.VersionRequestJson;
 import com.rachcode.peykman.model.json.menu.VersionResponseJson;
 import com.rachcode.peykman.model.json.user.ChangePasswordRequestJson;
 import com.rachcode.peykman.model.json.user.ChangePasswordResponseJson;
+import com.rachcode.peykman.model.json.user.CheangePayResponse;
 import com.rachcode.peykman.model.json.user.GetBannerResponseJson;
 import com.rachcode.peykman.model.json.user.GetFiturResponseJson;
 import com.rachcode.peykman.model.json.user.GetSaldoRequestJson;
@@ -70,6 +71,10 @@ public interface UserService {
                                         @Field("last_name") String last_name,
                                         @Field("reg_id") String reg_id,
                                         @Field("phone") String phone);
+    @FormUrlEncoded
+    @POST("Book/change_payment_type_by_customer")
+    Call<CheangePayResponse> cheangePayment(@Field("transaction_id") String transaction_id,
+                                      @Field("value") String value);
 
 
 

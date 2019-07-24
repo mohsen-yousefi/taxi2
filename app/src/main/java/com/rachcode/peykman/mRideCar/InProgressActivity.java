@@ -80,7 +80,11 @@ import com.rachcode.peykman.model.json.fcm.CancelBookResponseJson;
 import com.rachcode.peykman.model.json.fcm.DriverRequest;
 import com.rachcode.peykman.model.json.fcm.DriverResponse;
 import com.rachcode.peykman.model.json.fcm.FCMMessage;
+import com.rachcode.peykman.model.json.user.CheangePayResponse;
+import com.rachcode.peykman.model.json.user.RegisterResponseJson;
+import com.rachcode.peykman.signUp.SignUpActivity;
 import com.rachcode.peykman.utils.Log;
+import com.rachcode.peykman.utils.Utils;
 import com.rachcode.peykman.utils.db.DBHandler;
 import com.rachcode.peykman.utils.db.Queries;
 
@@ -134,6 +138,10 @@ public class InProgressActivity extends AppCompatActivity
     TextView orderNumber;
     Handler mainHandler;
     // pelaq motor
+    @BindView(R.id.icon_box_kartkhon)
+    ImageView icon_box_kartkhon;
+    @BindView(R.id.txt_box_kartkhon)
+    TextView txt_box_kartkhon;
     @BindView(R.id.select_box_naghdi)
     LinearLayout select_box_naghdi;
     @BindView(R.id.icon_box_naghdi)
@@ -182,6 +190,8 @@ public class InProgressActivity extends AppCompatActivity
 
     @BindView(R.id.constraintLayout5)
     LinearLayout btnRequest;
+    @BindView(R.id.mSend_price)
+    TextView mSend_price;
     @BindView(R.id.btn_request)
     ConstraintLayout btn_request;
 
@@ -267,18 +277,24 @@ public class InProgressActivity extends AppCompatActivity
                 design_request.setVisibility(View.VISIBLE);
             }
         });
+
+
         select_box_naghdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ShowDoialg("2");
                 selectBoxNaghdi();
+
              }
         });
 
-        select_box_online.setOnClickListener(new View.OnClickListener() {
+
+
+        select_box_kartkhon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                selectBoxOnline();
+                ShowDoialg("3");
+                selectBoxKartkhon();
             }
         });
 
@@ -304,6 +320,7 @@ public class InProgressActivity extends AppCompatActivity
         driver = (Driver) getIntent().getSerializableExtra("driver");
 
         request = (DriverRequest) getIntent().getSerializableExtra("request");
+        mSend_price.setText(String.valueOf(request.getPrice()));
         android.util.Log.i("driverLog", " drivergetPhoto: " + driver.getPhoto());
 
         Log.e("DATA DRIVER", driver.getFirstName() + " " + driver.getLastName());
@@ -315,27 +332,28 @@ public class InProgressActivity extends AppCompatActivity
         String format = String.format(Locale.US, "Distance %.2f " + General.UNIT_OF_DISTANCE, request.getDistance());
         distanceText.setText(format);
 
-        String formattedTotal = NumberFormat.getNumberInstance(Locale.US).format(request.getPrice());
-        String formattedText = String.format(Locale.US, General.MONEY + " %s.00", formattedTotal);
-        priceText.setText(formattedText);
+        priceText.setText(formatMony(request.getPrice()));
 
         Glide.with(getApplicationContext()).load(driver.getPhoto()).into(driverImage);
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         orderNumber.setText("Order no. " + request.getid());
-        if (request.getPrice() < Integer.parseInt(loginUser.getBalance())) {
+        Toast.makeText(context, "00000000000", Toast.LENGTH_SHORT).show();
+
             select_box_online.setClickable(false);
             Toast.makeText(InProgressActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
-              switch (request.getPay_type())
+               switch (request.getPay_type())
             {
                 case 0:
                     selectBoxPishKeraye();
-
                     break;
                 case 1:
+
                     selectBoxPasKeraye();
                     break;
 
             }
+
+
             switch (request.getIsPay())
             {
                 case 1:
@@ -345,10 +363,10 @@ public class InProgressActivity extends AppCompatActivity
                     selectBoxNaghdi();
                     break;
                 case 3:
-                    Toast.makeText(context, "کارتخوان", Toast.LENGTH_SHORT).show();
+                    selectBoxKartkhon();
                     break;
             }
-         }
+
         // set pelaq
         switch (driver.getDriverJob()) {
             case "smotor":
@@ -371,6 +389,24 @@ public class InProgressActivity extends AppCompatActivity
                 //driverPoliceNumber.setText(driver.getNumberOfVehicle());
                 break;
         }
+        /** box selector type peyment **/
+
+
+
+
+        select_box_online.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Integer.parseInt(loginUser.getBalance()) < request.getPrice()) {
+                    Toast.makeText(InProgressActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
+                } else {
+                    ShowDoialg("1");
+                    selectBoxOnline();
+
+                }
+            }
+        });
+
 
 
         driverCar.setText("نوع پیک: " + driver.getBrand() + " " + driver.getType() + " (" + driver.getColor() + ")");
@@ -468,6 +504,31 @@ public class InProgressActivity extends AppCompatActivity
 
 
     }
+private void ShowDoialg(final String is_pay){
+
+    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(InProgressActivity.this);
+    alertDialogBuilder.setTitle("آپدیت سفر");
+    alertDialogBuilder.setMessage("آیا از آپدیت اطلاعات سفر مطمئن هستید ؟");
+    alertDialogBuilder.setPositiveButton("بله",
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                    UpdateTransActionType(is_pay);
+                }
+            });
+
+    alertDialogBuilder.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+        }
+    });
+
+    AlertDialog alertDialog = alertDialogBuilder.create();
+    alertDialog.show();
+
+}
 
     public Runnable updateLocationOtime(final String driver_id) {
         android.util.Log.i("immsmdsm", "firsttttttt: ");
@@ -521,7 +582,11 @@ public class InProgressActivity extends AppCompatActivity
         txt_box_pas_keraye.setSelected(true);
         select_box_online.setVisibility(View.GONE);
     }
+    public String formatMony(int price) {
+        String formattedText = price + " " + General.MONEY;
 
+        return formattedText;
+    }
     public void animateMarker(final Marker marker, final LatLng toPosition,
                               final boolean hideMarker) {
         final Handler handler = new Handler();
@@ -556,6 +621,34 @@ public class InProgressActivity extends AppCompatActivity
                     }
                 }
             }
+        });
+    }
+
+    public void UpdateTransActionType(String type_id){
+
+        UserService service = ServiceGenerator.createService(UserService.class);
+        service.cheangePayment(request.getid(),type_id).enqueue(new Callback<CheangePayResponse>() {
+            @Override
+            public void onResponse(Call<CheangePayResponse> call, Response<CheangePayResponse> response) {
+                 if (response.isSuccessful()) {
+                    if (response.body().getMessage().equalsIgnoreCase("sucess")) {
+
+                        Toast.makeText(InProgressActivity.this, "عملیات با موفقیت انجام شد ", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Toast.makeText(InProgressActivity.this, " مشکلی در فرایند به وجود آمده ! ", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                     Toast.makeText(InProgressActivity.this, " مشکلی در فرایند به وجود آمده ! ", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheangePayResponse> call, Throwable t) {
+
+            }
+
+
         });
     }
 
@@ -857,8 +950,22 @@ public class InProgressActivity extends AppCompatActivity
         select_box_online.setSelected(false);
         txt_box_online.setSelected(false);
         icon_box_online.setSelected(false);
+        select_box_kartkhon.setSelected(false);
+        txt_box_kartkhon.setSelected(false);
+        icon_box_kartkhon.setSelected(false);
     }
+    public void selectBoxKartkhon() {
+        select_box_naghdi.setSelected(false);
+        txt_box_naghdi.setSelected(false);
+        icon_box_naghdi.setSelected(false);
+        select_box_online.setSelected(false);
+        txt_box_online.setSelected(false);
+        icon_box_online.setSelected(false);
 
+        select_box_kartkhon.setSelected(true);
+        txt_box_kartkhon.setSelected(true);
+        icon_box_kartkhon.setSelected(true);
+    }
     public void selectBoxOnline() {
         select_box_naghdi.setSelected(false);
         txt_box_naghdi.setSelected(false);
@@ -866,7 +973,11 @@ public class InProgressActivity extends AppCompatActivity
         select_box_online.setSelected(true);
         txt_box_online.setSelected(true);
         icon_box_online.setSelected(true);
+        select_box_kartkhon.setSelected(false);
+        txt_box_kartkhon.setSelected(false);
+        icon_box_kartkhon.setSelected(false);
     }
+
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();

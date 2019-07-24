@@ -810,150 +810,26 @@ public class SendActivity extends AppCompatActivity implements
         btn_pay_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddDetailSendActivity.class);
+                int paymant_type = 0;
+                int is_pay = 0;
                 if (select_box_pish_keraye.isSelected()) {
-                    RequestSendRequestJson param = new RequestSendRequestJson();
-                    param.customer_id = userLogin.getId();
-                    param.order_feature = designedFitur.getIdFeature();
-                    param.start_latitude = pickUpLatLang.latitude;
-                    param.start_longitude = pickUpLatLang.longitude;
-                    param.end_latitude = destinationLatLang.latitude;
-                    param.end_longitude = destinationLatLang.longitude;
-                    android.util.Log.i("qqqqqqq", "dovomi" + destinationLatLang2.latitude);
-
-                    param.end_latitude_second = destinationLatLang2.latitude;
-                    param.end_longitude_second = destinationLatLang2.longitude;
-                    param.end_latitude_third = destinationLatLang3.latitude;
-                    param.end_latitude_third = destinationLatLang3.longitude;
-                    param.end_latitude_fourth = destinationLatLang4.latitude;
-                    param.end_latitude_fourth = destinationLatLang4.longitude;
-                    param.distance = Unit_distance;
-                    param.price = price;
-                    param.final_price = finall_price;
-                     param.origin_address = pickUpText;
-                    param.destination_address = destinationText;
-                    param.destination_address_second = destinationText2;
-                    param.destination_address_third = destinationText3;
-                    param.destination_address_fourth = destinationText4;
-                    param.name_of_the_sender = Efirstname_pik.getText().toString();
-                    param.senders_phone = Ephone_pik.getText().toString();
-                    param.receiver_name = receiver_name_first;
-                    param.receiver_name_second = receiver_name_second;
-                    param.receiver_name_third = receiver_name_third;
-                    param.receiver_name_fourth = receiver_name_fourth;
-                    param.receiver_phone = receiver_phone_first;
-                    param.receiver_phone_second = receiver_phone_second;
-                    param.receiver_phone_third = receiver_phone_third;
-                    param.receiver_phone_fourth = receiver_phone_fourth;
-                    param.item_name = Edescription_pik.getText().toString();
-                    param.sender_plaque = Epelak_pik.getText().toString();
-                    param.sender_floor = Etabaghe_pik.getText().toString();
-                    param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
-                    param.product_id = ProductTypeItemSelected;
-                    param.receiver_plaque = receiver_plaque_first;
-                    param.receiver_plaque_second = receiver_plaque_second;
-                    param.receiver_plaque_third = receiver_plaque_third;
-                    param.receiver_plaque_fourth = receiver_plaque_fourth;
-                    param.sender_unit = Evahed_pik.getText().toString();
-                    param.receiver_unit = receiver_unit_first;
-                    param.receiver_unit_second = receiver_unit_second;
-                    param.receiver_unit_third = receiver_unit_third;
-                    param.receiver_unit_fourth = receiver_unit_fourth;
-                    param.receiver_floor = receiver_floor_first;
-                    param.receiver_floor_second = receiver_floor_second;
-                    param.receiver_floor_third = receiver_floor_third;
-                    param.receiver_floor_fourth = receiver_floor_fourth;
-                    param.pay_type = 0;
-                    android.util.Log.i("xxxxxxxxxxxxxxxxxx", "pish keraye  param.pay_type :"+param.pay_type);
-
-
-                    if (select_box_online.isSelected()) {
-                        param.is_pay = 1;
-
-                    } else if(select_box_naghdi.isSelected()) {
-                        param.is_pay = 2;
-
-                    } else {
-                        param.is_pay = 3;
-
-                    }
-
-                    Intent intentt = new Intent(SendActivity.this, SendWaitingActivity.class);
-                    intentt.putExtra(SendWaitingActivity.REQUEST_PARAM, param);
-                    intentt.putExtra(SendWaitingActivity.DRIVER_LIST, (ArrayList) driverAvailable);
-                    intentt.putExtra("time_distance", timeDistance);
-                    startActivity(intentt);
-
+                    paymant_type = 0;
                 } else if (select_box_pas_keraye.isSelected()) {
-                    RequestSendRequestJson param = new RequestSendRequestJson();
-                    param.customer_id = userLogin.getId();
-                    param.order_feature = designedFitur.getIdFeature();
-                    param.start_latitude = pickUpLatLang.latitude;
-                    param.start_longitude = pickUpLatLang.longitude;
-                    param.end_latitude = destinationLatLang.latitude;
-                    param.end_longitude = destinationLatLang.longitude;
-                     param.end_latitude_second = destinationLatLang2.latitude;
-                    param.end_longitude_second = destinationLatLang2.longitude;
-                    param.end_latitude_third = destinationLatLang3.latitude;
-                    param.end_latitude_third = destinationLatLang3.longitude;
-                    param.end_latitude_fourth = destinationLatLang4.latitude;
-                    param.end_latitude_fourth = destinationLatLang4.longitude;
-                    param.distance = Unit_distance;
-                    param.price = price;
-                    param.final_price = finall_price;
-                     param.origin_address = pickUpText;
-                    param.destination_address = destinationText;
-                    param.destination_address_second = destinationText2;
-                    param.destination_address_third = destinationText3;
-                    param.destination_address_fourth = destinationText4;
-                    param.name_of_the_sender = Efirstname_pik.getText().toString();
-                    param.senders_phone = Ephone_pik.getText().toString();
-                    param.receiver_name = receiver_name_first;
-                    param.receiver_name_second = receiver_name_second;
-                    param.receiver_name_third = receiver_name_third;
-                    param.receiver_name_fourth = receiver_name_fourth;
-                    param.receiver_phone = receiver_phone_first;
-                    param.receiver_phone_second = receiver_phone_second;
-                    param.receiver_phone_third = receiver_phone_third;
-                    param.receiver_phone_fourth = receiver_phone_fourth;
-                    param.item_name = Edescription_pik.getText().toString();
-                    param.sender_plaque = Epelak_pik.getText().toString();
-                    param.sender_floor = Etabaghe_pik.getText().toString();
-                    param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
-                    param.product_id = ProductTypeItemSelected;
-                    param.receiver_plaque = receiver_plaque_first;
-                    param.receiver_plaque_second = receiver_plaque_second;
-                    param.receiver_plaque_third = receiver_plaque_third;
-                    param.receiver_plaque_fourth = receiver_plaque_fourth;
-                    param.sender_unit = Evahed_pik.getText().toString();
-                    param.receiver_unit = receiver_unit_first;
-                    param.receiver_unit_second = receiver_unit_second;
-                    param.receiver_unit_third = receiver_unit_third;
-                    param.receiver_unit_fourth = receiver_unit_fourth;
-                    param.receiver_floor = receiver_floor_first;
-                    param.receiver_floor_second = receiver_floor_second;
-                    param.receiver_floor_third = receiver_floor_third;
-                    param.receiver_floor_fourth = receiver_floor_fourth;
-                    Log.e("M-PAY", "not using m pay");
-                    param.pay_type = 1;
-                    android.util.Log.i("xxxxxxxxxxxxxxxxxx", "pas keraye  param.pay_type :"+param.pay_type);
-
-                    if (select_box_online.isSelected()) {
-                        param.is_pay = 1;
-
-                    } else if(select_box_naghdi.isSelected()) {
-                        param.is_pay = 2;
-
-                    } else {
-                        param.is_pay = 3;
-
-                    }
-                    Intent intentt = new Intent(SendActivity.this, SendWaitingActivity.class);
-                    intentt.putExtra(SendWaitingActivity.REQUEST_PARAM, param);
-                    intentt.putExtra(SendWaitingActivity.DRIVER_LIST, (ArrayList) driverAvailable);
-                    intentt.putExtra("time_distance", timeDistance);
-                    startActivity(intentt);
+                    paymant_type = 0;
                 }
+
+
+                if (select_box_online.isSelected()) {
+                    is_pay = 1;
+
+                } else if (select_box_naghdi.isSelected()) {
+                    is_pay = 2;
+
+                } else if (select_box_kartkhon.isSelected()) {
+                    is_pay = 3;
+                }
+                payRequest(paymant_type, is_pay);
+
             }
         });
 
@@ -1022,12 +898,14 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 selectBoxPishKeraye();
+                selectBoxNaghdi();
             }
         });
 
         select_box_pas_keraye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectBoxNaghdi();
                 selectBoxPasKeraye();
             }
         });
@@ -1038,7 +916,6 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 selectBoxNaghdi();
-                selectBoxNaghdi();
             }
         });
 
@@ -1047,8 +924,10 @@ public class SendActivity extends AppCompatActivity implements
             public void onClick(View view) {
                 if (UserInventory < price_takhfifed) {
                     Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
+                } else {
+                    selectBoxOnline();
+
                 }
-                selectBoxOnline();
             }
         });
 
@@ -1080,13 +959,12 @@ public class SendActivity extends AppCompatActivity implements
                 android.util.Log.i(TAG, "designedFiturPrice: " + designedFitur.getFinalPrice());
 
 
-                  price_takhfifed = Math.round(takhfif * price);
+                price_takhfifed = Math.round(takhfif * price);
                 android.util.Log.i(TAG, "price_takhfifed: " + price_takhfifed);
 
 
                 android.util.Log.i(TAG, "UserInventory: " + UserInventory);
                 if (UserInventory < price_takhfifed) {
-                    select_box_online.setClickable(false);
                     Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                     selectBoxNaghdi();
                 } else {
@@ -1120,6 +998,72 @@ public class SendActivity extends AppCompatActivity implements
         setupTabLayoutViewPager();
         bottomNav();
     }
+
+    private void payRequest(int paymant_type, int is_pay) {
+        Intent intent = new Intent(getApplicationContext(), AddDetailSendActivity.class);
+
+        RequestSendRequestJson param = new RequestSendRequestJson();
+        param.customer_id = userLogin.getId();
+        param.order_feature = designedFitur.getIdFeature();
+        param.start_latitude = pickUpLatLang.latitude;
+        param.destination_count = DestinationNumber;
+        param.start_longitude = pickUpLatLang.longitude;
+        param.end_latitude = destinationLatLang.latitude;
+        param.end_longitude = destinationLatLang.longitude;
+        param.end_latitude_second = destinationLatLang2.latitude;
+        param.end_longitude_second = destinationLatLang2.longitude;
+        param.end_latitude_third = destinationLatLang3.latitude;
+        param.end_latitude_third = destinationLatLang3.longitude;
+        param.end_latitude_fourth = destinationLatLang4.latitude;
+        param.end_latitude_fourth = destinationLatLang4.longitude;
+        param.distance = Unit_distance;
+        param.price = finall_price;
+        param.origin_address = pickUpText;
+        param.destination_address = destinationText;
+        param.destination_address_second = destinationText2;
+        param.destination_address_third = destinationText3;
+        param.destination_address_fourth = destinationText4;
+        param.name_of_the_sender = Efirstname_pik.getText().toString();
+        param.senders_phone = Ephone_pik.getText().toString();
+        param.receiver_name = receiver_name_first;
+        param.receiver_name_second = receiver_name_second;
+        param.receiver_name_third = receiver_name_third;
+        param.receiver_name_fourth = receiver_name_fourth;
+        param.receiver_phone = receiver_phone_first;
+        param.receiver_phone_second = receiver_phone_second;
+        param.receiver_phone_third = receiver_phone_third;
+        param.receiver_phone_fourth = receiver_phone_fourth;
+        param.item_name = Edescription_pik.getText().toString();
+        param.sender_plaque = Epelak_pik.getText().toString();
+        param.sender_floor = Etabaghe_pik.getText().toString();
+        param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
+        param.product_id = ProductTypeItemSelected;
+        param.receiver_plaque = receiver_plaque_first;
+        param.receiver_plaque_second = receiver_plaque_second;
+        param.receiver_plaque_third = receiver_plaque_third;
+        param.receiver_plaque_fourth = receiver_plaque_fourth;
+        param.sender_unit = Evahed_pik.getText().toString();
+        param.receiver_unit = receiver_unit_first;
+        param.receiver_unit_second = receiver_unit_second;
+        param.receiver_unit_third = receiver_unit_third;
+        param.receiver_unit_fourth = receiver_unit_fourth;
+        param.receiver_floor = receiver_floor_first;
+        param.receiver_floor_second = receiver_floor_second;
+        param.receiver_floor_third = receiver_floor_third;
+        param.receiver_floor_fourth = receiver_floor_fourth;
+        param.pay_type = paymant_type;
+
+
+        param.is_pay = is_pay;
+
+        Intent intentt = new Intent(SendActivity.this, SendWaitingActivity.class);
+        intentt.putExtra(SendWaitingActivity.REQUEST_PARAM, param);
+        intentt.putExtra(SendWaitingActivity.DRIVER_LIST, (ArrayList) driverAvailable);
+        intentt.putExtra("time_distance", timeDistance);
+        startActivity(intentt);
+
+    }
+
 
     private void bottomNav() {
         drawer = findViewById(R.id.drawer);
@@ -1500,7 +1444,7 @@ public class SendActivity extends AppCompatActivity implements
         mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
-                if (pickUpLatLang ==null){
+                if (pickUpLatLang == null) {
                     nearServiceCamerachenge = true;
                     CurentMarkerPostion = mMap.getCameraPosition().target;
                     fetchNearDriver();
@@ -1587,7 +1531,7 @@ public class SendActivity extends AppCompatActivity implements
             param.setLatitude(latitude);
             param.setLongitude(longitude);
 
-            android.util.Log.i("www", "my_lat_long: "+param);
+            android.util.Log.i("www", "my_lat_long: " + param);
             android.util.Log.i("www", "jjjjj: " + designedFitur.getIdFeature());
             if (designedFitur.getIdFeature() == 9) {
                 service.getNearsendMotor(param).enqueue(new Callback<GetNearRideDriverResponseJson>() {

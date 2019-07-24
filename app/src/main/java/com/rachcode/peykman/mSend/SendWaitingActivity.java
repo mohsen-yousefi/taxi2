@@ -108,7 +108,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (request != null) {
 
-                   cancelOrder();
+                    cancelOrder();
 
                 }
 
@@ -122,21 +122,16 @@ public class SendWaitingActivity extends AppCompatActivity {
     private void sendRequestTransaksi() {
         UserData loginUser = GoTaxiApplication.getInstance(this).getLoginUserD();
         final BookService service = ServiceGenerator.createService(BookService.class, loginUser.getEmail(), loginUser.getPassword());
-         service.requestTransMSend(param).enqueue(new Callback<RequestSendResponseJson>() {
+        service.requestTransMSend(param).enqueue(new Callback<RequestSendResponseJson>() {
             @Override
             public void onResponse(Call<RequestSendResponseJson> call, Response<RequestSendResponseJson> response) {
-                  if (response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
 
                     buildDriverRequest(response.body());
 
 
-
-
-
-
-
-                      thread = new Thread(new Runnable() {
+                    thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             for (int i = 0; i < driverList.size(); i++) {
@@ -161,17 +156,17 @@ public class SendWaitingActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<CheckStatusTransaksiResponse> call, Response<CheckStatusTransaksiResponse> response) {
                                         if (response.isSuccessful()) {
-                                             CheckStatusTransaksiResponse checkStatus = response.body();
+                                            CheckStatusTransaksiResponse checkStatus = response.body();
                                             if (checkStatus.isStatus()) {
 
                                                 // mmd
-                                                if (checkStatus.getListDriver().size() > 0){
+                                                if (checkStatus.getListDriver().size() > 0) {
                                                     Intent intent = new Intent(activity, InProgressActivity.class);
                                                     intent.putExtra("driver", checkStatus.getListDriver().get(0));
                                                     intent.putExtra("request", request);
                                                     intent.putExtra("time_distance", timeDistance);
                                                     startActivity(intent);
-                                                }else {
+                                                } else {
                                                     activity.runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
@@ -222,7 +217,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RequestSendResponseJson> call, Throwable t) {
 
-                android.util.Log.i("www", "onFailureeee: "+t.getMessage() );
+                android.util.Log.i("www", "onFailureeee: " + t.getMessage());
                 t.printStackTrace();
             }
         });
@@ -297,6 +292,8 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setid(transaksi.getid());
             request.setCustomerId(transaksi.getCustomerId());
             request.setRegId(loginUser.getRegId());
+            request.setdestination_count(transaksi.getdestination_count());
+
             request.setOrderFeature(transaksi.getOrderFeature());
             request.setStartLatitude(transaksi.getStartLatitude());
             request.setStartLongitude(transaksi.getStartLongitude());
@@ -310,7 +307,8 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setads_code(transaksi.getads_code());
             request.setads_credit(transaksi.getads_credit());
             request.setIsPay(transaksi.getIsPay());
-             request.setpay_type(transaksi.getpay_type());
+            request.setpay_type(transaksi.getpay_type());
+            android.util.Log.i("xxxxxxxxxxxxxxxxxx", "send watitng acttivty param:" + transaksi.getpay_type());
 
 
             String namaLengkap = String.format("%s %s", loginUser.getFirstName(), loginUser.getLastName());
@@ -318,7 +316,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setCustomer_phone(loginUser.getPhone());
             request.setType(ORDER);
 
-            request.setItemName( param.item_name);
+            request.setItemName(param.item_name);
             request.Setsender_name(param.name_of_the_sender);
             request.setReceiverPhone(param.senders_phone);
             request.setReceiverName(param.receiver_name);
@@ -326,8 +324,6 @@ public class SendWaitingActivity extends AppCompatActivity {
 
         }
     }
-
-
 
 
     private void fcmBroadcast(int index) {
@@ -345,13 +341,13 @@ public class SendWaitingActivity extends AppCompatActivity {
         FCMHelper.sendMessage(FCM_KEY, message).enqueue(new okhttp3.Callback() {
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-                android.util.Log.i("qqq", "onResponse fcm: "+response.body().toString());
+                android.util.Log.i("qqq", "onResponse fcm: " + response.body().toString());
             }
 
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 e.printStackTrace();
-                android.util.Log.e("qqq", "onFailure: "+e.getMessage());
+                android.util.Log.e("qqq", "onFailure: " + e.getMessage());
             }
         });
     }

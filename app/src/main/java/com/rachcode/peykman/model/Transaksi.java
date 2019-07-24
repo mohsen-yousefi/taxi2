@@ -70,6 +70,9 @@ public class Transaksi extends RealmObject implements Serializable {
     @SerializedName("receiver_name")
     @Expose
     private String receiverName;
+    @Expose
+    @SerializedName("destination_count")
+    public int destination_count;
     @SerializedName("receiver_phone")
     @Expose
     private String receiverPhone;
@@ -164,7 +167,13 @@ public class Transaksi extends RealmObject implements Serializable {
     public int getpay_type() {
         return pay_type;
     }
+    public int getdestination_count() {
+        return destination_count;
+    }
 
+    public void setdestination_count(int destination_count) {
+        this.destination_count = destination_count;
+    }
     public void setpay_type(int isPay) {
         this.pay_type = pay_type;
     }

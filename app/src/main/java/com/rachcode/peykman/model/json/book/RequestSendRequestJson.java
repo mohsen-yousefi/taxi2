@@ -24,6 +24,16 @@ public class RequestSendRequestJson implements Serializable {
     public double start_latitude;
 
     @Expose
+    @SerializedName("delay")
+    public int delay;
+    @Expose
+    @SerializedName("product_type")
+    public int product_type;
+    @Expose
+    @SerializedName("product_description")
+    public int product_description;
+
+    @Expose
     @SerializedName("start_longitude")
     public double start_longitude;
 
@@ -89,6 +99,10 @@ public class RequestSendRequestJson implements Serializable {
     @Expose
     @SerializedName("name_of_the_sender")
     public String name_of_the_sender;
+
+    @Expose
+    @SerializedName("destination_count")
+    public int destination_count;
 
     @Expose
     @SerializedName("senders_phone")
