@@ -25,7 +25,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ServicesPerformedActivity"></activity>
+        <activity android:name=".GozinehaActivity">
+
+
+        </activity>
+        <activity android:name=".ActivityTransactionDetail"></activity>
+        <activity android:name=".ServicesPerformedActivity" />
         <activity android:name=".ActivityGardeshHesab" />
         <activity android:name=".ActivityProfile" />
         <activity android:name=".ActivityAbout" />

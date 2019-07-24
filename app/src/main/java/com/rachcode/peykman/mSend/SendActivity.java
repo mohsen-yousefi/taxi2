@@ -73,6 +73,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.rachcode.peykman.Favorites;
 import com.rachcode.peykman.ActivityTest2;
 import com.rachcode.peykman.GoTaxiApplication;
+import com.rachcode.peykman.GozinehaActivity;
 import com.rachcode.peykman.R;
 import com.rachcode.peykman.api.MapDirectionAPI;
 import com.rachcode.peykman.api.ServiceGenerator;
@@ -463,6 +464,7 @@ public class SendActivity extends AppCompatActivity implements
 
     DrawerLayout drawer;
     ConstraintLayout design_wallet;
+    LinearLayout btnTopAddressGozineha;
 
     //    private static final LatLngBounds BOUNDS = new LatLngBounds(
 //            new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
@@ -647,6 +649,14 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SendActivity.this, Favorites.class));
+            }
+        });
+
+        btnTopAddressGozineha = findViewById(R.id.btnTopAddressGozineha);
+        btnTopAddressGozineha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendActivity.this, GozinehaActivity.class));
             }
         });
 
