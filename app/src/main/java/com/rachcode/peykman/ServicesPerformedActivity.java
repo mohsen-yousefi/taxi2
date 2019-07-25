@@ -1,6 +1,7 @@
 package com.rachcode.peykman;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -18,6 +20,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.rachcode.peykman.adapter.HistoryAdapter;
 import com.rachcode.peykman.api.ServiceGenerator;
 import com.rachcode.peykman.api.service.UserService;
+import com.rachcode.peykman.config.General;
 import com.rachcode.peykman.home.submenu.home.HomeFragment;
 import com.rachcode.peykman.model.ItemHistory;
 import com.rachcode.peykman.model.UserData;
@@ -50,7 +53,7 @@ public class ServicesPerformedActivity extends AppCompatActivity {
         requestData();
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         setupTabLayoutViewPager();
     }
@@ -99,6 +102,8 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                     recyclerView.setVisibility(View.VISIBLE);
 
                     for (int i = 0; i < data.size(); i++) {
+                        android.util.Log.i("HISTORY", "color: " + data.get(i).color);
+
                         switch (data.get(i).order_feature) {
                         /*    case "Go-Moto":
                                 data.get(i).image_id = R.drawable.ride;
@@ -106,15 +111,7 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                             case "Go-Cab":
                                 data.get(i).image_id = R.drawable.car;
                                 break;*/
-                            case "smotor":
-                                data.get(i).image_id = R.drawable.send;
-                                break;
-                            case "scar":
-                                data.get(i).image_id = R.drawable.car;
-                                break;
-                            case "svanet":
-                                data.get(i).image_id = R.drawable.ic_mbox;
-                                break;
+
                            /* case "GO-Service":
                                 data.get(i).image_id = R.drawable.ic_mservice;
                                 break;
@@ -134,10 +131,10 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(ServicesPerformedActivity.this);
 
                     recyclerView.setLayoutManager(layoutManager);
-/*
-                    recyclerView.setAdapter(ServicesPerformedActivity.this,data);
-*/
-                     if (response.body().data.size() == 0) {
+
+                    recyclerView.setAdapter(new Adapter(ServicesPerformedActivity.this, data));
+
+                    if (response.body().data.size() == 0) {
                         recyclerView.setVisibility(View.GONE);
                         Log.d("HISTORY", "Empty");
                     }
@@ -153,37 +150,75 @@ public class ServicesPerformedActivity extends AppCompatActivity {
         });
     }
 
-    class Adapter extends RecyclerView.Adapter<ViewHolder>{
+    class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private ArrayList<ItemHistory> mDataSet;
         private Context context;
 
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(ServicesPerformedActivity.this).inflate(R.layout.row_services_performed,parent,false);
+            View v = LayoutInflater.from(ServicesPerformedActivity.this).inflate(R.layout.row_services_performed, parent, false);
             return new ViewHolder(v);
         }
-        public Adapter(Context context,ArrayList<ItemHistory> data){
+
+        public Adapter(Context context, ArrayList<ItemHistory> data) {
             this.mDataSet = data;
             this.context = context;
 
         }
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+            switch (mDataSet.get(position).order_feature) {
+                case "Send-Motor":
+                    holder.transActionType.setText("سرویس پیک");
+                    break;
+                case "Send-Car":
+                    holder.transActionType.setText("سرویس پیک ماشین");
+                    break;
+                case "Send-Vanet":
+                    holder.transActionType.setText("سرویس پیک وانت");
+                    break;
+            }
+            holder.origin_address.setText(mDataSet.get(position).origin_address);
+            holder.destination_address.setText(mDataSet.get(position).destination_address);
+            holder.price.setText(formatMony(String.valueOf(mDataSet.get(position).price)));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ItemHistory itemHistory = mDataSet.get(position);
+                    Intent intent = new Intent(getApplication(), ActivityTransactionDetail.class);
+                    intent.putExtra("itemHistory", itemHistory);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return mDataSet.size();
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView transActionType;
+        TextView origin_address;
+        TextView destination_address;
+        TextView price;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            transActionType = itemView.findViewById(R.id.textView49);
+            origin_address = itemView.findViewById(R.id.textView54);
+            destination_address = itemView.findViewById(R.id.textView56);
+            price = itemView.findViewById(R.id.textView57);
 
         }
+    }
+
+    public String formatMony(String price) {
+        String formattedText = price + " " + General.MONEY;
+
+        return formattedText;
     }
 }
