@@ -154,7 +154,7 @@ public class SendActivity extends AppCompatActivity implements
     ConstraintLayout request_datile;
     @BindView(R.id.c1)
     ConstraintLayout c1;
-
+    int byme_price;
     @BindView(R.id.top_address)
     CardView top_address;
     @BindView(R.id.mSend_destinationButton)
@@ -815,7 +815,7 @@ public class SendActivity extends AppCompatActivity implements
                 if (select_box_pish_keraye.isSelected()) {
                     paymant_type = 0;
                 } else if (select_box_pas_keraye.isSelected()) {
-                    paymant_type = 0;
+                    paymant_type = 1;
                 }
 
 
@@ -828,7 +828,13 @@ public class SendActivity extends AppCompatActivity implements
                 } else if (select_box_kartkhon.isSelected()) {
                     is_pay = 3;
                 }
-                payRequest(paymant_type, is_pay);
+                int box_type = 0;
+                if (select_box_vije.isSelected()) {
+                    box_type = 1;
+                } else if (select_box_normal.isSelected()) {
+                    box_type = 0;
+                }
+                payRequest(paymant_type, is_pay, box_type);
 
             }
         });
@@ -972,7 +978,7 @@ public class SendActivity extends AppCompatActivity implements
                 }
 
 
-                int byme_price;
+
 
                 if (Send_type.equals("vip")) {
                     byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
@@ -999,7 +1005,7 @@ public class SendActivity extends AppCompatActivity implements
         bottomNav();
     }
 
-    private void payRequest(int paymant_type, int is_pay) {
+    private void payRequest(int paymant_type, int is_pay, int box_type) {
         Intent intent = new Intent(getApplicationContext(), AddDetailSendActivity.class);
 
         RequestSendRequestJson param = new RequestSendRequestJson();
@@ -1017,7 +1023,12 @@ public class SendActivity extends AppCompatActivity implements
         param.end_latitude_fourth = destinationLatLang4.latitude;
         param.end_latitude_fourth = destinationLatLang4.longitude;
         param.distance = Unit_distance;
-        param.price = finall_price;
+        param.price_takhfifed = price_takhfifed;
+        param.user_inventory = userLogin.getBalance();
+        param.price_takhfifed = price_takhfifed;
+        param.price = String.valueOf(finall_price);
+        param.byme_price = byme_price;
+        param.totalPrice =String.valueOf(price);
         param.origin_address = pickUpText;
         param.destination_address = destinationText;
         param.destination_address_second = destinationText2;
@@ -1028,7 +1039,7 @@ public class SendActivity extends AppCompatActivity implements
         param.receiver_name = receiver_name_first;
         param.receiver_name_second = receiver_name_second;
         param.receiver_name_third = receiver_name_third;
-
+        param.box_type = box_type;
         param.receiver_name_fourth = receiver_name_fourth;
         param.receiver_phone = receiver_phone_first;
         param.receiver_phone_second = receiver_phone_second;
@@ -1038,6 +1049,8 @@ public class SendActivity extends AppCompatActivity implements
         param.sender_plaque = Epelak_pik.getText().toString();
         param.sender_floor = Etabaghe_pik.getText().toString();
         param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
+         param.delay = 0;
+        param.go_back = 0;
         param.product_id = ProductTypeItemSelected;
         param.receiver_plaque = receiver_plaque_first;
         param.receiver_plaque_second = receiver_plaque_second;

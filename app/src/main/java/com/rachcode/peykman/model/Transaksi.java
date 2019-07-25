@@ -40,6 +40,17 @@ public class Transaksi extends RealmObject implements Serializable {
     @SerializedName("insurance_id")
     @Expose
     private Integer insuranceId;
+    @SerializedName("premium")
+    @Expose
+    private String premium;
+
+    @SerializedName("product_type")
+    @Expose
+    private String product_type;
+
+    @SerializedName("estimated_costs")
+    @Expose
+    private String estimated_costs;
     @SerializedName("is_pay")
     @Expose
     private int isPay;
@@ -60,7 +71,7 @@ public class Transaksi extends RealmObject implements Serializable {
     private String originAddress;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private String price;
     @SerializedName("product_id")
     @Expose
     private Integer productId;
@@ -71,8 +82,14 @@ public class Transaksi extends RealmObject implements Serializable {
     @Expose
     private String receiverName;
     @Expose
+    @SerializedName("box_type")
+    private int box_type;
+    @Expose
     @SerializedName("destination_count")
     public int destination_count;
+    @Expose
+    @SerializedName("product_description")
+    private String product_description;
     @SerializedName("receiver_phone")
     @Expose
     private String receiverPhone;
@@ -226,11 +243,11 @@ public class Transaksi extends RealmObject implements Serializable {
         this.originAddress = originAddress;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -335,5 +352,45 @@ public class Transaksi extends RealmObject implements Serializable {
 
     public void setorder_start_time(Date order_start_time) {
         this.order_start_time = order_start_time;
+    }
+
+    public int getBox_type() {
+        return box_type;
+    }
+
+    public void setBox_type(int box_type) {
+        this.box_type = box_type;
+    }
+
+    public String getEstimated_costs() {
+        return estimated_costs;
+    }
+
+    public void setEstimated_costs(String estimated_costs) {
+        this.estimated_costs = estimated_costs;
+    }
+
+    public String getPremium() {
+        return premium;
+    }
+
+    public void setPremium(String premium) {
+        this.premium = premium;
+    }
+
+    public String getProduct_type() {
+        return product_type;
+    }
+
+    public void setProduct_type(String product_type) {
+        this.product_type = product_type;
+    }
+
+    public void setProduct_description(String product_description) {
+        this.product_description = product_description;
+    }
+
+    public String getProduct_description() {
+        return product_description;
     }
 }

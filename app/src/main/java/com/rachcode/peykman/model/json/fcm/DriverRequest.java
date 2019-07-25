@@ -24,9 +24,40 @@ public class DriverRequest implements Serializable {
     @SerializedName("customer_phone")
     @Expose
     private String customer_phone;
+    @SerializedName("totalPrice")
+    @Expose
+    private String totalPrice;
+    @SerializedName("byme_price")
+    @Expose
+    private int byme_price;
+    @SerializedName("user_inventory")
+    @Expose
+    private int user_inventory;
     @SerializedName("type")
     @Expose
     private int type;
+    @SerializedName("price_takhfifed")
+    @Expose
+    private int price_takhfifed;
+
+
+
+
+
+    @Expose
+    @SerializedName("receiver_plaque_second")
+    private String receiver_plaque_second;
+
+    @Expose
+    @SerializedName("receiver_plaque_third")
+    private String receiver_plaque_third;
+    @Expose
+    @SerializedName("receiver_plaque_fourth")
+    private String receiver_plaque_fourth;
+
+
+
+
     @SerializedName("item_name")
     @Expose
     private String item_name;
@@ -36,6 +67,34 @@ public class DriverRequest implements Serializable {
     @SerializedName("sender_type")
     @Expose
     private String sender_type;
+    @Expose
+    @SerializedName("receiver_floor_second")
+    private String receiver_floor_second;
+    @Expose
+    @SerializedName("receiver_floor_third")
+    private String receiver_floor_third;
+    @Expose
+    @SerializedName("receiver_floor_fourth")
+    private String receiver_floor_fourth;
+
+    @Expose
+    @SerializedName("receiver_unit_second")
+    private String receiver_unit_second;
+    @Expose
+    @SerializedName("receiver_unit_third")
+    private String receiver_unit_third;
+    @Expose
+    @SerializedName("receiver_unit_fourth")
+    private String receiver_unit_fourth;
+    @Expose
+    @SerializedName("destination_address_second")
+    private String destination_address_second;
+    @Expose
+    @SerializedName("destination_address_third")
+    private String destination_address_third;
+    @Expose
+    @SerializedName("destination_address_fourth")
+    private String destination_address_fourth;
     @SerializedName("sender_name")
     @Expose
     private String sender_name;
@@ -75,12 +134,19 @@ public class DriverRequest implements Serializable {
     @SerializedName("end_longitude")
     @Expose
     private Double endLongitude;
+    @SerializedName("product_description")
+    @Expose
+    private String product_description;
     @SerializedName("insurance_id")
     @Expose
     private Integer insuranceId;
     @SerializedName("is_pay")
     @Expose
     private int isPay;
+
+    @SerializedName("product_type")
+    @Expose
+    private String product_type;
     @SerializedName("name_of_the_sender")
     @Expose
     private String nameOfTheSender;
@@ -92,7 +158,7 @@ public class DriverRequest implements Serializable {
     private String originAddress;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private String price;
     @SerializedName("product_id")
     @Expose
     private Integer productId;
@@ -105,9 +171,65 @@ public class DriverRequest implements Serializable {
     @SerializedName("receiver_name")
     @Expose
     private String receiverName;
-    @SerializedName(" receiver_phone")
+    @SerializedName("receiver_phone")
     @Expose
     private String receiverPhone;
+
+
+
+
+
+
+
+
+    @Expose
+    @SerializedName("receiver_name_second")
+    private String receiver_name_second;
+    @Expose
+    @SerializedName("receiver_name_third")
+    private String receiver_name_third;
+    @Expose
+    @SerializedName("receiver_name_fourth")
+    private String receiver_name_fourth;
+    @Expose
+    @SerializedName("end_latitude_second")
+    private double end_latitude_second;
+    @Expose
+    @SerializedName("end_latitude_fourth")
+    private double end_latitude_fourth;
+    @Expose
+    @SerializedName("end_latitude_third")
+    private double end_latitude_third;
+
+    @Expose
+    @SerializedName("end_longitude_second")
+    private double end_longitude_second;
+    @Expose
+    @SerializedName("end_longitude_third")
+    private double end_longitude_third;
+    @Expose
+    @SerializedName("end_longitude_fourth")
+    private double end_longitude_fourth;
+    @Expose
+    @SerializedName("receiver_phone_third")
+    private String receiver_phone_third;
+    @Expose
+    @SerializedName("receiver_phone_second")
+    private String receiver_phone_second;
+    @Expose
+    @SerializedName("receiver_phone_fourth")
+    private String receiver_phone_fourth;
+
+
+
+
+
+
+
+
+    @SerializedName("box_type")
+    @Expose
+    private int box_type;
     @SerializedName("receiver_plaque")
     @Expose
     private String receiverPlaque;
@@ -117,6 +239,13 @@ public class DriverRequest implements Serializable {
     @SerializedName("sender_floor")
     @Expose
     private String senderFloor;
+    @SerializedName("premium")
+    @Expose
+    private String premium;
+
+    @SerializedName("estimated_costs")
+    @Expose
+    private String estimated_costs;
     @SerializedName("sender_plaque")
     @Expose
     private String senderPlaque;
@@ -344,11 +473,11 @@ public class DriverRequest implements Serializable {
         this.originAddress = originAddress;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String  price) {
         this.price = price;
     }
 
@@ -456,4 +585,269 @@ public class DriverRequest implements Serializable {
         this.order_start_time = order_start_time;
     }
 
+    public int getBox_type() {
+        return box_type;
+    }
+
+    public void setBox_type(int box_type) {
+        this.box_type = box_type;
+    }
+
+    public String getPremium() {
+        return premium;
+    }
+
+    public void setPremium(String premium) {
+        this.premium = premium;
+    }
+
+    public String getEstimated_costs() {
+        return estimated_costs;
+    }
+
+    public void setEstimated_costs(String estimated_costs) {
+        this.estimated_costs = estimated_costs;
+    }
+
+    public String getProduct_type() {
+        return product_type;
+    }
+
+    public void setProduct_type(String product_type) {
+        this.product_type = product_type;
+    }
+
+    public String getProduct_description() {
+        return product_description;
+    }
+
+    public void setProduct_description(String product_description) {
+        this.product_description = product_description;
+    }
+
+    public int getByme_price() {
+        return byme_price;
+    }
+
+    public void setByme_price(int byme_price) {
+        this.byme_price = byme_price;
+    }
+
+    public int getPrice_takhfifed() {
+        return price_takhfifed;
+    }
+
+    public void setPrice_takhfifed(int price_takhfifed) {
+        this.price_takhfifed = price_takhfifed;
+    }
+
+    public int getUser_inventory() {
+        return user_inventory;
+    }
+
+    public void setUser_inventory(int user_inventory) {
+        this.user_inventory = user_inventory;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getDestination_address_second() {
+        return destination_address_second;
+    }
+
+    public void setDestination_address_second(String destination_address_second) {
+        this.destination_address_second = destination_address_second;
+    }
+
+    public String getDestination_address_fourth() {
+        return destination_address_fourth;
+    }
+
+    public void setDestination_address_fourth(String destination_address_fourth) {
+        this.destination_address_fourth = destination_address_fourth;
+    }
+
+    public String getDestination_address_third() {
+        return destination_address_third;
+    }
+
+    public void setDestination_address_third(String destination_address_third) {
+        this.destination_address_third = destination_address_third;
+    }
+
+    public String getReceiver_floor_fourth() {
+        return receiver_floor_fourth;
+    }
+
+    public void setReceiver_floor_fourth(String receiver_floor_fourth) {
+        this.receiver_floor_fourth = receiver_floor_fourth;
+    }
+
+    public String getReceiver_floor_third() {
+        return receiver_floor_third;
+    }
+
+    public void setReceiver_floor_third(String receiver_floor_third) {
+        this.receiver_floor_third = receiver_floor_third;
+    }
+
+    public String getReceiver_floor_second() {
+        return receiver_floor_second;
+    }
+
+    public void setReceiver_floor_second(String receiver_floor_second) {
+        this.receiver_floor_second = receiver_floor_second;
+    }
+
+    public String getReceiver_unit_third() {
+        return receiver_unit_third;
+    }
+
+    public void setReceiver_unit_third(String receiver_unit_third) {
+        this.receiver_unit_third = receiver_unit_third;
+    }
+
+
+    public String getReceiver_unit_fourth() {
+        return receiver_unit_fourth;
+    }
+
+    public void setReceiver_unit_fourth(String receiver_unit_fourth) {
+        this.receiver_unit_fourth = receiver_unit_fourth;
+    }
+
+    public String getReceiver_unit_second() {
+        return receiver_unit_second;
+    }
+
+    public void setReceiver_unit_second(String receiver_unit_second) {
+        this.receiver_unit_second = receiver_unit_second;
+    }
+
+
+    public String getReceiver_plaque_second() {
+        return receiver_plaque_second;
+    }
+
+    public void setReceiver_plaque_second(String receiver_plaque_second) {
+        this.receiver_plaque_second = receiver_plaque_second;
+    }
+
+    public String getReceiver_plaque_third() {
+        return receiver_plaque_third;
+    }
+
+    public void setReceiver_plaque_third(String receiver_plaque_third) {
+        this.receiver_plaque_third = receiver_plaque_third;
+    }
+
+    public String getReceiver_plaque_fourth() {
+        return receiver_plaque_fourth;
+    }
+
+    public void setReceiver_plaque_fourth(String receiver_plaque_fourth) {
+        this.receiver_plaque_fourth = receiver_plaque_fourth;
+    }
+
+    public String getReceiver_name_second() {
+        return receiver_name_second;
+    }
+
+    public void setReceiver_name_second(String receiver_name_second) {
+        this.receiver_name_second = receiver_name_second;
+    }
+
+    public String getReceiver_name_third() {
+        return receiver_name_third;
+    }
+
+    public void setReceiver_name_third(String receiver_name_third) {
+        this.receiver_name_third = receiver_name_third;
+    }
+
+    public String getReceiver_name_fourth() {
+        return receiver_name_fourth;
+    }
+
+    public void setReceiver_name_fourth(String receiver_name_fourth) {
+        this.receiver_name_fourth = receiver_name_fourth;
+    }
+
+    public double getEnd_latitude_second() {
+        return end_latitude_second;
+    }
+
+    public void setEnd_latitude_second(double end_latitude_second) {
+        this.end_latitude_second = end_latitude_second;
+    }
+
+    public double getEnd_latitude_fourth() {
+        return end_latitude_fourth;
+    }
+
+    public void setEnd_latitude_fourth(double end_latitude_fourth) {
+        this.end_latitude_fourth = end_latitude_fourth;
+    }
+
+    public double getEnd_latitude_third() {
+        return end_latitude_third;
+    }
+
+    public void setEnd_latitude_third(double end_latitude_third) {
+        this.end_latitude_third = end_latitude_third;
+    }
+
+    public double getEnd_longitude_second() {
+        return end_longitude_second;
+    }
+
+    public void setEnd_longitude_second(double end_longitude_second) {
+        this.end_longitude_second = end_longitude_second;
+    }
+
+    public double getEnd_longitude_third() {
+        return end_longitude_third;
+    }
+
+    public void setEnd_longitude_third(double end_longitude_third) {
+        this.end_longitude_third = end_longitude_third;
+    }
+
+    public double getEnd_longitude_fourth() {
+        return end_longitude_fourth;
+    }
+
+    public void setEnd_longitude_fourth(double end_longitude_fourth) {
+        this.end_longitude_fourth = end_longitude_fourth;
+    }
+
+    public String getReceiver_phone_third() {
+        return receiver_phone_third;
+    }
+
+    public void setReceiver_phone_third(String receiver_phone_third) {
+        this.receiver_phone_third = receiver_phone_third;
+    }
+
+    public String getReceiver_phone_second() {
+        return receiver_phone_second;
+    }
+
+    public void setReceiver_phone_second(String receiver_phone_second) {
+        this.receiver_phone_second = receiver_phone_second;
+    }
+
+    public String getReceiver_phone_fourth() {
+        return receiver_phone_fourth;
+    }
+
+    public void setReceiver_phone_fourth(String receiver_phone_fourth) {
+        this.receiver_phone_fourth = receiver_phone_fourth;
+    }
 }

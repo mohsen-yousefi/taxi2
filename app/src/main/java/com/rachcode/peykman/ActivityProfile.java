@@ -79,7 +79,6 @@ public class ActivityProfile extends AppCompatActivity {
         loadImageFromStorage();
 
 
-
         profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +115,10 @@ public class ActivityProfile extends AppCompatActivity {
                     request.profile_picture = null;
                 }
 
+                if (request.profile_picture == null && firstName.getText().toString() == user.getFirstName() && lastName.getText().toString() == user.getLastName()) {
+                    Toast.makeText(ActivityProfile.this, "لطفا در اطلاعات خود تغیراتی ایجاد کنید", Toast.LENGTH_SHORT).show();
+                return;
+                }
 
                 UserService service = ServiceGenerator.createService(UserService.class, user.getEmail(), user.getPassword());
                 service.updateProfile(request).enqueue(new Callback<UpdateProfileResponseJson>() {
@@ -124,7 +127,7 @@ public class ActivityProfile extends AppCompatActivity {
                         hideProgressDialog();
                         if (response.isSuccessful()) {
                             if (response.body().message.equals("success")) {
-                                if (imageSelected){
+                                if (imageSelected) {
                                     saveToInternalStorage(bitmap);
                                 }
                                 Realm realm = GoTaxiApplication.getInstance(ActivityProfile.this).getRealmInstance();
@@ -168,6 +171,7 @@ public class ActivityProfile extends AppCompatActivity {
     public void showProgressDialog(String message) {
         dialog = ProgressDialog.show(this, "", message, false, false);
     }
+
     public String compressJSON(Bitmap bmp) {
         ByteArrayOutputStream baos0 = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos0);
@@ -175,6 +179,7 @@ public class ActivityProfile extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes0, Base64.DEFAULT);
         return encodedImage;
     }
+
     public void hideProgressDialog() {
         if (dialog != null) {
             dialog.dismiss();
@@ -202,15 +207,16 @@ public class ActivityProfile extends AppCompatActivity {
             Toast.makeText(this, "تصویر انتخاب شد!", Toast.LENGTH_SHORT).show();
         }
     }
+
     private boolean saveToInternalStorage(Bitmap bitmapImage) {
 
         deleteImageFromStorage();
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
-         File directory = cw.getDir("photoDriver", Context.MODE_PRIVATE);
+        File directory = cw.getDir("photoDriver", Context.MODE_PRIVATE);
         String nameFoto = "profile.jpg";
         File mypath = new File(directory, nameFoto);
-         FileOutputStream fos = null;
+        FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 50, fos);
@@ -221,6 +227,7 @@ public class ActivityProfile extends AppCompatActivity {
         }
         return true;
     }
+
     private Bitmap decodeFile(final String path, final int thumbnailSize) {
 
         BitmapFactory.Options o = new BitmapFactory.Options();
@@ -237,6 +244,7 @@ public class ActivityProfile extends AppCompatActivity {
         bitmap = BitmapFactory.decodeFile(path, opts);
         return bitmap;
     }
+
     private void showPopupHold(String message) {
         final AlertDialog.Builder popupBuilder = new AlertDialog.Builder(this);
         popupBuilder.setCancelable(false);
@@ -260,15 +268,17 @@ public class ActivityProfile extends AppCompatActivity {
 
 
     }
+
     private void loadImageFromStorage() {
 
-            ContextWrapper cw = new ContextWrapper(getApplicationContext());
-            File directory = cw.getDir("photoDriver", Context.MODE_PRIVATE);
-            File f = new File(directory, "profile.jpg");
-            Bitmap tryDec = decodeFile(f.toString(),200);
-            profile_pic.setImageBitmap(tryDec);
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("photoDriver", Context.MODE_PRIVATE);
+        File f = new File(directory, "profile.jpg");
+        Bitmap tryDec = decodeFile(f.toString(), 200);
+        profile_pic.setImageBitmap(tryDec);
 
     }
+
     private boolean deleteImageFromStorage() {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("photoDriver", Context.MODE_PRIVATE);

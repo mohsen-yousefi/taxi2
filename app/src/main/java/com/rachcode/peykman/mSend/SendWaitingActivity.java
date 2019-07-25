@@ -293,12 +293,22 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setCustomerId(transaksi.getCustomerId());
             request.setRegId(loginUser.getRegId());
             request.setdestination_count(transaksi.getdestination_count());
-
+            request.setBox_type(transaksi.getBox_type());
             request.setOrderFeature(transaksi.getOrderFeature());
+            request.setInsuranceId(transaksi.getInsuranceId());
+            request.setEstimated_costs(transaksi.getEstimated_costs());
+            request.setProduct_type(transaksi.getProduct_type());
+            request.setProduct_description(transaksi.getProduct_description());
+            request.setPremium(transaksi.getPremium());
             request.setStartLatitude(transaksi.getStartLatitude());
             request.setStartLongitude(transaksi.getStartLongitude());
             request.setEndLatitude(transaksi.getEndLatitude());
+            request.setProduct_type(transaksi.getProduct_type());
             request.setEndLongitude(transaksi.getEndLongitude());
+            request.setPrice(param.price);
+            request.setByme_price(param.byme_price);
+            request.setTotalPrice(param.totalPrice);
+            request.setPrice_takhfifed(param.price_takhfifed);
             request.setDistance(transaksi.getDistance());
             request.setPrice(transaksi.getPrice());
             request.setorder_start_time(transaksi.getorder_start_time());
@@ -316,11 +326,38 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setCustomer_phone(loginUser.getPhone());
             request.setType(ORDER);
 
-            request.setItemName(param.item_name);
-            request.Setsender_name(param.name_of_the_sender);
-            request.setReceiverPhone(param.senders_phone);
+            request.setItemName(transaksi.getItemName());
+            request.setSenderFloor(transaksi.getSenderFloor());
+            request.setSenderPlaque(transaksi.getSenderPlaque());
+            request.setSenderUnit(transaksi.getSenderUnit());
+            request.setReceiverFloor(param.receiver_floor);
+            request.setReceiverPlaque(param.receiver_plaque);
+            request.setReceiverUnit(param.receiver_unit);
+             request.Setsender_name(param.name_of_the_sender);
+            request.setDestination_address_second(param.destination_address_second);
+            request.setDestination_address_third(param.destination_address_third);
+            request.setDestination_address_fourth(param.destination_address_fourth);
+            request.setReceiver_floor_second(param.receiver_floor_second);
+            request.setReceiver_floor_third(param.receiver_floor_third);
+            request.setReceiver_floor_fourth(param.receiver_floor_fourth);
+            request.setReceiver_unit_second(param.receiver_unit_second);
+            request.setReceiver_unit_third(param.receiver_unit_third);
+            request.setReceiver_unit_fourth(param.receiver_unit_fourth);
+             request.setReceiverPhone(param.receiver_phone);
             request.setReceiverName(param.receiver_name);
-            request.setSender_phone(param.receiver_phone);
+            request.setReceiver_plaque_second(param.receiver_plaque_second);
+            request.setReceiver_plaque_third(param.receiver_plaque_third);
+            request.setReceiver_plaque_fourth(param.receiver_plaque_fourth);
+            request.setReceiver_phone_second(param.receiver_phone_second);
+            request.setEnd_latitude_second(param.end_latitude_second);
+            request.setEnd_longitude_second(param.end_longitude_second);
+            request.setEnd_latitude_third(param.end_latitude_third);
+            request.setEnd_longitude_third(param.end_longitude_third);
+            request.setEnd_latitude_fourth(param.end_latitude_fourth);
+            request.setEnd_longitude_fourth(param.end_longitude_fourth);
+            request.setReceiver_phone_third(param.receiver_phone_third);
+            request.setReceiver_phone_fourth(param.receiver_phone_fourth);
+            request.setSender_phone(param.senders_phone);
 
         }
     }

@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rachcode.peykman.R;
+/*
 import com.rachcode.peykman.home.submenu.history.HistoryDetailActivity;
+*/
  import com.rachcode.peykman.model.Driver;
 import com.rachcode.peykman.model.ItemHistory;
 import com.rachcode.peykman.model.json.fcm.DriverRequest;
@@ -55,8 +57,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.isCompleted = isCompleted;
         holder.context = context;
         holder.status.setText(history.status);
-        holder.date.setText("Booking Time : " + history.waktu_order);
-        holder.address.setText(history.alamat_asal);
+/*        holder.date.setText("Booking Time : " + history.waktu_order);
+        holder.address.setText(history.alamat_asal);*/
         holder.image.setImageDrawable(context.getResources().getDrawable(history.image_id));
 
     }
@@ -93,8 +95,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 //                    intent.putExtra("time_distance", 10);
 //                    context.startActivity(intent);
 
-                    Log.e("LOAD_HISTORY", itemHistory.order_fitur);
-                    if (itemHistory.order_fitur.equalsIgnoreCase("Go-Massage")) {
+                    Log.e("LOAD_HISTORY", itemHistory.order_feature);
+                    if (itemHistory.order_feature.equalsIgnoreCase("Go-Massage")) {
                         /*Log.e("LOAD_HISTORY", "Go-Massage");
                         Intent intentMassage = new Intent(context, InProgressFinishedMassageActivity.class);
                         intentMassage.putExtra(InProgressFinishedMassageActivity.IS_COMPLETED_ID, isCompleted);
@@ -102,14 +104,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                         context.startActivity(intentMassage);*/
                     } else {
                         Log.e("LOAD_HISTORY", "others");
+/*
                         Intent intent = new Intent(context, HistoryDetailActivity.class);
-                        intent.putExtra("driver", new Driver());
+*/
+                       /* intent.putExtra("driver", new Driver());
                         intent.putExtra("request", new DriverRequest());
                         intent.putExtra("transaction", itemHistory);
-                        intent.putExtra("isCompleted", isCompleted);
+                        intent.putExtra("isCompleted", isCompleted);*/
                         //                    intent.putExtra("reg_id", itemHistory.reg_id);
-                        intent.putExtra("time_distance", 10);
-                        context.startActivity(intent);
+            /*            intent.putExtra("time_distance", 10);
+                        context.startActivity(intent);*/
                     }
                 }
             });

@@ -14,28 +14,48 @@ public class RequestSendRequestJson implements Serializable {
     @Expose
     @SerializedName("customer_id")
     public String customer_id;
+    @Expose
+    @SerializedName("totalPrice")
+    public String totalPrice;
+
+    @Expose
+    @SerializedName("user_inventory")
+    public String user_inventory;
 
     @Expose
     @SerializedName("order_feature")
     public int order_feature;
+    @Expose
+    @SerializedName("price_takhfifed")
+    public int price_takhfifed;
+    @Expose
+    @SerializedName("delay")
+    public int delay;
+    @Expose
+    @SerializedName("byme_price")
+    public int byme_price;
+    @Expose
+    @SerializedName("go_back")
+    public int go_back;
 
     @Expose
     @SerializedName("start_latitude")
     public double start_latitude;
 
     @Expose
-    @SerializedName("delay")
-    public int delay;
+    @SerializedName("box_type")
+    public int box_type;
     @Expose
     @SerializedName("product_type")
-    public int product_type;
-    @Expose
-    @SerializedName("product_description")
-    public int product_description;
+    private String product_type;
 
     @Expose
     @SerializedName("start_longitude")
     public double start_longitude;
+
+    @Expose
+    @SerializedName("product_description")
+    public String product_description;
 
     @Expose
     @SerializedName("end_latitude")
@@ -69,7 +89,7 @@ public class RequestSendRequestJson implements Serializable {
 
     @Expose
     @SerializedName("price")
-    public long price;
+    public String price;
 
     @Expose
     @SerializedName("final_price")
@@ -207,4 +227,11 @@ public class RequestSendRequestJson implements Serializable {
     public int product_id;
 
 
+    public void setProduct_type(String product_type) {
+        this.product_type = product_type;
+    }
+
+    public String getProduct_type() {
+        return product_type;
+    }
 }

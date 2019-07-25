@@ -137,6 +137,8 @@ public class InProgressActivity extends AppCompatActivity
     @BindView(R.id.order_number)
     TextView orderNumber;
     Handler mainHandler;
+    Boolean is =false;
+
     // pelaq motor
     @BindView(R.id.icon_box_kartkhon)
     ImageView icon_box_kartkhon;
@@ -210,7 +212,17 @@ public class InProgressActivity extends AppCompatActivity
     @BindView(R.id.cancelBook)
     CardView cancelBook;
     Bundle orderBundle;
+    @BindView(R.id.price_wallet)
+    TextView my_price;
     Driver driver;
+    @BindView(R.id.byme)
+    TextView byme;
+    @BindView(R.id.price)
+    TextView totalprice;
+    @BindView(R.id.code_takhfif)
+    TextView codee_takhfif;
+    @BindView(R.id.price_pardakht)
+    TextView price_pardakht;
     DriverRequest request;
     UserData loginUser;
     Realm realm;
@@ -282,8 +294,10 @@ public class InProgressActivity extends AppCompatActivity
         select_box_naghdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowDoialg("2");
-                selectBoxNaghdi();
+                if (ShowDoialg("2")){
+                    selectBoxNaghdi();
+
+                }
 
              }
         });
@@ -293,8 +307,10 @@ public class InProgressActivity extends AppCompatActivity
         select_box_kartkhon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowDoialg("3");
-                selectBoxKartkhon();
+                if (ShowDoialg("3")){
+                    selectBoxKartkhon();
+
+                }
             }
         });
 
@@ -337,6 +353,15 @@ public class InProgressActivity extends AppCompatActivity
         Glide.with(getApplicationContext()).load(driver.getPhoto()).into(driverImage);
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         orderNumber.setText("Order no. " + request.getid());
+
+
+        price_pardakht.setText(formatMony(request.getPrice()));
+
+        byme.setText(formatMony(String.valueOf(request.getByme_price())));
+        codee_takhfif.setText(formatMony(String.valueOf(request.getPrice_takhfifed())));
+        totalprice.setText(formatMony(request.getTotalPrice()));
+        my_price.setText(formatMony(String.valueOf(request.getUser_inventory())));
+
         Toast.makeText(context, "00000000000", Toast.LENGTH_SHORT).show();
 
             select_box_online.setClickable(false);
@@ -397,11 +422,14 @@ public class InProgressActivity extends AppCompatActivity
         select_box_online.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(loginUser.getBalance()) < request.getPrice()) {
+                if (Integer.parseInt(loginUser.getBalance()) < Integer.parseInt(request.getPrice())) {
                     Toast.makeText(InProgressActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                 } else {
-                    ShowDoialg("1");
-                    selectBoxOnline();
+                    if (ShowDoialg("1"))
+                    {
+                        selectBoxOnline();
+
+                    }
 
                 }
             }
@@ -504,8 +532,8 @@ public class InProgressActivity extends AppCompatActivity
 
 
     }
-private void ShowDoialg(final String is_pay){
 
+private Boolean ShowDoialg(final String is_pay){
     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(InProgressActivity.this);
     alertDialogBuilder.setTitle("آپدیت سفر");
     alertDialogBuilder.setMessage("آیا از آپدیت اطلاعات سفر مطمئن هستید ؟");
@@ -515,6 +543,7 @@ private void ShowDoialg(final String is_pay){
                 public void onClick(DialogInterface arg0, int arg1) {
 
                     UpdateTransActionType(is_pay);
+                    is=true;
                 }
             });
 
@@ -522,12 +551,14 @@ private void ShowDoialg(final String is_pay){
         @Override
         public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
+            is=false;
         }
     });
 
     AlertDialog alertDialog = alertDialogBuilder.create();
+    alertDialog.setCancelable(false);
     alertDialog.show();
-
+return is;
 }
 
     public Runnable updateLocationOtime(final String driver_id) {
@@ -582,7 +613,7 @@ private void ShowDoialg(final String is_pay){
         txt_box_pas_keraye.setSelected(true);
         select_box_online.setVisibility(View.GONE);
     }
-    public String formatMony(int price) {
+    public String formatMony(String price) {
         String formattedText = price + " " + General.MONEY;
 
         return formattedText;

@@ -17,16 +17,16 @@ public class ItemHistory implements Serializable {
     public String id;
 
     @Expose
-    @SerializedName("id_transaksi")
-    public String id_transaksi;
+    @SerializedName("transaction_id")
+    public String transaction_id;
 
     @Expose
-    @SerializedName("id_driver")
-    public String id_driver;
+    @SerializedName("driver_id")
+    public String driver_id;
 
     @Expose
-    @SerializedName("order_fitur")
-    public String order_fitur;
+    @SerializedName("order_feature")
+    public String order_feature;
 
     @Expose
     @SerializedName("start_latitude")
@@ -45,76 +45,76 @@ public class ItemHistory implements Serializable {
     public double end_longitude;
 
     @Expose
-    @SerializedName("waktu_order")
-    public String waktu_order;
+    @SerializedName("order_start_time")
+    public String order_start_time;
 
     @Expose
-    @SerializedName("waktu_selesai")
-    public String waktu_selesai;
+    @SerializedName("order_finish_time")
+    public String order_finish_time;
 
     @Expose
-    @SerializedName("alamat_asal")
-    public String alamat_asal;
+    @SerializedName("origin_address")
+    public String origin_address;
 
     @Expose
-    @SerializedName("alamat_tujuan")
-    public String alamat_tujuan;
+    @SerializedName("destination_address")
+    public String destination_address;
 
     @Expose
     @SerializedName("status")
     public String status;
 
     @Expose
-    @SerializedName("nama_depan_driver")
-    public String nama_depan_driver;
+    @SerializedName("driver_first_name")
+    public String driver_first_name;
 
     @Expose
-    @SerializedName("nama_belakang_driver")
-    public String nama_belakang_driver;
+    @SerializedName("driver_last_name")
+    public String driver_last_name;
 
     @Expose
-    @SerializedName("no_telepon")
-    public String no_telepon;
+    @SerializedName("phone")
+    public String phone;
 
     @Expose
-    @SerializedName("foto")
-    public String foto;
+    @SerializedName("photo")
+    public String photo;
 
     @Expose
     @SerializedName("rating")
     public String rating;
 
     @Expose
-    @SerializedName("harga")
-    public long harga;
+    @SerializedName("price")
+    public long price;
 
     @Expose
-    @SerializedName("jarak")
-    public double jarak;
+    @SerializedName("distance")
+    public double distance;
 
     @Expose
     @SerializedName("reg_id")
     public String reg_id;
 
     @Expose
-    @SerializedName("merek")
-    public String merek;
+    @SerializedName("brand")
+    public String brand;
 
     @Expose
-    @SerializedName("tipe")
-    public String tipe;
+    @SerializedName("type")
+    public String type;
 
     @Expose
-    @SerializedName("jenis")
-    public String jenis;
+    @SerializedName("kind")
+    public String kind;
 
     @Expose
-    @SerializedName("nomor_kendaraan")
-    public String nomor_kendaraan;
+    @SerializedName("number_of_vehicle")
+    public String number_of_vehicle;
 
     @Expose
-    @SerializedName("warna")
-    public String warna;
+    @SerializedName("color")
+    public String color;
 
 
     @Expose

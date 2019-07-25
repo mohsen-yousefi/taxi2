@@ -121,7 +121,7 @@ public interface UserService {
     @POST("pelanggan/verifikasi_isipulsa")
     Call<PulsaResponseJson> isipulsa(@Body PulsaRequestJson param);
 
-    @POST("pelanggan/complete_transaksi")
+    @POST("Customer/complete_transaction")
     Call<HistoryResponseJson> getCompleteHistory(@Body HistoryRequestJson param);
 
     @POST("pelanggan/inprogress_transaksi")
