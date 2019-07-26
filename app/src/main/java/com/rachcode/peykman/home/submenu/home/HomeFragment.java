@@ -55,10 +55,12 @@ import com.rachcode.peykman.mBox.BoxActivity;
 import com.rachcode.peykman.mFood.FoodActivity;
 import com.rachcode.peykman.mFood.FoodMenuActivity;
 import com.rachcode.peykman.mFood.FoodItemHome;
-import com.rachcode.peykman.mMart.MartActivity;
- import com.rachcode.peykman.mRideCar.RideCarActivity;
+/*import com.rachcode.peykman.mMart.MartActivity;
+ import com.rachcode.peykman.mRideCar.RideCarActivity;*/
 import com.rachcode.peykman.mSend.SendActivity;
+/*
 import com.rachcode.peykman.mService.mServiceActivity;
+*/
 import com.rachcode.peykman.model.Banner;
 import com.rachcode.peykman.model.Fitur;
 import com.rachcode.peykman.model.PesananFood;
@@ -442,9 +444,9 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
 
     private void onGoCarClick() {
         Fitur selectedFitur = realm.where(Fitur.class).equalTo("idFitur", 2).findFirst();
-        Intent intent = new Intent(getActivity(), RideCarActivity.class);
+       /* Intent intent = new Intent(getActivity(), RideCarActivity.class);
         intent.putExtra(RideCarActivity.FITUR_KEY, selectedFitur.getIdFeature());
-        getActivity().startActivity(intent);
+*/        /*getActivity().startActivity(intent);*/
     }
 
 

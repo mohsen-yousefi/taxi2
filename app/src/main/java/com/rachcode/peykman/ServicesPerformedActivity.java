@@ -180,9 +180,12 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                     holder.transActionType.setText("سرویس پیک وانت");
                     break;
             }
-            holder.origin_address.setText(mDataSet.get(position).origin_address);
-            holder.destination_address.setText(mDataSet.get(position).destination_address);
+            holder.origin_address.setText("مبدا:"+mDataSet.get(position).origin_address);
+            holder.destination_address.setText("مقصد:"+mDataSet.get(position).destination_address);
             holder.price.setText(formatMony(String.valueOf(mDataSet.get(position).price)));
+            String[] date = mDataSet.get(position).order_start_time.split("-");
+            holder.date.setText(date[0]);
+            holder.time.setText(date[1]);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -205,6 +208,8 @@ public class ServicesPerformedActivity extends AppCompatActivity {
         TextView origin_address;
         TextView destination_address;
         TextView price;
+        TextView date;
+        TextView time;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -212,6 +217,8 @@ public class ServicesPerformedActivity extends AppCompatActivity {
             origin_address = itemView.findViewById(R.id.textView54);
             destination_address = itemView.findViewById(R.id.textView56);
             price = itemView.findViewById(R.id.textView57);
+            date = itemView.findViewById(R.id.textView51);
+            time = itemView.findViewById(R.id.textView53);
 
         }
     }

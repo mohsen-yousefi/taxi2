@@ -1,3 +1,4 @@
+/*
 package com.rachcode.peykman.mRideCar;
 
 import android.Manifest;
@@ -87,9 +88,11 @@ import retrofit2.Response;
 
 import static com.rachcode.peykman.config.General.BOUNDS;
 
+*/
 /**
  * Created by Androgo on 10/26/2018.
- */
+ *//*
+
 
 public class RideCarActivity extends AppCompatActivity
         implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -858,14 +861,16 @@ public class RideCarActivity extends AppCompatActivity
         String noCent = String.format(Locale.US, General.MONEY + " %s.00", formattedTotal);
         priceText.setText(noCent);
 
-       /* String priceCent = String.format(Locale.US, General.MONEY +" %.2f", biayaTotal);
+       */
+/* String priceCent = String.format(Locale.US, General.MONEY +" %.2f", biayaTotal);
        priceText.setText(noCent);
 
         if (General.Cent) {
             priceText.setText(priceCent);
         } else {
             priceText.setText(noCent);
-        } */
+        } *//*
+
 
 
         if(saldoMpay < (harga*Integer.parseInt(designedFitur.getFinalPrice()))){
@@ -883,3 +888,4 @@ public class RideCarActivity extends AppCompatActivity
     }
 
 }
+*/

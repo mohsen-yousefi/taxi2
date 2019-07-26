@@ -195,9 +195,9 @@ public class BoxDetailOrder extends AppCompatActivity {
 
                 } else if (i == 1) {
                     usingMpay = 1;
-                    totalPrice = ((long) (harga * Integer.parseInt(selectedFitur.getFinalPrice())) + (shipperPrice * shipperCount) + insurancePrice);
+               /*     totalPrice = ((long) (harga * Integer.parseInt(selectedFitur.getFinalPrice())) + (shipperPrice * shipperCount) + insurancePrice);
                     mBoxDetailPrice.setText(General.MONEY +" " + (long) (harga * Integer.parseInt(selectedFitur.getFinalPrice())));
-                    mBoxTotalPrice.setText(General.MONEY +" " + totalPrice);
+          */          mBoxTotalPrice.setText(General.MONEY +" " + totalPrice);
                 }
             }
 

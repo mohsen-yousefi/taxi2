@@ -1,3 +1,4 @@
+/*
 package com.rachcode.peykman.mService;
 
 import android.Manifest;
@@ -578,3 +579,4 @@ public class mServiceBook extends AppCompatActivity
         realm.close();
     }
 }
+*/

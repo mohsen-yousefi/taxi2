@@ -1,3 +1,4 @@
+/*
 package com.rachcode.peykman.mSend;
 
 import android.content.DialogInterface;
@@ -190,7 +191,8 @@ public class AddDetailSendActivity extends AppCompatActivity {
                 } else {
                     RequestSendRequestJson param = new RequestSendRequestJson();
                     UserData userLogin = GoTaxiApplication.getInstance(this).getLoginUserD();
-           /*         param.idPelanggan = userLogin.getId();
+           */
+/*         param.idPelanggan = userLogin.getId();
                     param.orderFitur = "5";
                     param.startLatitude = pickUpLatLang.latitude;
                     param.startLongitude = pickUpLatLang.longitude;
@@ -209,7 +211,8 @@ public class AddDetailSendActivity extends AppCompatActivity {
 
                     Log.e("M-PAY", "used");
                     param.pakaiMpay = 1;
-*/
+*//*
+
                     Intent intent = new Intent(AddDetailSendActivity.this, SendWaitingActivity.class);
                     intent.putExtra(SendWaitingActivity.REQUEST_PARAM, param);
                     intent.putExtra(SendWaitingActivity.DRIVER_LIST, (ArrayList) driverAvailable);
@@ -234,6 +237,7 @@ public class AddDetailSendActivity extends AppCompatActivity {
                 } else {
                     RequestSendRequestJson param = new RequestSendRequestJson();
                     User userLogin = GoTaxiApplication.getInstance(this).getLoginUser();
+*/
 /*
                     param.idPelanggan = userLogin.getId();
                     param.orderFitur = "5";
@@ -253,7 +257,8 @@ public class AddDetailSendActivity extends AppCompatActivity {
 
                     Log.e("M-PAY", "not using m pay");
                     param.pakaiMpay = 0;
-*/
+*//*
+
 
 
                     Intent intent = new Intent(AddDetailSendActivity.this, SendWaitingActivity.class);
@@ -282,3 +287,4 @@ public class AddDetailSendActivity extends AppCompatActivity {
         realm.close();
     }
 }
+*/

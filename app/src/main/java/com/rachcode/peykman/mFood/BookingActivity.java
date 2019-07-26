@@ -256,7 +256,9 @@ public class BookingActivity extends AppCompatActivity implements MakananItem.On
         if (isRestoranMitra) {
             biayaAkhir = (long) (totalLong * mitraHarga.getFinalPrice());
         } else {
+/*
             biayaAkhir = (long) (totalLong * Integer.parseInt(designedFitur.getFinalPrice()));
+*/
         }
 
         if (userLogin.getmPaySaldo() < biayaAkhir) {
@@ -323,7 +325,9 @@ public class BookingActivity extends AppCompatActivity implements MakananItem.On
             if (isRestoranMitra) {
                 biayaAkhir = mitraHarga.getFinalPrice();
             } else {
+/*
                 biayaAkhir = Double.parseDouble(designedFitur.getFinalPrice());
+*/
             }
         }
 

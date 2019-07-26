@@ -1,3 +1,4 @@
+/*
 package com.rachcode.peykman.mMart;
 
 import android.Manifest;
@@ -72,9 +73,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+*/
 /**
  * Created by Androgo on 12/3/2018.
- */
+ *//*
+
 
 public class MartActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
@@ -321,16 +324,30 @@ public class MartActivity extends AppCompatActivity
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (paymentGroup.getCheckedRadioButtonId()) {
                     case R.id.mart_mPayPayment:
+*/
+/*
                         long biayaTotal = (long) (harga * Long.parseLong(fitur.getFinalPrice()));
+*//*
+
+*/
+/*
                         String formattedTotal = NumberFormat.getNumberInstance(Locale.US).format(biayaTotal);
+*//*
+
                         String formattedText = String.format(Locale.US, General.MONEY +" %s.00", formattedTotal);
                         priceText.setText(formattedText);
                         break;
                     case R.id.mart_cashPayment:
+*/
+/*
                         biayaTotal = harga;
-                        formattedTotal = NumberFormat.getNumberInstance(Locale.US).format(biayaTotal);
+*//*
+
+                      */
+/*  formattedTotal = NumberFormat.getNumberInstance(Locale.US).format(biayaTotal);
                         formattedText = String.format(Locale.US, General.MONEY +" %s.00", formattedTotal);
-                        priceText.setText(formattedText);
+                        priceText.setText(formattedText);*//*
+
                         break;
 
                 }
@@ -471,7 +488,11 @@ public class MartActivity extends AppCompatActivity
         param.setPesanan(pesananList);
 
         if (mPayButton.isChecked()) {
+*/
+/*
             param.setHarga((long) (harga * Integer.parseInt(fitur.getFinalPrice())));
+*//*
+
         }
 //        switch (paymentGroup.getCheckedRadioButtonId()) {
 //            case R.id.mart_mPayPayment:
@@ -632,19 +653,25 @@ public class MartActivity extends AppCompatActivity
         this.harga = biayaTotal;
 
         if (mPayButton.isChecked()) {
+*/
+/*
             biayaTotal = (long) (biayaTotal * Integer.parseInt(fitur.getFinalPrice()));
+*//*
+
         }
 
         String formattedTotal = NumberFormat.getNumberInstance(Locale.US).format(biayaTotal);
         String formattedText = String.format(Locale.US, General.MONEY +" %s.00", formattedTotal);
         priceText.setText(formattedText);
 
-        if (saldoMpay < (harga * Integer.parseInt(fitur.getFinalPrice()))) {
+*/
+/*        if (saldoMpay < (harga * Integer.parseInt(fitur.getFinalPrice()))) {
             mPayButton.setEnabled(false);
             cashButton.toggle();
         } else {
             mPayButton.setEnabled(true);
-        }
+        }*//*
+
     }
 
     private void updateLineDestination(String json) {
@@ -665,12 +692,15 @@ public class MartActivity extends AppCompatActivity
         }
     }
 
-   /*
+   */
+/*
     @Override
     protected void onDestroy() {
         super.onDestroy();
         realm.close();
-    }   */
+    }   *//*
+
 
 
 }
+*/

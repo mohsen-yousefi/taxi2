@@ -1,3 +1,4 @@
+/*
 package com.rachcode.peykman.mService;
 
 import android.content.DialogInterface;
@@ -270,3 +271,4 @@ public class mServiceActivity extends AppCompatActivity implements Validator.Val
  }
 
 }
+*/

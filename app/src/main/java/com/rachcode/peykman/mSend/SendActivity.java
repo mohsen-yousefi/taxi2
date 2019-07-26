@@ -139,7 +139,7 @@ public class SendActivity extends AppCompatActivity implements
     LinearLayout setDestinationContainer;
     @BindView(R.id.mSend_pickUpButton)
     ImageView setPickUpButton;
-    int price_takhfifed;
+    int mablaghTakhfifSabet;
     @BindView(R.id.btn_step_next)
     ConstraintLayout btn_step_next;
     String pickUpText;
@@ -455,7 +455,7 @@ public class SendActivity extends AppCompatActivity implements
     private static Location lastKnowLocation;
     private double Unit_distance;
     private double timeDistance = 0;
-    private long price;
+    private int price;
     private String Send_type = "t";
     List<MboxInsurance> mboxInsurances_clicked = new ArrayList<>();
     private long UserInventory;
@@ -845,7 +845,9 @@ public class SendActivity extends AppCompatActivity implements
                 } else if (select_box_normal.isSelected()) {
                     box_type = 0;
                 }
+/*
                 payRequest(paymant_type, is_pay, box_type);
+*/
 
             }
         });
@@ -939,7 +941,7 @@ public class SendActivity extends AppCompatActivity implements
         select_box_online.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (UserInventory < price_takhfifed) {
+                if (UserInventory < finall_price) {
                     Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                 } else {
                     selectBoxOnline();
@@ -965,45 +967,38 @@ public class SendActivity extends AppCompatActivity implements
                 scroll_view_design.setVisibility(View.VISIBLE);
 
                 Toast.makeText(SendActivity.this, "price: " + price, Toast.LENGTH_LONG).show();
-                /* * check User Inventory for paying ride cost* */
-                if (select_box_vije.isSelected()) {
+                finall_price = price;
+
+                //sum price and insurecne
                     int byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
-                    price += byme_price;
+                     finall_price += byme_price;
 
-                }
+                    //ConstOffer
 
-                float takhfif = Float.parseFloat(designedFitur.getFinalPrice());
-                        android.util.Log.i(TAG, "designedFiturPrice: " + designedFitur.getFinalPrice());
-
-
-                price_takhfifed = Math.round(takhfif * price);
-                android.util.Log.i(TAG, "price_takhfifed: " + price_takhfifed);
+                    int darsadTakhfifSabet = Integer.parseInt(designedFitur.getDiscount());
+                        android.util.Log.i("mohasebe", "darsadTakhfifSabet: " + darsadTakhfifSabet);
+                        android.util.Log.i("mohasebe", "price: " + price);
 
 
-                android.util.Log.i(TAG, "UserInventory: " + UserInventory);
-                if (UserInventory < price_takhfifed) {
+                Float calculate_offer =  (int) price * (1 - (darsadTakhfifSabet / 100.0f));
+                mablaghTakhfifSabet=Math.round(calculate_offer);
+                android.util.Log.i("mohasebe", "mablaghTakhfifSabet: " + mablaghTakhfifSabet);
+                mablaghTakhfifSabet = Math.round(mablaghTakhfifSabet);
+                  if (UserInventory < finall_price) {
                     Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                     selectBoxNaghdi();
                 } else {
                     selectBoxOnline();
                 }
 
-
-
-
-                if (Send_type.equals("vip")) {
-                    byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
-                } else {
-                    byme_price = 500;
-                }
-                finall_price = (int) (price - price_takhfifed);
+                finall_price = (int) (price - mablaghTakhfifSabet);
                 finall_price += byme_price;
 
-                finalll_price=price;
                 totalprice.setText(formatMony(price));
-                codee_takhfif.setText(formatMony(price_takhfifed));
-                android.util.Log.i(TAG, "code_takhfif: " + price_takhfifed);
-                price_pardakht.setText(formatMony(finall_price));
+
+                codee_takhfif.setText(mablaghTakhfifSabet);
+
+                 price_pardakht.setText(formatMony(finall_price));
 
                 byme.setText(formatMony(byme_price));
 
@@ -1016,79 +1011,6 @@ public class SendActivity extends AppCompatActivity implements
         bottomNav();
     }
 
-    private void payRequest(int paymant_type, int is_pay, int box_type) {
-        Intent intent = new Intent(getApplicationContext(), AddDetailSendActivity.class);
-
-        RequestSendRequestJson param = new RequestSendRequestJson();
-        param.customer_id = userLogin.getId();
-        param.order_feature = designedFitur.getIdFeature();
-        param.start_latitude = pickUpLatLang.latitude;
-        param.destination_count = DestinationNumber;
-        param.start_longitude = pickUpLatLang.longitude;
-        param.end_latitude = destinationLatLang.latitude;
-        param.end_longitude = destinationLatLang.longitude;
-        param.end_latitude_second = destinationLatLang2.latitude;
-        param.end_longitude_second = destinationLatLang2.longitude;
-        param.end_latitude_third = destinationLatLang3.latitude;
-        param.end_latitude_third = destinationLatLang3.longitude;
-        param.final_price = price;
-        param.end_latitude_fourth = destinationLatLang4.latitude;
-        param.end_latitude_fourth = destinationLatLang4.longitude;
-        param.distance = Unit_distance;
-        param.price_takhfifed = price_takhfifed;
-        param.user_inventory = userLogin.getBalance();
-        param.price_takhfifed = price_takhfifed;
-        param.price = String.valueOf(finall_price);
-        param.byme_price = byme_price;
-        param.totalPrice =String.valueOf(price);
-        param.origin_address = pickUpText;
-        param.destination_address = destinationText;
-        param.destination_address_second = destinationText2;
-        param.destination_address_third = destinationText3;
-        param.destination_address_fourth = destinationText4;
-        param.name_of_the_sender = Efirstname_pik.getText().toString();
-        param.senders_phone = Ephone_pik.getText().toString();
-        param.receiver_name = receiver_name_first;
-        param.receiver_name_second = receiver_name_second;
-        param.receiver_name_third = receiver_name_third;
-        param.box_type = box_type;
-        param.receiver_name_fourth = receiver_name_fourth;
-        param.receiver_phone = receiver_phone_first;
-        param.receiver_phone_second = receiver_phone_second;
-        param.receiver_phone_third = receiver_phone_third;
-        param.receiver_phone_fourth = receiver_phone_fourth;
-        param.item_name = Edescription_pik.getText().toString();
-        param.sender_plaque = Epelak_pik.getText().toString();
-        param.sender_floor = Etabaghe_pik.getText().toString();
-        param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
-         param.delay = 0;
-        param.go_back = 0;
-        param.product_id = ProductTypeItemSelected;
-        param.receiver_plaque = receiver_plaque_first;
-        param.receiver_plaque_second = receiver_plaque_second;
-        param.receiver_plaque_third = receiver_plaque_third;
-        param.receiver_plaque_fourth = receiver_plaque_fourth;
-        param.sender_unit = Evahed_pik.getText().toString();
-        param.receiver_unit = receiver_unit_first;
-        param.receiver_unit_second = receiver_unit_second;
-        param.receiver_unit_third = receiver_unit_third;
-        param.receiver_unit_fourth = receiver_unit_fourth;
-        param.receiver_floor = receiver_floor_first;
-        param.receiver_floor_second = receiver_floor_second;
-        param.receiver_floor_third = receiver_floor_third;
-        param.receiver_floor_fourth = receiver_floor_fourth;
-        param.pay_type = paymant_type;
-
-
-        param.is_pay = is_pay;
-
-        Intent intentt = new Intent(SendActivity.this, SendWaitingActivity.class);
-        intentt.putExtra(SendWaitingActivity.REQUEST_PARAM, param);
-        intentt.putExtra(SendWaitingActivity.DRIVER_LIST, (ArrayList) driverAvailable);
-        intentt.putExtra("time_distance", timeDistance);
-        startActivity(intentt);
-
-    }
 
 
     private void bottomNav() {
@@ -1720,21 +1642,6 @@ public class SendActivity extends AppCompatActivity implements
         }
     }
 
-    private void onNextButtonClick() {
-        Intent intent = new Intent(this, AddDetailSendActivity.class);
-        intent.putExtra("distance", Unit_distance);//double
-        intent.putExtra("price", price);//long
-        intent.putExtra("pickup_latlng", pickUpLatLang);
-        intent.putExtra("destination_latlng", destinationLatLang);
-        intent.putExtra("pickup", pickUpText);
-        intent.putExtra("destination", destinationText);
-        intent.putExtra("driver", driverAvailable);
-        intent.putExtra("time_distance", timeDistance);
-        intent.putExtra("driver", driverAvailable);
-        intent.putExtra(FITUR_KEY, fiturId);
-
-        startActivity(intent);
-    }
 
     private void onDestinationClick() {
         LatLng centerPos = mMap.getCameraPosition().target;
