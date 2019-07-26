@@ -996,7 +996,7 @@ public class SendActivity extends AppCompatActivity implements
 
                 totalprice.setText(formatMony(price));
 
-                codee_takhfif.setText(mablaghTakhfifSabet);
+                codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
 
                  price_pardakht.setText(formatMony(finall_price));
 
@@ -2016,6 +2016,7 @@ public class SendActivity extends AppCompatActivity implements
                         return;
                     }
                     super.onBackPressed();
+                    finish();
                 } else {
 
                     if (pickUpMarker != null) pickUpMarker.remove();
