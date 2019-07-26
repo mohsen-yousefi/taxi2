@@ -460,7 +460,7 @@ public class VerificationActivity extends AppCompatActivity implements OnClickLi
     public void showPhone() {
         title.setText("خوش آمدید!");
         parent_phone.setVisibility(View.VISIBLE);
-        parent_code.setVisibility(View.INVISIBLE);
+        parent_code.setVisibility(View.GONE);
         edt_phone.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(edt_phone, InputMethodManager.SHOW_IMPLICIT);
@@ -469,7 +469,7 @@ public class VerificationActivity extends AppCompatActivity implements OnClickLi
     public void showCode() {
         title.setText("تقریبا تمومه!");
         parent_code.setVisibility(View.VISIBLE);
-        parent_phone.setVisibility(View.INVISIBLE);
+        parent_phone.setVisibility(View.GONE);
     }
 
 

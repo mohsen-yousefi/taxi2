@@ -149,7 +149,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="4dp"
                                     android:fontFamily="@font/iransans_bold"
-                                    android:text="Úáí ãÍãÏí"
+                                    android:text="راننده"
                                     android:textColor="#090808"
                                     android:textSize="12dp"
                                     app:layout_constraintBottom_toTopOf="@+id/textView23"
@@ -365,7 +365,7 @@
                                 android:id="@+id/textView59"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="8dp"
                                 android:fontFamily="@font/iransans_fa_num_bold"
                                 android:text="مقصد:"
                                 android:textColor="#4db565"
@@ -373,14 +373,14 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView54" />
+                                app:layout_constraintTop_toBottomOf="@+id/textView58" />
 
 
                             <TextView
                                 android:id="@+id/textView57"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:fontFamily="@font/iransans_fa_num_bold"
                                 android:text="بوشهر،خیابان هلالی کوچه 3"

@@ -101,7 +101,6 @@ public class ActivityProfile extends AppCompatActivity {
         saveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgressDialog("درحال بروز رسانی ...");
                 UpdateProfileRequestJson request = new UpdateProfileRequestJson();
                 request.id = user.getId();
                 request.first_name = firstName.getText().toString();
@@ -115,11 +114,13 @@ public class ActivityProfile extends AppCompatActivity {
                     request.profile_picture = null;
                 }
 
-                if (request.profile_picture == null && firstName.getText().toString() == user.getFirstName() && lastName.getText().toString() == user.getLastName()) {
+                if (request.profile_picture == null && firstName.getText().toString().equals(user.getFirstName()) && lastName.getText().toString().equals(user.getLastName())) {
                     Toast.makeText(ActivityProfile.this, "لطفا در اطلاعات خود تغیراتی ایجاد کنید", Toast.LENGTH_SHORT).show();
                 return;
                 }
 
+
+                showProgressDialog("درحال بروز رسانی ...");
                 UserService service = ServiceGenerator.createService(UserService.class, user.getEmail(), user.getPassword());
                 service.updateProfile(request).enqueue(new Callback<UpdateProfileResponseJson>() {
                     @Override
@@ -156,13 +157,14 @@ public class ActivityProfile extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Realm realm = GoTaxiApplication.getInstance(ActivityProfile.this).getRealmInstance();
 
+
+                Realm realm = GoTaxiApplication.getInstance(getApplication()).getRealmInstance();
                 realm.beginTransaction();
-                realm.delete(User.class);
+                realm.delete(UserData.class);
                 realm.commitTransaction();
-                GoTaxiApplication.getInstance(ActivityProfile.this).setLoginUserD(null);
-                startActivity(new Intent(ActivityProfile.this, SplashActivity.class)
+                GoTaxiApplication.getInstance(getApplication()).setLoginUserD(null);
+                startActivity(new Intent(getApplication(), SplashActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });

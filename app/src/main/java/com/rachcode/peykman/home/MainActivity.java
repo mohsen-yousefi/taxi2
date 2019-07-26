@@ -308,6 +308,13 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
             }
         }, 2000);
 
+
+        // tab home
+        if (drwable.isDrawerOpen(Gravity.RIGHT)) drwable.closeDrawers();
+        mainViewPager.setCurrentItem(1);
+        mainTabLayout.getTabAt(1).setSelected(true);
+        selector.selectMenu(1);
+        itemSelectedBottomNavigation = 1;
     }
 
 

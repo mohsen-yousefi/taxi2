@@ -73,6 +73,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.rachcode.peykman.Favorites;
 import com.rachcode.peykman.ActivityTest2;
 import com.rachcode.peykman.GoTaxiApplication;
+import com.rachcode.peykman.GozinehaActivity;
 import com.rachcode.peykman.R;
 import com.rachcode.peykman.api.MapDirectionAPI;
 import com.rachcode.peykman.api.ServiceGenerator;
@@ -291,6 +292,9 @@ public class SendActivity extends AppCompatActivity implements
     @BindView(R.id.btnCarentlocation)
     ImageView btnCarentlocation;
 
+    @BindView(R.id.btnTopAddressGozineha)
+    LinearLayout btnTopAddressGozineha;
+
     String receiver_plaque_first = null;
     String receiver_plaque_second = null;
     String receiver_plaque_third = null;
@@ -314,6 +318,7 @@ public class SendActivity extends AppCompatActivity implements
 
 
     int finall_price;
+    long finalll_price;
 
     public void selectKamion() {
 /*        kamionSelect.setSelected(true);
@@ -533,6 +538,12 @@ public class SendActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
         checkLocationPermission();
 
+        btnTopAddressGozineha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendActivity.this, GozinehaActivity.class));
+            }
+        });
 
         /*if (General.ENABLE_RTL_MODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -962,7 +973,7 @@ public class SendActivity extends AppCompatActivity implements
                 }
 
                 float takhfif = Float.parseFloat(designedFitur.getFinalPrice());
-                android.util.Log.i(TAG, "designedFiturPrice: " + designedFitur.getFinalPrice());
+                        android.util.Log.i(TAG, "designedFiturPrice: " + designedFitur.getFinalPrice());
 
 
                 price_takhfifed = Math.round(takhfif * price);
@@ -988,7 +999,7 @@ public class SendActivity extends AppCompatActivity implements
                 finall_price = (int) (price - price_takhfifed);
                 finall_price += byme_price;
 
-
+                finalll_price=price;
                 totalprice.setText(formatMony(price));
                 codee_takhfif.setText(formatMony(price_takhfifed));
                 android.util.Log.i(TAG, "code_takhfif: " + price_takhfifed);
@@ -1020,6 +1031,7 @@ public class SendActivity extends AppCompatActivity implements
         param.end_longitude_second = destinationLatLang2.longitude;
         param.end_latitude_third = destinationLatLang3.latitude;
         param.end_latitude_third = destinationLatLang3.longitude;
+        param.final_price = price;
         param.end_latitude_fourth = destinationLatLang4.latitude;
         param.end_latitude_fourth = destinationLatLang4.longitude;
         param.distance = Unit_distance;
@@ -1563,7 +1575,7 @@ public class SendActivity extends AppCompatActivity implements
 
                     }
                 });
-            } else if (designedFitur.getIdFeature() == 2) {
+            } else if (designedFitur.getIdFeature() == 11) {
                 service.getNearCar(param).enqueue(new Callback<GetNearRideCarResponseJson>() {
                     @Override
                     public void onResponse(Call<GetNearRideCarResponseJson> call, Response<GetNearRideCarResponseJson> response) {
@@ -1971,6 +1983,25 @@ public class SendActivity extends AppCompatActivity implements
         }
 
     }
+    protected int calculate_svanet(Float km) {
+
+        if (km <= 6) {
+            return 14000;
+        } else if (km > 6 && km <= 7) {
+            return 24000;
+        } else if (km > 7 && km <= 11) {
+            return 26000;
+       /* } else if (km > 6 && km <= 7) {
+            return 4000;
+        } else if (km > 7 && km <= 11) {
+            return 5500;
+        } else if (km > 11 && km <= 18) {
+            return 6000;*/
+        } else {
+            return 0;
+        }
+
+    }
 
     protected int calculate_scar(Float km) {
 
@@ -2018,6 +2049,8 @@ public class SendActivity extends AppCompatActivity implements
                 price_fiture = calculate_scar(km);
                 break;
             case 11:
+                price_fiture = calculate_svanet(km);
+
                 break;
         }
         lastDestancePrice = price_fiture;
