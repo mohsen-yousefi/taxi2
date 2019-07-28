@@ -63,6 +63,8 @@ public class Directions {
 
     public List<Route> parse(String routesJSONString) throws Exception {
         try {
+
+
             List<Route> routeList = new ArrayList<Route>();
 
             final JSONObject jSONObject = new JSONObject(routesJSONString);

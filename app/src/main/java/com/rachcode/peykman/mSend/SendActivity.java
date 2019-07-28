@@ -211,6 +211,8 @@ public class SendActivity extends AppCompatActivity implements
     @BindView(R.id.txt_box_vije)
     TextView txt_box_vije;
 
+    boolean isService = false;
+
     @BindView(R.id.select_box_normal)
     LinearLayout select_box_normal;
     @BindView(R.id.icon_box_normal)
@@ -1388,6 +1390,7 @@ public class SendActivity extends AppCompatActivity implements
 
 
     public static LatLng search_location = null;
+    //public static LatLng favorites_location = null;
     @Override
     protected void onResume() {
         super.onResume();
@@ -1480,7 +1483,7 @@ public class SendActivity extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
+
         isMapReady = true;
         googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(

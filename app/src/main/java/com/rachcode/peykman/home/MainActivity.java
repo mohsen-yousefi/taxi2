@@ -387,6 +387,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
 
     }
 
+
     /*private void setupTabLayoutViewPager() {
         BottomNavigationViewEx main_tabLayout = (BottomNavigationViewEx) findViewById(R.id.main_tabLayout);
         main_tabLayout.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

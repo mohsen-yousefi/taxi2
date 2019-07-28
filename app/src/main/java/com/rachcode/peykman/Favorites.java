@@ -33,6 +33,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.rachcode.peykman.mSend.SendActivity.search_location;
+
 public class Favorites extends AppCompatActivity {
 
     @BindView(R.id.recyclerviewAddress)
@@ -44,8 +46,8 @@ public class Favorites extends AppCompatActivity {
     @BindView(R.id.btnAddAddress)
     Button btnAddAddress;
 
-     private GoogleMap mMap;
-     private boolean isMapReady = false;
+    private GoogleMap mMap;
+    private boolean isMapReady = false;
     String address;
     SupportMapFragment mapFragment;
     LatLng latLngAddress;
@@ -65,21 +67,20 @@ public class Favorites extends AppCompatActivity {
         btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText.getText().toString().equals("")){
+                if (!editText.getText().toString().equals("")) {
                     setContentView(R.layout.favorite_map);
 
 
-                    Intent intent = new Intent(Favorites.this,FavoriteMap.class);
-                    intent.putExtra("favorite_title",editText.getText().toString());
+                    Intent intent = new Intent(Favorites.this, FavoriteMap.class);
+                    intent.putExtra("favorite_title", editText.getText().toString());
 
                     startActivity(intent);
 
-                }else{
+                } else {
                     Toast.makeText(Favorites.this, "متن وارد کن داداچ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
 
     }
@@ -88,7 +89,7 @@ public class Favorites extends AppCompatActivity {
         UserData loginUser = GoTaxiApplication.getInstance(Favorites.this).getLoginUserD();
         UserService service = ServiceGenerator.createService(UserService.class);
 
-         service.getFavoriteAddress(loginUser.getId()).enqueue(new Callback<GetFavoriteAddressResponseJson>() {
+        service.getFavoriteAddress(loginUser.getId()).enqueue(new Callback<GetFavoriteAddressResponseJson>() {
             @Override
             public void onResponse(Call<GetFavoriteAddressResponseJson> call, Response<GetFavoriteAddressResponseJson> response) {
                 if (response.isSuccessful()) {
@@ -100,7 +101,7 @@ public class Favorites extends AppCompatActivity {
                         recyclerviewAddress.setLayoutManager(new GridLayoutManager(Favorites.this, 2, LinearLayoutManager.VERTICAL, false));
                         recyclerviewAddress.setAdapter(new RecyclerViewAddressAdapter(favoriteAddress));
 
-                     } else {
+                    } else {
                         Toast.makeText(Favorites.this, "متاسفم،شما آدرس منتخب ندارید.", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -115,13 +116,10 @@ public class Favorites extends AppCompatActivity {
     }
 
 
-
-
-
     class RecyclerViewAddressAdapter extends RecyclerView.Adapter<RecyclerViewAddressViewHolder> {
         private List<FavoriteAddress> favoriteAddresses;
 
-        public RecyclerViewAddressAdapter(List<FavoriteAddress> favoriteAddresses){
+        public RecyclerViewAddressAdapter(List<FavoriteAddress> favoriteAddresses) {
             this.favoriteAddresses = favoriteAddresses;
         }
 
@@ -135,16 +133,13 @@ public class Favorites extends AppCompatActivity {
         public void onBindViewHolder(RecyclerViewAddressViewHolder holder, final int position) {
             holder.tv.setText(favoriteAddresses.get(position).getAddress());
 
-       holder.itemView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent = new Intent(Favorites.this, SendActivity.class);
-
-               intent.putExtra("search_location",new LatLng(Double.parseDouble(favoriteAddresses.get(position).getLatitude()),Double.parseDouble(favoriteAddresses.get(position).getLongitude())));
-
-           startActivity(intent);finish();
-            }
-       });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    search_location = new LatLng(Double.parseDouble(favoriteAddresses.get(position).getLatitude()), Double.parseDouble(favoriteAddresses.get(position).getLongitude()));
+                    finish();
+                }
+            });
         }
 
         @Override

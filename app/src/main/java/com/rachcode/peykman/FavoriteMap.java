@@ -45,6 +45,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.rachcode.peykman.mSend.SendActivity.search_location;
+
 public class FavoriteMap extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, LocationListener, GoogleApiClient.OnConnectionFailedListener{
     @BindView(R.id.favorite_marker)
@@ -79,7 +81,7 @@ public class FavoriteMap extends AppCompatActivity implements
         favorite_marker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LatLng centerPos = mMap.getCameraPosition().target;
+                final LatLng centerPos = mMap.getCameraPosition().target;
                 Intent data = getIntent();
                 UserData userData = GoTaxiApplication.getInstance(FavoriteMap.this).getLoginUserD();
                 if (data.hasExtra("favorite_title")){
@@ -91,6 +93,8 @@ public class FavoriteMap extends AppCompatActivity implements
                         public void onResponse(Call<AddFavoriteAddressResponseJson> call, Response<AddFavoriteAddressResponseJson> response) {
                             if (response.isSuccessful()){
                                 if (response.body().getMessage().equals("success")) {
+                                    search_location = new LatLng(centerPos.latitude, centerPos.longitude);
+
                                     finish();
                                 } else {
                                     Toast.makeText(FavoriteMap.this, "متاسفانه مشکلی رخ داده است !", Toast.LENGTH_LONG).show();

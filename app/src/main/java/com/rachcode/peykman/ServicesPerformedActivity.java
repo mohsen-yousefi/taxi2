@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -29,6 +31,8 @@ import com.rachcode.peykman.model.json.menu.HistoryResponseJson;
 import com.rachcode.peykman.utils.GoTaxiTabProvider;
 import com.rachcode.peykman.utils.Log;
 import com.rachcode.peykman.utils.MenuSelector;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -90,12 +94,17 @@ public class ServicesPerformedActivity extends AppCompatActivity {
     private void requestData() {
         UserData user = GoTaxiApplication.getInstance(this).getLoginUserD();
         HistoryRequestJson request = new HistoryRequestJson();
-        request.id = user.getId();
+        //request.id = user.getId();
+        request.id = "C4";
 
+        android.util.Log.i("www", "requestData: user_id:"+request.id);
         UserService service = ServiceGenerator.createService(UserService.class, user.getEmail(), user.getPassword());
         service.getCompleteHistory(request).enqueue(new Callback<HistoryResponseJson>() {
             @Override
             public void onResponse(Call<HistoryResponseJson> call, Response<HistoryResponseJson> response) {
+                JSONArray j = new JSONArray();
+                j.put(response.body().data);
+                android.util.Log.i("www", "onResponse123: "+j);
                 if (response.isSuccessful()) {
                     ArrayList<ItemHistory> data = response.body().data;
 
