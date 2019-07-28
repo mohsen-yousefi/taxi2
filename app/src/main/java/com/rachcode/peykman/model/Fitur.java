@@ -35,6 +35,9 @@ public class Fitur extends RealmObject implements Serializable {
     @SerializedName("discount")
     @Expose
     private String discount;
+    @SerializedName("discount_id")
+    @Expose
+    private String discount_id;
     @SerializedName("final_price")
     @Expose
     private String finalPrice;
@@ -101,5 +104,13 @@ public class Fitur extends RealmObject implements Serializable {
 
     public void setFinalPrice(String finalPrice) {
         this.finalPrice = finalPrice;
+    }
+
+    public String getDiscount_id() {
+        return discount_id;
+    }
+
+    public void setDiscount_id(String discount_id) {
+        this.discount_id = discount_id;
     }
 }

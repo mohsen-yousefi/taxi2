@@ -18,6 +18,9 @@ public class DriverRequest implements Serializable {
     @SerializedName("reg_id")
     @Expose
     private String regId;
+    @SerializedName("mablaghTakhfifSabet")
+    @Expose
+    private int mablaghTakhfifSabet;
     @SerializedName("customer_name")
     @Expose
     private String customer_name;
@@ -159,6 +162,9 @@ public class DriverRequest implements Serializable {
     @SerializedName("price")
     @Expose
     private String price;
+    @Expose
+    @SerializedName("final_price")
+    private long final_price;
     @SerializedName("product_id")
     @Expose
     private Integer productId;
@@ -849,5 +855,21 @@ public class DriverRequest implements Serializable {
 
     public void setReceiver_phone_fourth(String receiver_phone_fourth) {
         this.receiver_phone_fourth = receiver_phone_fourth;
+    }
+
+    public long getFinal_price() {
+        return final_price;
+    }
+
+    public void setFinal_price(long final_price) {
+        this.final_price = final_price;
+    }
+
+    public int getMablaghTakhfifSabet() {
+        return mablaghTakhfifSabet;
+    }
+
+    public void setMablaghTakhfifSabet(int mablaghTakhfifSabet) {
+        this.mablaghTakhfifSabet = mablaghTakhfifSabet;
     }
 }

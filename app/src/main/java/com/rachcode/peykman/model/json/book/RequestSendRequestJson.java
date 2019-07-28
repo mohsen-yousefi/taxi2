@@ -15,6 +15,18 @@ public class RequestSendRequestJson implements Serializable {
     @SerializedName("customer_id")
     public String customer_id;
     @Expose
+    @SerializedName("ads_code")
+    public int ads_code;
+    @Expose
+    @SerializedName("mablaghTakhfifSabet")
+    public int mablaghTakhfifSabet;
+    @Expose
+    @SerializedName("ads_credit")
+    public String ads_credit;
+    @Expose
+    @SerializedName("discount_id")
+    public String discount_id;
+    @Expose
     @SerializedName("totalPrice")
     public String totalPrice;
 
@@ -234,4 +246,6 @@ public class RequestSendRequestJson implements Serializable {
     public String getProduct_type() {
         return product_type;
     }
+
+
 }

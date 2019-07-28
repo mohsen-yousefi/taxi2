@@ -306,9 +306,11 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setProduct_type(transaksi.getProduct_type());
             request.setEndLongitude(transaksi.getEndLongitude());
             request.setPrice(param.price);
+            request.setFinal_price(param.final_price);
             request.setByme_price(param.byme_price);
             request.setTotalPrice(param.totalPrice);
             request.setPrice_takhfifed(param.price_takhfifed);
+            request.setMablaghTakhfifSabet(param.mablaghTakhfifSabet);
             request.setDistance(transaksi.getDistance());
             request.setPrice(transaksi.getPrice());
             request.setorder_start_time(transaksi.getorder_start_time());
@@ -334,7 +336,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setReceiverPlaque(param.receiver_plaque);
             request.setReceiverUnit(param.receiver_unit);
              request.Setsender_name(param.name_of_the_sender);
-            request.setDestination_address_second(param.destination_address_second);
+             request.setDestination_address_second(param.destination_address_second);
             request.setDestination_address_third(param.destination_address_third);
             request.setDestination_address_fourth(param.destination_address_fourth);
             request.setReceiver_floor_second(param.receiver_floor_second);
@@ -345,6 +347,9 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setReceiver_unit_fourth(param.receiver_unit_fourth);
              request.setReceiverPhone(param.receiver_phone);
             request.setReceiverName(param.receiver_name);
+            request.setReceiver_name_second(param.receiver_name_second);
+            request.setReceiver_phone_third(param.receiver_name_third);
+            request.setReceiver_phone_fourth(param.receiver_name_fourth);
             request.setReceiver_plaque_second(param.receiver_plaque_second);
             request.setReceiver_plaque_third(param.receiver_plaque_third);
             request.setReceiver_plaque_fourth(param.receiver_plaque_fourth);

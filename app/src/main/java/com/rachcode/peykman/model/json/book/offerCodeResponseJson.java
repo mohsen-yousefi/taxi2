@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.rachcode.peykman.model.Driver;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Androgo on 12/21/2018.
@@ -13,25 +14,25 @@ import java.util.ArrayList;
 public class offerCodeResponseJson {
 
     @Expose
-    @SerializedName("message")
-    private String message;
+    @SerializedName("status")
+    private String status;
     @Expose
     @SerializedName("data")
-    private int data;
+    private OfferCodeResponse data;
 
     public String getMessage() {
-        return message;
+        return status;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.status = message;
     }
 
-    public int getData() {
+    public OfferCodeResponse getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(OfferCodeResponse data) {
         this.data = data;
     }
 

@@ -243,7 +243,7 @@ public class SendActivity extends AppCompatActivity implements
     @BindView(R.id.Ephone)
     EditText Ephone_pik;
     HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
-
+int ads_code=0;
     /**
      * dis detile
      **/
@@ -562,10 +562,15 @@ public class SendActivity extends AppCompatActivity implements
                     @Override
                     public void onResponse(Call<offerCodeResponseJson> call, Response<offerCodeResponseJson> response) {
                         offerCodeResponseJson responseJson = response.body();
-                        if (response.isSuccessful()) {
-                            finall_price -= responseJson.getData();
+                        android.util.Log.i("offerBtn", "responseJson body: " + response.body());
+                        android.util.Log.i("offerBtn", "responseJson messege: "+responseJson.getMessage());
+                         if (responseJson.getMessage().equals("success")) {
+                            Toast.makeText(SendActivity.this, "sdsdsdsdssddssdds", Toast.LENGTH_SHORT).show();
+                            finall_price -= byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
+                            ads_code = Integer.parseInt(responseJson.getData().getAds_credit());
+                            finall_price -= Integer.parseInt(responseJson.getData().getfinal_price());
                             price_pardakht.setText(formatMony(finall_price));
-                            codee_takhfif.setText(formatMony(responseJson.getData()));
+                            codee_takhfif.setText(formatMony(Integer.parseInt(responseJson.getData().getfinal_price())));
 
                             Toast.makeText(SendActivity.this, "تخفیف با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
                         } else {
@@ -576,7 +581,7 @@ public class SendActivity extends AppCompatActivity implements
 
                     @Override
                     public void onFailure(Call<offerCodeResponseJson> call, Throwable t) {
-
+                        android.util.Log.i("offerBtn", "onFailure: " + t.getMessage());
                     }
                 });
             }
@@ -845,9 +850,9 @@ public class SendActivity extends AppCompatActivity implements
                 } else if (select_box_normal.isSelected()) {
                     box_type = 0;
                 }
-/*
+
                 payRequest(paymant_type, is_pay, box_type);
-*/
+
 
             }
         });
@@ -970,8 +975,7 @@ public class SendActivity extends AppCompatActivity implements
                 finall_price = price;
 
                 //sum price and insurecne
-                    int byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
-                     finall_price += byme_price;
+
 
                     //ConstOffer
 
@@ -990,10 +994,10 @@ public class SendActivity extends AppCompatActivity implements
                 } else {
                     selectBoxOnline();
                 }
+                byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
 
                 finall_price = (int) (price - mablaghTakhfifSabet);
-                finall_price += byme_price;
-
+                finall_price+=byme_price;
                 totalprice.setText(formatMony(price));
 
                 codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
@@ -1041,7 +1045,87 @@ public class SendActivity extends AppCompatActivity implements
 
 
     }
+    private void payRequest(int paymant_type, int is_pay, int box_type) {
 
+        RequestSendRequestJson param = new RequestSendRequestJson();
+        param.customer_id = userLogin.getId();
+        param.ads_code = ads_code;
+        param.order_feature = designedFitur.getIdFeature();
+        param.start_latitude = pickUpLatLang.latitude;
+        param.destination_count = DestinationNumber;
+        param.start_longitude = pickUpLatLang.longitude;
+        param.end_latitude = destinationLatLang.latitude;
+        param.end_longitude = destinationLatLang.longitude;
+        param.end_longitude_third = destinationLatLang3.longitude;
+        param.end_latitude_second = destinationLatLang2.latitude;
+         param.end_longitude_second = destinationLatLang2.longitude;
+        param.end_latitude_third = destinationLatLang3.latitude;
+        param.end_latitude_fourth= destinationLatLang4.latitude;
+        param.end_longitude_fourth = destinationLatLang4.longitude;
+        param.mablaghTakhfifSabet = mablaghTakhfifSabet;
+        param.ads_credit = designedFitur.getDiscount_id();
+
+
+        param.final_price = finall_price;
+        param.distance = Unit_distance;
+/*
+        param.price_takhfifed = price_takhfifed;
+*/
+        param.user_inventory = userLogin.getBalance();
+/*
+        param.price_takhfifed = price_takhfifed;
+*/
+        param.price = String.valueOf(price);
+        param.byme_price = byme_price;
+        param.totalPrice =String.valueOf(price);
+        param.origin_address = pickUpText;
+        param.destination_address = destinationText;
+        param.destination_address_second = destinationText2;
+        param.destination_address_third = destinationText3;
+        param.destination_address_fourth = destinationText4;
+        param.name_of_the_sender = Efirstname_pik.getText().toString();
+        param.senders_phone = Ephone_pik.getText().toString();
+        param.receiver_name = receiver_name_first;
+        param.receiver_name_second = receiver_name_second;
+        param.receiver_name_third = receiver_name_third;
+        param.box_type = box_type;
+        param.receiver_name_fourth = receiver_name_fourth;
+        param.receiver_phone = receiver_phone_first;
+        param.receiver_phone_second = receiver_phone_second;
+        param.receiver_phone_third = receiver_phone_third;
+        param.receiver_phone_fourth = receiver_phone_fourth;
+        param.item_name = Edescription_pik.getText().toString();
+        param.sender_plaque = Epelak_pik.getText().toString();
+        param.sender_floor = Etabaghe_pik.getText().toString();
+        param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
+        param.delay = 0;
+        param.go_back = 0;
+        param.product_id = ProductTypeItemSelected;
+        param.receiver_plaque = receiver_plaque_first;
+        param.receiver_plaque_second = receiver_plaque_second;
+        param.receiver_plaque_third = receiver_plaque_third;
+        param.receiver_plaque_fourth = receiver_plaque_fourth;
+        param.sender_unit = Evahed_pik.getText().toString();
+        param.receiver_unit = receiver_unit_first;
+        param.receiver_unit_second = receiver_unit_second;
+        param.receiver_unit_third = receiver_unit_third;
+        param.receiver_unit_fourth = receiver_unit_fourth;
+        param.receiver_floor = receiver_floor_first;
+        param.receiver_floor_second = receiver_floor_second;
+        param.receiver_floor_third = receiver_floor_third;
+        param.receiver_floor_fourth = receiver_floor_fourth;
+        param.pay_type = paymant_type;
+
+
+        param.is_pay = is_pay;
+
+        Intent intentt = new Intent(SendActivity.this, SendWaitingActivity.class);
+        intentt.putExtra(SendWaitingActivity.REQUEST_PARAM, param);
+        intentt.putExtra(SendWaitingActivity.DRIVER_LIST, (ArrayList) driverAvailable);
+        intentt.putExtra("time_distance", timeDistance);
+        startActivity(intentt);
+
+    }
     private void clearTextViewsDes() {
         Ename_des.getText().clear();
         Ephone_des.getText().clear();
@@ -1140,8 +1224,7 @@ public class SendActivity extends AppCompatActivity implements
                 if (response.isSuccessful()) {
                     ArrayList<Product> data = response.body().data;
 
-                    productTypeLst.add("نوع محصول");
-                    hashMap.put("نوع محصول", 0);
+
                     for (Product ins : data) {
                         productTypeLst.add(ins.product_type);
                         hashMap.put(ins.product_type, ins.id);
@@ -1638,7 +1721,38 @@ public class SendActivity extends AppCompatActivity implements
                 Log.e("www", "createMarker: " + e.getMessage());
             }
         } else {
-            Toast.makeText(SendActivity.this, "راننده ای در نزدیکی شما نیست!", Toast.LENGTH_SHORT).show();
+        if (destinationMarker != null) {
+
+
+            destinationMarker.remove();destinationMarker.remove();
+        }
+
+        if (destinationMarker2 != null) {
+            destinationMarker2.remove();
+
+        }
+        if (destinationMarker3 != null) {
+
+            destinationMarker3.remove();
+
+        }
+
+        if (destinationMarker4 != null) {
+            destinationMarker4.remove();
+
+        }
+           if (directionLine !=null){
+               directionLine.remove();
+           }
+
+            DestinationNumber=0;
+
+            buttont.setVisibility(View.GONE);
+            setDestinationContainer.setVisibility(View.GONE);
+
+            top_address.setVisibility(View.VISIBLE);
+            des_detail.setVisibility(View.GONE);
+            scroll_view_design.setVisibility(View.GONE);
         }
     }
 

@@ -180,6 +180,11 @@ public class SplashActivity extends AppCompatActivity implements GoogleApiClient
                         chekAppVersion();
                         break;
                     }
+                    case 85:
+                        ActivityCompat.requestPermissions(SplashActivity.this,
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                                MY_PERMISSIONS_REQUEST_LOCATION);
+                       break;
                     case Activity.RESULT_CANCELED:
                     {
                         // The user was asked to change settings, but chose not to
@@ -375,9 +380,12 @@ public void ChekUserStatus() {
                 // sees the explanation, try again to request the permission.
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(SplashActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+                if (checkDrawOverlayPermission()){
+                    ActivityCompat.requestPermissions(SplashActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                            MY_PERMISSIONS_REQUEST_LOCATION);
+                }
+
             }
             return false;
         } else {
@@ -430,6 +438,21 @@ public void ChekUserStatus() {
 
         return md;
     }*/
+    int REQUEST_CODE=85;
+
+    public boolean checkDrawOverlayPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (!Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, REQUEST_CODE);
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     private void showPopupHold(String message) {
         final AlertDialog.Builder popupBuilder = new AlertDialog.Builder(this);
