@@ -348,6 +348,8 @@ public class InProgressActivity extends AppCompatActivity
         String format = String.format(Locale.US, "Distance %.2f " + General.UNIT_OF_DISTANCE, request.getDistance());
         distanceText.setText(format);
 
+
+
         priceText.setText(formatMony(request.getPrice()));
 
         Glide.with(getApplicationContext()).load(driver.getPhoto()).into(driverImage);
@@ -830,7 +832,7 @@ return is;
         updateLastLocation(true);
         requestRoute();
 
-        if (pickUpMarker != null) pickUpMarker.remove();
+        /*if (pickUpMarker != null) pickUpMarker.remove();
         pickUpMarker = gMap.addMarker(new MarkerOptions()
                 .position(pickUpLatLng)
                 .title("مبدا")
@@ -841,8 +843,91 @@ return is;
         destinationMarker = gMap.addMarker(new MarkerOptions()
                 .position(destinationLatLng)
                 .title("مقصد")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_dis)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_dis)));*/
 
+
+        setMarker();
+    }
+
+    private void setMarker() {
+        LatLng latLngPikup = null;
+        LatLng dis1 = null;
+        LatLng dis2 = null;
+        LatLng dis3 = null;
+        LatLng dis4 = null;
+        switch (request.getdestination_count()) {
+            case 1:
+                latLngPikup = new LatLng(request.getStartLatitude(),request.getStartLongitude());
+                dis1 = new LatLng(request.getEndLatitude(), request.getEndLongitude());
+                break;
+
+
+            case 2:
+                latLngPikup = new LatLng(request.getStartLatitude(),request.getStartLongitude());
+                dis1 = new LatLng(request.getEndLatitude(), request.getEndLongitude());
+                dis2 = new LatLng(request.getEnd_latitude_second(), request.getEnd_longitude_second());
+                break;
+
+
+            case 3:
+                latLngPikup = new LatLng(request.getStartLatitude(),request.getStartLongitude());
+                dis1 = new LatLng(request.getEndLatitude(), request.getEndLongitude());
+                dis2 = new LatLng(request.getEnd_latitude_second(), request.getEnd_longitude_second());
+                dis3 = new LatLng(request.getEnd_latitude_third(), request.getEnd_longitude_third());
+                break;
+
+
+            case 4:
+                latLngPikup = new LatLng(request.getStartLatitude(),request.getStartLongitude());
+                dis1 = new LatLng(request.getEndLatitude(), request.getEndLongitude());
+                dis2 = new LatLng(request.getEnd_latitude_second(), request.getEnd_longitude_second());
+                dis3 = new LatLng(request.getEnd_latitude_third(), request.getEnd_longitude_third());
+                dis4 = new LatLng(request.getEnd_latitude_fourth(), request.getEnd_longitude_fourth());
+
+                break;
+        }
+
+        switch (request.getdestination_count()) {
+            case 0:
+                gMap.addMarker(createMark(0, latLngPikup));
+                gMap.addMarker(createMark(1, dis1));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+                break;
+            case 1:
+                gMap.addMarker(createMark(0, latLngPikup));
+                gMap.addMarker(createMark(1, dis1));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+
+
+
+                break;
+            case 2:
+                gMap.addMarker(createMark(0, latLngPikup));
+                gMap.addMarker(createMark(1, dis1));
+                gMap.addMarker(createMark(2, dis2));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+
+
+                break;
+            case 3:
+                gMap.addMarker(createMark(0, latLngPikup));
+                gMap.addMarker(createMark(2, dis1));
+                gMap.addMarker(createMark(2, dis2));
+                gMap.addMarker(createMark(3, dis3));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+
+
+                break;
+            case 4:
+                gMap.addMarker(createMark(0, latLngPikup));
+                gMap.addMarker(createMark(3, dis1));
+                gMap.addMarker(createMark(3, dis2));
+                gMap.addMarker(createMark(3, dis3));
+                gMap.addMarker(createMark(4, dis4));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+
+                break;
+        }
     }
 
 
@@ -1020,5 +1105,36 @@ return is;
     protected void onDestroy() {
         super.onDestroy();
         realm.close();
+    }
+    private MarkerOptions createMark(int positionMarker, final LatLng latLng) {
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        switch (positionMarker) {
+            case 0:
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_pik));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f));
+                break;
+
+            case 1:
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_dis));
+                break;
+
+            case 2:
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_dis2));
+                break;
+
+            case 3:
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_dis3));
+                break;
+
+            case 4:
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_dis4));
+                break;
+        }
+        markerOptions.position(latLng);
+
+
+        //         Bitmap bm = ln.getDrawingCache();
+        return markerOptions;
     }
 }

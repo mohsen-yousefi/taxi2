@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.rachcode.peykman.config.General.BOUNDS;
+import static com.rachcode.peykman.mSend.SendActivity.search_location;
 
 public class ActivityTest2 extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
@@ -83,15 +84,17 @@ public class ActivityTest2 extends AppCompatActivity implements GoogleApiClient.
                         final Place place = places.get(0);
                         LatLng latLng = place.getLatLng();
                         Intent itentData = getIntent();
-                        Intent intent;
+                        //Intent intent;
                         if (itentData.hasExtra("favorite")){
-                              intent = new Intent(ActivityTest2.this, FavoriteMap.class);
+                              //intent = new Intent(ActivityTest2.this, FavoriteMap.class);
 
                         }else{
-                              intent = new Intent(ActivityTest2.this, SendActivity.class);
+                              //intent = new Intent(ActivityTest2.this, SendActivity.class);
                         }
-                        intent.putExtra("search_location",latLng);
-                        startActivityForResult(intent,404);
+                        //intent.putExtra("search_location",latLng);
+                        search_location = latLng;
+                        android.util.Log.i("www", "search_location_test: "+search_location);
+                        //startActivityForResult(intent,404);
                         finish();
                     }
                 });

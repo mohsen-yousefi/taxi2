@@ -243,7 +243,7 @@ public class SendActivity extends AppCompatActivity implements
     @BindView(R.id.Ephone)
     EditText Ephone_pik;
     HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
-int ads_code=0;
+    int ads_code = 0;
     /**
      * dis detile
      **/
@@ -430,8 +430,6 @@ int ads_code=0;
 //    Button topUpButton;
 
 
-
-
     SupportMapFragment mapFragment;
     int fiturId;
     //    @BindView(R.id.mSend_mPayBalance)
@@ -492,7 +490,9 @@ int ads_code=0;
                     SendActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+/*
                             updateLineDestination(json);
+*/
 
                             updateDistance(distance);
                             timeDistance = time / 60;
@@ -548,7 +548,7 @@ int ads_code=0;
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SendActivity.this, GozinehaActivity.class);
-                i.putExtra("DestinationNumber",DestinationNumber);
+                i.putExtra("DestinationNumber", DestinationNumber);
                 startActivity(i);
             }
         });
@@ -572,8 +572,8 @@ int ads_code=0;
                     public void onResponse(Call<offerCodeResponseJson> call, Response<offerCodeResponseJson> response) {
                         offerCodeResponseJson responseJson = response.body();
                         android.util.Log.i("offerBtn", "responseJson body: " + response.body());
-                        android.util.Log.i("offerBtn", "responseJson messege: "+responseJson.getMessage());
-                         if (responseJson.getMessage().equals("success")) {
+                        android.util.Log.i("offerBtn", "responseJson messege: " + responseJson.getMessage());
+                        if (responseJson.getMessage().equals("success")) {
                             Toast.makeText(SendActivity.this, "sdsdsdsdssddssdds", Toast.LENGTH_SHORT).show();
                             finall_price -= byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
                             ads_code = Integer.parseInt(responseJson.getData().getAds_credit());
@@ -986,18 +986,18 @@ int ads_code=0;
                 //sum price and insurecne
 
 
-                    //ConstOffer
+                //ConstOffer
 
-                    int darsadTakhfifSabet = Integer.parseInt(designedFitur.getDiscount());
-                        android.util.Log.i("mohasebe", "darsadTakhfifSabet: " + darsadTakhfifSabet);
-                        android.util.Log.i("mohasebe", "price: " + price);
+                int darsadTakhfifSabet = Integer.parseInt(designedFitur.getDiscount());
+                android.util.Log.i("mohasebe", "darsadTakhfifSabet: " + darsadTakhfifSabet);
+                android.util.Log.i("mohasebe", "price: " + price);
 
 
-                Float calculate_offer =  (int) price * (1 - (darsadTakhfifSabet / 100.0f));
-                mablaghTakhfifSabet=Math.round(calculate_offer);
+                Float calculate_offer = (int) price * (1 - (darsadTakhfifSabet / 100.0f));
+                mablaghTakhfifSabet = Math.round(calculate_offer);
                 android.util.Log.i("mohasebe", "mablaghTakhfifSabet: " + mablaghTakhfifSabet);
                 mablaghTakhfifSabet = Math.round(mablaghTakhfifSabet);
-                  if (UserInventory < finall_price) {
+                if (UserInventory < finall_price) {
                     Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                     selectBoxNaghdi();
                 } else {
@@ -1006,12 +1006,12 @@ int ads_code=0;
                 byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
 
                 finall_price = (int) (price - mablaghTakhfifSabet);
-                finall_price+=byme_price;
+                finall_price += byme_price;
                 totalprice.setText(formatMony(price));
 
                 codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
 
-                 price_pardakht.setText(formatMony(finall_price));
+                price_pardakht.setText(formatMony(finall_price));
 
                 byme.setText(formatMony(byme_price));
 
@@ -1023,7 +1023,6 @@ int ads_code=0;
         setupTabLayoutViewPager();
         bottomNav();
     }
-
 
 
     private void bottomNav() {
@@ -1054,6 +1053,7 @@ int ads_code=0;
 
 
     }
+
     private void payRequest(int paymant_type, int is_pay, int box_type) {
 
         RequestSendRequestJson param = new RequestSendRequestJson();
@@ -1067,9 +1067,9 @@ int ads_code=0;
         param.end_longitude = destinationLatLang.longitude;
         param.end_longitude_third = destinationLatLang3.longitude;
         param.end_latitude_second = destinationLatLang2.latitude;
-         param.end_longitude_second = destinationLatLang2.longitude;
+        param.end_longitude_second = destinationLatLang2.longitude;
         param.end_latitude_third = destinationLatLang3.latitude;
-        param.end_latitude_fourth= destinationLatLang4.latitude;
+        param.end_latitude_fourth = destinationLatLang4.latitude;
         param.end_longitude_fourth = destinationLatLang4.longitude;
         param.mablaghTakhfifSabet = mablaghTakhfifSabet;
         param.ads_credit = designedFitur.getDiscount_id();
@@ -1086,7 +1086,7 @@ int ads_code=0;
 */
         param.price = String.valueOf(price);
         param.byme_price = byme_price;
-        param.totalPrice =String.valueOf(price);
+        param.totalPrice = String.valueOf(price);
         param.origin_address = pickUpText;
         param.destination_address = destinationText;
         param.destination_address_second = destinationText2;
@@ -1135,6 +1135,7 @@ int ads_code=0;
         startActivity(intentt);
 
     }
+
     private void clearTextViewsDes() {
         Ename_des.getText().clear();
         Ephone_des.getText().clear();
@@ -1385,9 +1386,20 @@ int ads_code=0;
         }
     }
 
+
+    public static LatLng search_location = null;
     @Override
     protected void onResume() {
         super.onResume();
+
+
+        /////////////////////////
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        android.util.Log.i(TAG, "search_location_111: "+search_location);
+        if (search_location != null) {
+            LatLng latLng = search_location;
+            zoomTo(latLng, true);
+        }
 
 
         UserData userLogin = GoTaxiApplication.getInstance(this).getLoginUserD();
@@ -1474,13 +1486,14 @@ int ads_code=0;
                 MapStyleOptions.loadRawResourceStyle(
                         this, R.raw.style_map));
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("search_location")) {
-            LatLng latLng = intent.getParcelableExtra("search_location");
+         if (search_location != null) {
+            LatLng latLng = search_location;
             zoomTo(latLng, true);
-        } else {
-            updateLastLocation(true);
+        }else{
+
+                updateLastLocation(true);
         }
+
         mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
@@ -1519,17 +1532,18 @@ int ads_code=0;
         }
     }
 
+
+
     private void onGetCurrentLocation(final boolean move) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Intent intent = getIntent();
-        if (intent.hasExtra("search_location")) {
-            intent.removeExtra("search_location");
-            LatLng latLng = intent.getParcelableExtra("search_location");
+        if (search_location != null) {
+            LatLng latLng = search_location;
             zoomTo(latLng, true);
-        } else {
+            search_location=null;
+         } else {
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
@@ -1730,31 +1744,32 @@ int ads_code=0;
                 Log.e("www", "createMarker: " + e.getMessage());
             }
         } else {
-        if (destinationMarker != null) {
+            if (destinationMarker != null) {
 
 
-            destinationMarker.remove();destinationMarker.remove();
-        }
+                destinationMarker.remove();
+                destinationMarker.remove();
+            }
 
-        if (destinationMarker2 != null) {
-            destinationMarker2.remove();
+            if (destinationMarker2 != null) {
+                destinationMarker2.remove();
 
-        }
-        if (destinationMarker3 != null) {
+            }
+            if (destinationMarker3 != null) {
 
-            destinationMarker3.remove();
+                destinationMarker3.remove();
 
-        }
+            }
 
-        if (destinationMarker4 != null) {
-            destinationMarker4.remove();
+            if (destinationMarker4 != null) {
+                destinationMarker4.remove();
 
-        }
-           if (directionLine !=null){
-               directionLine.remove();
-           }
+            }
+            if (directionLine != null) {
+                directionLine.remove();
+            }
 
-            DestinationNumber=0;
+            DestinationNumber = 0;
 
             buttont.setVisibility(View.GONE);
             setDestinationContainer.setVisibility(View.GONE);
@@ -1976,7 +1991,7 @@ int ads_code=0;
         }).start();
     }
 
-    private void updateLineDestination(String json) {
+/*    private void updateLineDestination(String json) {
         Directions directions = new Directions(SendActivity.this);
         try {
             List<Route> routes = directions.parse(json);
@@ -1992,7 +2007,7 @@ int ads_code=0;
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     protected int calculate_smotor(Float km) {
@@ -2014,6 +2029,7 @@ int ads_code=0;
         }
 
     }
+
     protected int calculate_svanet(Float km) {
 
         if (km <= 6) {
