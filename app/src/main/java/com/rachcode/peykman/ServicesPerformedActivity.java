@@ -94,8 +94,7 @@ public class ServicesPerformedActivity extends AppCompatActivity {
     private void requestData() {
         UserData user = GoTaxiApplication.getInstance(this).getLoginUserD();
         HistoryRequestJson request = new HistoryRequestJson();
-        //request.id = user.getId();
-        request.id = "C4";
+        request.id = user.getId();
 
         android.util.Log.i("www", "requestData: user_id:"+request.id);
         UserService service = ServiceGenerator.createService(UserService.class, user.getEmail(), user.getPassword());
