@@ -162,12 +162,13 @@
                         </LinearLayout>
                     </android.support.constraint.ConstraintLayout>
 
-                    <EditText
-                        android:id="@+id/editText6"
+
+                    <Spinner
+                        android:id="@+id/spinner"
                         android:layout_width="70dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="18dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/oval55"
                         android:ems="10"
                         android:fontFamily="@font/iransans_fa_num_medium"
@@ -179,37 +180,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
 
-
-                    <EditText
-                        android:id="@+id/editText7"
-                        android:layout_width="70dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/oval55"
-                        android:ems="10"
-                        android:fontFamily="@font/iransans_fa_num_medium"
-                        android:gravity="center"
-                        android:inputType="textPersonName"
-                        android:text="00"
-                        android:textColor="#8992a4"
-                        android:textSize="14dp"
-                        app:layout_constraintStart_toEndOf="@+id/editText6"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
-
-                    <TextView
-                        android:id="@+id/textView64"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/iransans_medium"
-                        android:text="ساعت"
-                        android:textColor="#7c869a"
-                        android:textSize="14dp"
-                        app:layout_constraintEnd_toEndOf="@+id/editText6"
-                        app:layout_constraintStart_toStartOf="@+id/editText6"
-                        app:layout_constraintTop_toBottomOf="@+id/editText6" />
-
                     <TextView
                         android:id="@+id/textView66"
                         android:layout_width="wrap_content"
@@ -219,9 +189,9 @@
                         android:text="دقیقه"
                         android:textColor="#7c869a"
                         android:textSize="14dp"
-                        app:layout_constraintEnd_toEndOf="@+id/editText7"
-                        app:layout_constraintStart_toStartOf="@+id/editText7"
-                        app:layout_constraintTop_toBottomOf="@+id/editText7" />
+                        app:layout_constraintEnd_toEndOf="@+id/spinner"
+                        app:layout_constraintStart_toStartOf="@+id/spinner"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
 
                     <TextView
@@ -234,11 +204,11 @@
                         android:text="زمان توقف سرویس در مسیر"
                         android:textColor="#7c869a"
                         android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/editText7"
+                        app:layout_constraintBottom_toBottomOf="@+id/spinner"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/editText7"
-                        app:layout_constraintTop_toTopOf="@+id/editText7" />
+                        app:layout_constraintStart_toEndOf="@+id/spinner"
+                        app:layout_constraintTop_toTopOf="@+id/spinner" />
 
 
                 </android.support.constraint.ConstraintLayout>

@@ -419,7 +419,8 @@ int ads_code=0;
         updateFitur();
     }
 
-    //    @BindView(R.id.mSend_paymentGroup)
+
+//    @BindView(R.id.mSend_paymentGroup)
 //    RadioGroup paymentGroup;
 //    @BindView(R.id.mSend_mPayPayment)
 //    RadioButton mPayButton;
@@ -427,6 +428,10 @@ int ads_code=0;
 //    RadioButton cashButton;
 //    @BindView(R.id.mSend_topUp)
 //    Button topUpButton;
+
+
+
+
     SupportMapFragment mapFragment;
     int fiturId;
     //    @BindView(R.id.mSend_mPayBalance)
@@ -538,12 +543,16 @@ int ads_code=0;
         ButterKnife.bind(this);
         checkLocationPermission();
 
+        btnTopAddressGozineha.setVisibility(View.GONE);
         btnTopAddressGozineha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SendActivity.this, GozinehaActivity.class));
+                Intent i = new Intent(SendActivity.this, GozinehaActivity.class);
+                i.putExtra("DestinationNumber",DestinationNumber);
+                startActivity(i);
             }
         });
+
 
         /*if (General.ENABLE_RTL_MODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -1772,6 +1781,7 @@ int ads_code=0;
                 destinationLatLang = centerPos;
                 buttont.setVisibility(View.VISIBLE);
                 setDestinationContainer.setVisibility(View.GONE);
+                btnTopAddressGozineha.setVisibility(View.VISIBLE);
                 fillAddress(2, destinationLatLang);
                 break;
             case 1:
@@ -1975,7 +1985,7 @@ int ads_code=0;
             if (routes.size() > 0) {
                 directionLine = mMap.addPolyline((new PolylineOptions())
                         .addAll(routes.get(0).getOverviewPolyLine())
-                        .color(ContextCompat.getColor(SendActivity.this, R.color.ployline))
+                        .color(ContextCompat.getColor(SendActivity.this, R.color.black))
                         .width(7));
 
             }

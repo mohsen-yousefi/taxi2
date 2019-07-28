@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:fontFamily="@font/iransans_fa_num_bold"
+    android:gravity="center"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:text="taxi"
+    android:textColor="#828896"
+    android:textSize="14dp"/>

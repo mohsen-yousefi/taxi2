@@ -348,12 +348,12 @@ public class VerificationActivity extends AppCompatActivity implements OnClickLi
                     //SaveUser(responseUser.getData().get(0));
                     UserData user = response.body().getData().get(0);
                     if (response.body().getData().get(0).getProfilepicture() == null){
-                     }else{
+                    }else{
 
 
 
 
-                            Picasso.with(VerificationActivity.this).load(user.getProfilepicture()).into(target);
+                        Picasso.with(VerificationActivity.this).load(user.getProfilepicture()).into(target);
 
 
 

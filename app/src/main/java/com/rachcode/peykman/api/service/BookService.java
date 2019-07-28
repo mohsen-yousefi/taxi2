@@ -47,6 +47,7 @@ import com.rachcode.peykman.model.json.book.massage.GetLayananMassageResponseJso
 import com.rachcode.peykman.model.json.book.massage.RequestMassageRequestJson;
 import com.rachcode.peykman.model.json.book.massage.RequestMassageResponseJson;
 import com.rachcode.peykman.model.json.book.offerCodeResponseJson;
+import com.rachcode.peykman.model.json.user.GetStopTimeResponseJson;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -59,6 +60,9 @@ import retrofit2.http.Path;
  */
 
 public interface BookService {
+
+    @GET("book/get_stop_time")
+    Call<GetStopTimeResponseJson> getStopTime();
 
     @POST("book/list_driver_mride")
     Call<GetNearRideCarResponseJson> getNearRide(@Body GetNearRideCarRequestJson param);
