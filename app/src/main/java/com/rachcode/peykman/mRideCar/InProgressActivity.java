@@ -407,7 +407,7 @@ public class InProgressActivity extends AppCompatActivity
 
         // set pelaq
         switch (driver.getFeature()) {
-            case "smotor":
+            case "Send-Motor":
                 // set peyk motori
                 plauqeMotor.setVisibility(View.VISIBLE);
                 String[] p = driver.getNumberOfVehicle().split("-");
@@ -417,7 +417,7 @@ public class InProgressActivity extends AppCompatActivity
                 android.util.Log.i("www", "NumberOfVehicle: "+driver.getNumberOfVehicle());
                 break;
 
-            case "scar":
+            case "Send-Car":
                 // set peyk mashini
                 android.util.Log.i("www", "NumberOfVehicle: "+driver.getNumberOfVehicle());
                 plauqeMashin.setVisibility(View.VISIBLE);
@@ -433,6 +433,35 @@ public class InProgressActivity extends AppCompatActivity
                 driver_police_numberB.setText(a1);
                 driver_police_numberC.setText(a2);
                 driverPoliceNumberr.setText(a3);
+
+
+
+                /*plauqeMashin.setVisibility(View.VISIBLE);
+                String[] numberOfVehicle = driver.getNumberOfVehicle().split("-");
+                driverPoliceNumber.setText(numberOfVehicle[0].replace(""," "));
+                driverPoliceNumberr.setText(numberOfVehicle[1].replace(""," "));
+*/
+                //plauqeMashin.setVisibility(View.VISIBLE);
+                //driverPoliceNumber.setText(driver.getNumberOfVehicle());
+                break;
+
+
+            case "Send-Vanet":
+                // set peyk mashini
+                android.util.Log.i("www", "NumberOfVehicle: "+driver.getNumberOfVehicle());
+                plauqeMashin.setVisibility(View.VISIBLE);
+                String[] numberOfVehicleV = driver.getNumberOfVehicle().replace(""," ").split("-");
+                android.util.Log.i("www", "NumberOfVehicle array: 0:"+numberOfVehicleV[0]+"1:"+numberOfVehicleV[1]+"2:"+numberOfVehicleV[2]+"3:"+numberOfVehicleV[3]);
+
+
+                String b0 = numberOfVehicleV[0];
+                String b1 = numberOfVehicleV[1];
+                String b2 = numberOfVehicleV[2];
+                String b3 = numberOfVehicleV[3];
+                driver_police_numberA.setText(b0);
+                driver_police_numberB.setText(b1);
+                driver_police_numberC.setText(b2);
+                driverPoliceNumberr.setText(b3);
 
 
 
