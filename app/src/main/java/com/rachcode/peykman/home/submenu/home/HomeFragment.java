@@ -497,12 +497,14 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(false);
         googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         getActivity(), R.raw.style_map));
         isMapReady = true;
 
-
+mMap.getUiSettings().setScrollGesturesEnabled(false);
+mMap.getUiSettings().setCompassEnabled(false);
         updateLastLocation(true);
 
     }

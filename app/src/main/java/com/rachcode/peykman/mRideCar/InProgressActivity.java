@@ -158,6 +158,7 @@ public class InProgressActivity extends AppCompatActivity
     @BindView(R.id.txt_box_pish_keraye)
     TextView txt_box_pish_keraye;
 
+
     @BindView(R.id.select_box_pas_keraye)
     LinearLayout select_box_pas_keraye;
     @BindView(R.id.txt_box_pas_keraye)
@@ -252,7 +253,9 @@ public class InProgressActivity extends AppCompatActivity
                     InProgressActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+/*
                             updateLineDestination(json);
+*/
 //                            updateDistance(distance);
                         }
                     });
@@ -294,10 +297,8 @@ public class InProgressActivity extends AppCompatActivity
         select_box_naghdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ShowDoialg("2")){
+                ShowDoialg("2");
                     selectBoxNaghdi();
-
-                }
 
              }
         });
@@ -307,10 +308,10 @@ public class InProgressActivity extends AppCompatActivity
         select_box_kartkhon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ShowDoialg("3")){
+
+        ShowDoialg("3");
                     selectBoxKartkhon();
 
-                }
             }
         });
 
@@ -427,11 +428,11 @@ public class InProgressActivity extends AppCompatActivity
                 if (Integer.parseInt(loginUser.getBalance()) < Integer.parseInt(request.getPrice())) {
                     Toast.makeText(InProgressActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (ShowDoialg("1"))
-                    {
+                  ShowDoialg("1");
+
                         selectBoxOnline();
 
-                    }
+
 
                 }
             }
@@ -535,7 +536,7 @@ public class InProgressActivity extends AppCompatActivity
 
     }
 
-private Boolean ShowDoialg(final String is_pay){
+private void ShowDoialg(final String is_pay){
     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(InProgressActivity.this);
     alertDialogBuilder.setTitle("آپدیت سفر");
     alertDialogBuilder.setMessage("آیا از آپدیت اطلاعات سفر مطمئن هستید ؟");
@@ -545,7 +546,20 @@ private Boolean ShowDoialg(final String is_pay){
                 public void onClick(DialogInterface arg0, int arg1) {
 
                     UpdateTransActionType(is_pay);
-                    is=true;
+
+                    switch (Integer.parseInt(is_pay)){
+
+                        case 1:
+                            selectBoxOnline();
+                            break;
+                        case 2:
+                            selectBoxNaghdi();
+                            break;
+                        case 3:
+                            selectBoxKartkhon();
+                            break;
+                        }
+
                 }
             });
 
@@ -553,14 +567,14 @@ private Boolean ShowDoialg(final String is_pay){
         @Override
         public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
-            is=false;
+
         }
     });
 
     AlertDialog alertDialog = alertDialogBuilder.create();
     alertDialog.setCancelable(false);
     alertDialog.show();
-return is;
+
 }
 
     public Runnable updateLocationOtime(final String driver_id) {
@@ -979,7 +993,7 @@ return is;
         }
     }
 
-    private void updateLineDestination(String json) {
+ /*   private void updateLineDestination(String json) {
         Directions directions = new Directions(InProgressActivity.this);
         try {
             List<Route> routes = directions.parse(json);
@@ -994,7 +1008,7 @@ return is;
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     protected void onResume() {

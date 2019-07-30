@@ -85,6 +85,7 @@ import com.rachcode.peykman.mMart.PlaceAutocompleteAdapter;
 import com.rachcode.peykman.model.AdditionalMbox;
 import com.rachcode.peykman.model.Driver;
 import com.rachcode.peykman.model.Fitur;
+import com.rachcode.peykman.model.GetStopTime;
 import com.rachcode.peykman.model.MboxInsurance;
 import com.rachcode.peykman.model.Product;
 import com.rachcode.peykman.model.UserData;
@@ -169,6 +170,7 @@ public class SendActivity extends AppCompatActivity implements
     ConstraintLayout pay_detail;
     @BindView(R.id.design_des)
     ConstraintLayout des_detail;
+    Boolean isValidDistance = false;
     /*   @BindView(R.id.mSend_distance)
        TextView distanceText;*/
     @BindView(R.id.mSend_price)
@@ -225,7 +227,9 @@ public class SendActivity extends AppCompatActivity implements
 
     @BindView(R.id.main_tabLayout)
     SmartTabLayout mainTabLayout;
-
+    public static GetStopTime getStopTime=null;
+    private int StopTimeId= 0;
+    public static int go_back=0;
 
     /**
      * pickup detile
@@ -286,7 +290,7 @@ public class SendActivity extends AppCompatActivity implements
         mSend_next.setSelected(false);
     }
 
-
+    private Boolean isDriverAvailable = false;
     @BindView(R.id.scroll_view_design)
     ScrollView scroll_view_design;
 
@@ -452,6 +456,7 @@ public class SendActivity extends AppCompatActivity implements
     private int DestinationNumber = 0;
     private Marker destinationMarker2;
     private Marker destinationMarker3;
+    private LatLng centerPos;
     private Marker destinationMarker4;
     private ArrayList<Driver> driverAvailable;
     private List<Marker> driverMarkers;
@@ -498,7 +503,12 @@ public class SendActivity extends AppCompatActivity implements
 
                             updateDistance(distance);
                             timeDistance = time / 60;
-                            pay_detail.setVisibility(View.VISIBLE);
+                            if (isValidDistance) {
+                                pay_detail.setVisibility(View.VISIBLE);
+                            } else {
+                                pay_detail.setVisibility(View.GONE);
+
+                            }
 
                         }
                     });
@@ -567,26 +577,33 @@ public class SendActivity extends AppCompatActivity implements
                 BookService service = ServiceGenerator.createService(BookService.class);
                 OffecrcodeequestJson param = new OffecrcodeequestJson();
                 param.setOrder_feature(designedFitur.getIdFeature());
+                finall_price -= byme_price ;
                 param.setPrice(finall_price);
                 param.setCoupon_serial(offerText.getText().toString());
                 service.getOfferCode(param).enqueue(new Callback<offerCodeResponseJson>() {
                     @Override
                     public void onResponse(Call<offerCodeResponseJson> call, Response<offerCodeResponseJson> response) {
                         offerCodeResponseJson responseJson = response.body();
-                        android.util.Log.i("offerBtn", "responseJson body: " + response.body());
-                        android.util.Log.i("offerBtn", "responseJson messege: " + responseJson.getMessage());
-                        if (responseJson.getMessage().equals("success")) {
-                            Toast.makeText(SendActivity.this, "sdsdsdsdssddssdds", Toast.LENGTH_SHORT).show();
-                            finall_price -= byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
-                            ads_code = Integer.parseInt(responseJson.getData().getAds_credit());
-                            finall_price -= Integer.parseInt(responseJson.getData().getfinal_price());
-                            price_pardakht.setText(formatMony(finall_price));
-                            codee_takhfif.setText(formatMony(Integer.parseInt(responseJson.getData().getfinal_price())));
 
-                            Toast.makeText(SendActivity.this, "تخفیف با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(SendActivity.this, "no", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful()) {
 
+                            if (responseJson.getMessage().equals("success")) {
+                                Toast.makeText(SendActivity.this, "sdsdsdsdssddssdds", Toast.LENGTH_SHORT).show();
+
+                                ads_code = Integer.parseInt(responseJson.getData().getAds_credit());
+                                finall_price -= Integer.parseInt(responseJson.getData().getfinal_price());
+                                finall_price += byme_price;
+
+                                price_pardakht.setText(formatMony(finall_price));
+                                mablaghTakhfifSabet += Integer.parseInt(responseJson.getData().getfinal_price());
+                                codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
+
+                                Toast.makeText(SendActivity.this, "تخفیف با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(SendActivity.this, "no", Toast.LENGTH_SHORT).show();
+
+                            }
                         }
                     }
 
@@ -977,46 +994,54 @@ public class SendActivity extends AppCompatActivity implements
         btn_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectBoxPishKeraye();
-                top_address.setVisibility(View.GONE);
-                request_datile.setVisibility(View.VISIBLE);
-                scroll_view_design.setVisibility(View.VISIBLE);
+        if (go_back == 1){
+            android.util.Log.i("mnidsf0u9dsjfjcs9sjf9", "mnidsf0u9dsjfjcs9sjf9: ");
+            price *=2;
+            Toast.makeText(SendActivity.this, "دوبرابر شد", Toast.LENGTH_SHORT).show();
+        }
+                if (isDriverAvailable) {
+                    selectBoxPishKeraye();
+                    top_address.setVisibility(View.GONE);
+                    request_datile.setVisibility(View.VISIBLE);
+                    scroll_view_design.setVisibility(View.VISIBLE);
 
-                Toast.makeText(SendActivity.this, "price: " + price, Toast.LENGTH_LONG).show();
-                finall_price = price;
+                    Toast.makeText(SendActivity.this, "price: " + price, Toast.LENGTH_LONG).show();
+                    finall_price = price;
 
-                //sum price and insurecne
-
-
-                //ConstOffer
-
-                int darsadTakhfifSabet = Integer.parseInt(designedFitur.getDiscount());
-                android.util.Log.i("mohasebe", "darsadTakhfifSabet: " + darsadTakhfifSabet);
-                android.util.Log.i("mohasebe", "price: " + price);
+                    //sum price and insurecne
 
 
-                Float calculate_offer = (int) price * (1 - (darsadTakhfifSabet / 100.0f));
-                mablaghTakhfifSabet = Math.round(calculate_offer);
-                android.util.Log.i("mohasebe", "mablaghTakhfifSabet: " + mablaghTakhfifSabet);
-                mablaghTakhfifSabet = Math.round(mablaghTakhfifSabet);
-                if (UserInventory < finall_price) {
-                    Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
-                    selectBoxNaghdi();
+                    //ConstOffer
+
+                    int darsadTakhfifSabet = Integer.parseInt(designedFitur.getDiscount());
+                    android.util.Log.i("mohasebe", "darsadTakhfifSabet: " + darsadTakhfifSabet);
+                    android.util.Log.i("mohasebe", "price: " + price);
+
+
+                    Float calculate_offer = (int) price * (1 - (darsadTakhfifSabet / 100.0f));
+                    mablaghTakhfifSabet = Math.round(calculate_offer);
+                    android.util.Log.i("mohasebe", "mablaghTakhfifSabet: " + mablaghTakhfifSabet);
+                    mablaghTakhfifSabet = Math.round(mablaghTakhfifSabet);
+                    if (UserInventory < finall_price) {
+                        Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
+                        selectBoxNaghdi();
+                    } else {
+                        selectBoxOnline();
+                    }
+                    byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
+
+                    finall_price = (int) (price - mablaghTakhfifSabet);
+                    finall_price += byme_price;
+                    totalprice.setText(formatMony(price));
+
+                    codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
+
+                    price_pardakht.setText(formatMony(finall_price));
+
+                    byme.setText(formatMony(byme_price));
                 } else {
-                    selectBoxOnline();
+                    Toast.makeText(SendActivity.this, "سرویس خود را تغییر دهید", Toast.LENGTH_SHORT).show();
                 }
-                byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
-
-                finall_price = (int) (price - mablaghTakhfifSabet);
-                finall_price += byme_price;
-                totalprice.setText(formatMony(price));
-
-                codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
-
-                price_pardakht.setText(formatMony(finall_price));
-
-                byme.setText(formatMony(byme_price));
-
 
             }
         });
@@ -1076,7 +1101,7 @@ public class SendActivity extends AppCompatActivity implements
         param.mablaghTakhfifSabet = mablaghTakhfifSabet;
         param.ads_credit = designedFitur.getDiscount_id();
 
-
+param.go_back =go_back;
         param.final_price = finall_price;
         param.distance = Unit_distance;
 /*
@@ -1086,7 +1111,7 @@ public class SendActivity extends AppCompatActivity implements
 /*
         param.price_takhfifed = price_takhfifed;
 */
-        param.price = String.valueOf(price);
+         param.price = String.valueOf(price);
         param.byme_price = byme_price;
         param.totalPrice = String.valueOf(price);
         param.origin_address = pickUpText;
@@ -1109,8 +1134,8 @@ public class SendActivity extends AppCompatActivity implements
         param.sender_plaque = Epelak_pik.getText().toString();
         param.sender_floor = Etabaghe_pik.getText().toString();
         param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
-        param.delay = 0;
-        param.go_back = 0;
+        param.delay = StopTimeId;
+
         param.product_id = ProductTypeItemSelected;
         param.receiver_plaque = receiver_plaque_first;
         param.receiver_plaque_second = receiver_plaque_second;
@@ -1155,6 +1180,12 @@ public class SendActivity extends AppCompatActivity implements
 
     private void DestinationNumberc(int DestinationNumber) {
         switch (DestinationNumber) {
+            case 0:
+                setDestinationButton.setImageDrawable(getResources().getDrawable(R.drawable.icm_dis));
+                zoomTo(destinationLatLang, true);
+                setDestinationContainer.setVisibility(View.VISIBLE);
+
+                break;
             case 1:
                 setDestinationButton.setImageDrawable(getResources().getDrawable(R.drawable.icm_dis2));
                 zoomTo(destinationLatLang, true);
@@ -1261,6 +1292,7 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<GetAdditionalMboxResponseJson> call, Response<GetAdditionalMboxResponseJson> response) {
                 if (response.isSuccessful()) {
+
                     AdditionalMbox data = response.body().data;
                     mboxInsurances = data.insurance;
 
@@ -1390,15 +1422,21 @@ public class SendActivity extends AppCompatActivity implements
 
 
     public static LatLng search_location = null;
+
     //public static LatLng favorites_location = null;
     @Override
     protected void onResume() {
         super.onResume();
 
+   if (getStopTime != null){
+       StopTimeId=Integer.parseInt(getStopTime.getTimeId());
+   }else{
+       StopTimeId=0;
 
+   }
         /////////////////////////
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        android.util.Log.i(TAG, "search_location_111: "+search_location);
+        android.util.Log.i(TAG, "search_location_111: " + search_location);
         if (search_location != null) {
             LatLng latLng = search_location;
             zoomTo(latLng, true);
@@ -1484,17 +1522,18 @@ public class SendActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         isMapReady = true;
         googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         this, R.raw.style_map));
 
-         if (search_location != null) {
+        if (search_location != null) {
             LatLng latLng = search_location;
             zoomTo(latLng, true);
-        }else{
+        } else {
 
-                updateLastLocation(true);
+            updateLastLocation(true);
         }
 
         mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
@@ -1536,7 +1575,6 @@ public class SendActivity extends AppCompatActivity implements
     }
 
 
-
     private void onGetCurrentLocation(final boolean move) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -1545,8 +1583,8 @@ public class SendActivity extends AppCompatActivity implements
         if (search_location != null) {
             LatLng latLng = search_location;
             zoomTo(latLng, true);
-            search_location=null;
-         } else {
+            search_location = null;
+        } else {
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
@@ -1579,7 +1617,7 @@ public class SendActivity extends AppCompatActivity implements
         }
     }
 
-    private void fetchNearDriver(double latitude, double longitude) {
+    private void fetchNearDriver(double latitude, double longitude, int IsSelected) {
         if (lastKnowLocation != null) {
             UserData loginUser = GoTaxiApplication.getInstance(this).getLoginUserD();
 
@@ -1588,8 +1626,6 @@ public class SendActivity extends AppCompatActivity implements
             param.setLatitude(latitude);
             param.setLongitude(longitude);
 
-            android.util.Log.i("www", "my_lat_long: " + param);
-            android.util.Log.i("www", "jjjjj: " + designedFitur.getIdFeature());
             if (designedFitur.getIdFeature() == 9) {
                 service.getNearsendMotor(param).enqueue(new Callback<GetNearRideDriverResponseJson>() {
                     @Override
@@ -1597,7 +1633,7 @@ public class SendActivity extends AppCompatActivity implements
                         if (response.isSuccessful()) {
                             driverAvailable = response.body().getData();
                             createMarker();
-                            picup(pickUpLatLang);
+
                         }
                     }
 
@@ -1607,17 +1643,19 @@ public class SendActivity extends AppCompatActivity implements
                     }
                 });
             } else if (designedFitur.getIdFeature() == 11) {
-                service.getNearCar(param).enqueue(new Callback<GetNearRideCarResponseJson>() {
+                service.getNearsendvanet(param).enqueue(new Callback<GetNearRideDriverResponseJson>() {
                     @Override
-                    public void onResponse(Call<GetNearRideCarResponseJson> call, Response<GetNearRideCarResponseJson> response) {
+                    public void onResponse(Call<GetNearRideDriverResponseJson> call, Response<GetNearRideDriverResponseJson> response) {
                         if (response.isSuccessful()) {
+
+                            android.util.Log.i("resid", "resid: ");
                             driverAvailable = response.body().getData();
                             createMarker();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<GetNearRideCarResponseJson> call, Throwable t) {
+                    public void onFailure(Call<GetNearRideDriverResponseJson> call, Throwable t) {
 
                     }
                 });
@@ -1628,9 +1666,9 @@ public class SendActivity extends AppCompatActivity implements
                         if (response.isSuccessful()) {
                             driverAvailable = response.body().getData();
                             createMarker();
-                            picup(pickUpLatLang);
                         }
                     }
+
 
                     @Override
                     public void onFailure(Call<GetNearRideDriverResponseJson> call, Throwable t) {
@@ -1638,6 +1676,11 @@ public class SendActivity extends AppCompatActivity implements
                     }
                 });
             }
+            if (IsSelected == 1) {
+                picup(pickUpLatLang, designedFitur.getIdFeature());
+
+            }
+
         }
     }
 
@@ -1709,6 +1752,7 @@ public class SendActivity extends AppCompatActivity implements
 
     private void createMarker() {
         if (!driverAvailable.isEmpty()) {
+            isDriverAvailable = true;
             try {
                 for (Marker marker : driverMarkers) {
                     marker.remove();
@@ -1747,112 +1791,45 @@ public class SendActivity extends AppCompatActivity implements
                 Log.e("www", "createMarker: " + e.getMessage());
             }
         } else {
-            if (destinationMarker != null) {
-
-
-                destinationMarker.remove();
-                destinationMarker.remove();
-            }
-
-            if (destinationMarker2 != null) {
-                destinationMarker2.remove();
-
-            }
-            if (destinationMarker3 != null) {
-
-                destinationMarker3.remove();
-
-            }
-
-            if (destinationMarker4 != null) {
-                destinationMarker4.remove();
-
-            }
-            if (directionLine != null) {
-                directionLine.remove();
-            }
-
-            DestinationNumber = 0;
-
-            buttont.setVisibility(View.GONE);
-            setDestinationContainer.setVisibility(View.GONE);
-
-            top_address.setVisibility(View.VISIBLE);
-            des_detail.setVisibility(View.GONE);
-            scroll_view_design.setVisibility(View.GONE);
+            isDriverAvailable = false;
+            Toast.makeText(this, "راننده ای یافت نشد !", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void onDestinationClick() {
-        LatLng centerPos = mMap.getCameraPosition().target;
-        setPickUpContainer.setVisibility(View.GONE);
-        btnTopAddress.setVisibility(View.GONE);
-
+        centerPos = mMap.getCameraPosition().target;
         switch (DestinationNumber) {
             case 0:
-                if (destinationMarker != null) destinationMarker.remove();
-                destinationMarker = mMap.addMarker(new MarkerOptions()
-                        .position(centerPos)
-                        .title("مقصد")
-                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
                 destinationLatLang = centerPos;
-                buttont.setVisibility(View.VISIBLE);
-                setDestinationContainer.setVisibility(View.GONE);
-                btnTopAddressGozineha.setVisibility(View.VISIBLE);
-                fillAddress(2, destinationLatLang);
                 break;
             case 1:
-                if (destinationMarker2 != null) destinationMarker2.remove();
-                destinationMarker2 = mMap.addMarker(new MarkerOptions()
-                        .position(centerPos)
-                        .title("مقصد2")
-                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
                 destinationLatLang2 = centerPos;
-                fillAddress(3, destinationLatLang2);
                 break;
             case 2:
-                if (destinationMarker3 != null) destinationMarker3.remove();
-                destinationMarker3 = mMap.addMarker(new MarkerOptions()
-                        .position(centerPos)
-                        .title("مقصد3")
-                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
                 destinationLatLang3 = centerPos;
-                fillAddress(4, destinationLatLang3);
-
                 break;
             case 3:
-                if (destinationMarker4 != null) destinationMarker4.remove();
-                destinationMarker4 = mMap.addMarker(new MarkerOptions()
-                        .position(centerPos)
-                        .title("مقصد4")
-                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
                 destinationLatLang4 = centerPos;
-                fillAddress(5, destinationLatLang4);
-
                 break;
         }
-
         DestinationNumber++;
         requestRoute();
 
 
-        top_address.setVisibility(View.GONE);
-        des_detail.setVisibility(View.VISIBLE);
-        scroll_view_design.setVisibility(View.VISIBLE);
     }
 
 
     private void onPickUpClick() {
         if (pickUpMarker != null) pickUpMarker.remove();
-        if (directionLine != null) directionLine.remove();
-        destinationLatLang = null;
+        if (directionLine != null)
+            destinationLatLang = null;
         LatLng centerPos = mMap.getCameraPosition().target;
         pickUpLatLang = centerPos;
 
 
         selectBoxNormal();
-        fetchNearDriver(pickUpLatLang.latitude, pickUpLatLang.longitude);
+        fetchNearDriver(pickUpLatLang.latitude, pickUpLatLang.longitude, 1);
 
 
         fillAddress(1, pickUpLatLang);
@@ -1861,7 +1838,7 @@ public class SendActivity extends AppCompatActivity implements
         requestRoute();
     }
 
-    private void picup(LatLng postion) {
+    private void picup(LatLng postion, int designd) {
         if (!driverAvailable.isEmpty()) {
             top_address.setVisibility(View.GONE);
             btnTopAddress.setVisibility(View.GONE);
@@ -1923,6 +1900,59 @@ public class SendActivity extends AppCompatActivity implements
                 }
         }
 
+    }
+
+    private void makeDesTinationMarker(int DestinationNumber) {
+        android.util.Log.i("DestinationNumber", "makeDesTinationMarker: " + DestinationNumber);
+        setPickUpContainer.setVisibility(View.GONE);
+        btnTopAddress.setVisibility(View.GONE);
+        switch (DestinationNumber) {
+            case 0:
+                if (destinationMarker != null) destinationMarker.remove();
+                destinationMarker = mMap.addMarker(new MarkerOptions()
+                        .position(centerPos)
+                        .title("مقصد")
+                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
+                destinationLatLang = centerPos;
+                buttont.setVisibility(View.VISIBLE);
+                setDestinationContainer.setVisibility(View.GONE);
+                btnTopAddressGozineha.setVisibility(View.VISIBLE);
+                fillAddress(2, destinationLatLang);
+                break;
+            case 1:
+                if (destinationMarker2 != null) destinationMarker2.remove();
+                destinationMarker2 = mMap.addMarker(new MarkerOptions()
+                        .position(centerPos)
+                        .title("مقصد2")
+                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
+                destinationLatLang2 = centerPos;
+                fillAddress(3, destinationLatLang2);
+                break;
+            case 2:
+                if (destinationMarker3 != null) destinationMarker3.remove();
+                destinationMarker3 = mMap.addMarker(new MarkerOptions()
+                        .position(centerPos)
+                        .title("مقصد3")
+                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
+                destinationLatLang3 = centerPos;
+                fillAddress(4, destinationLatLang3);
+
+                break;
+            case 3:
+                if (destinationMarker4 != null) destinationMarker4.remove();
+                destinationMarker4 = mMap.addMarker(new MarkerOptions()
+                        .position(centerPos)
+                        .title("مقصد4")
+                        .icon(bitmapDescriptorFromVector(SendActivity.this, R.drawable.ic_dist)));
+                destinationLatLang4 = centerPos;
+                fillAddress(5, destinationLatLang4);
+
+                break;
+        }
+
+        top_address.setVisibility(View.GONE);
+        des_detail.setVisibility(View.VISIBLE);
+        scroll_view_design.setVisibility(View.VISIBLE);
     }
 
     private void fillAddress(final int i, final LatLng latLng) {
@@ -1999,7 +2029,7 @@ public class SendActivity extends AppCompatActivity implements
         try {
             List<Route> routes = directions.parse(json);
 
-            if (directionLine != null) directionLine.remove();
+            if (directionLine != null) 
             if (routes.size() > 0) {
                 directionLine = mMap.addPolyline((new PolylineOptions())
                         .addAll(routes.get(0).getOverviewPolyLine())
@@ -2103,10 +2133,21 @@ public class SendActivity extends AppCompatActivity implements
 
                 break;
         }
-        lastDestancePrice = price_fiture;
-        lastprice += price_fiture;
-        price = lastprice;
-        priceText.setText(formatMony(lastprice));
+        int setDestinationNumber = DestinationNumber - 1;
+        if (price_fiture != 0) {
+            isValidDistance = true;
+            makeDesTinationMarker(setDestinationNumber);
+            lastDestancePrice = price_fiture;
+            lastprice += price_fiture;
+            price = lastprice;
+            priceText.setText(formatMony(lastprice));
+        } else {
+            isValidDistance = false;
+            pay_detail.setVisibility(View.GONE);
+            DestinationNumber--;
+            Toast.makeText(this, "خطا در محاسبه!", Toast.LENGTH_SHORT).show();
+        }
+
 
       /*  long totalPrice = (long) (designedFitur.getPrice() * Math.ceil(km));
 
@@ -2144,7 +2185,13 @@ public class SendActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
+        if (des_detail.getVisibility() == View.VISIBLE) {
+            des_detail.setVisibility(View.GONE);
+        }
 
+        if (request_datile.getVisibility() == View.VISIBLE) {
+            request_datile.setVisibility(View.GONE);
+        }
         switch (DestinationNumber) {
             case 0:
                 if (setPickUpContainer.getVisibility() == View.VISIBLE) {
@@ -2166,8 +2213,8 @@ public class SendActivity extends AppCompatActivity implements
                     pay_detail.setVisibility(View.GONE);
                     setDestinationContainer.setVisibility(View.GONE);
                     setPickUpContainer.setVisibility(View.VISIBLE);
-                    if (directionLine != null) directionLine.remove();
-                    getCurentLocation();
+                    if (directionLine != null)
+                        getCurentLocation();
 
                 }
 
@@ -2175,31 +2222,13 @@ public class SendActivity extends AppCompatActivity implements
                 android.util.Log.i("back", "onBackPressed:  case : 1 DestinationNumber:" + DestinationNumber);
                 break;
             case 1:
-                if (des_detail.getVisibility() == View.VISIBLE) {
-                    des_detail.setVisibility(View.GONE);
-                    if (destinationMarker != null) {
-                        destinationMarker.remove();
-                        if (directionLine != null) {
-                            directionLine.remove();
-                        }
-                        DestinationNumber--;
-                        clearTextViewsDes();
-                        decraseLastPrice();
-                        zoomTo(destinationLatLang, true);
-                        pay_detail.setVisibility(View.GONE);
 
-                    }
-                    setPickUpContainer.setVisibility(View.GONE);
 
-                    setDestinationContainer.setVisibility(View.VISIBLE);
-
-                    return;
-                }
                 if (destinationMarker != null) {
-                    DestinationNumberc(1);
+                    DestinationNumberc(0);
                     decraseLastPrice();
                     destinationMarker.remove();
-                    directionLine.remove();
+
                     DestinationNumber--;
                     clearTextViewsDes();
                     setDestinationContainer.setVisibility(View.VISIBLE);
@@ -2214,11 +2243,11 @@ public class SendActivity extends AppCompatActivity implements
                 }
             case 2:
                 if (destinationMarker2 != null) {
-                    DestinationNumberc(2);
+                    DestinationNumberc(1);
                     decraseLastPrice();
 
                     destinationMarker2.remove();
-                    directionLine.remove();
+
                     DestinationNumber--;
                     clearTextViewsDes();
                     setDestinationContainer.setVisibility(View.VISIBLE);
@@ -2233,11 +2262,11 @@ public class SendActivity extends AppCompatActivity implements
                 break;
             case 3:
                 if (destinationMarker3 != null) {
-                    DestinationNumberc(3);
+                    DestinationNumberc(2);
                     decraseLastPrice();
 
                     destinationMarker3.remove();
-                    directionLine.remove();
+
                     DestinationNumber--;
                     clearTextViewsDes();
                     setDestinationContainer.setVisibility(View.VISIBLE);
@@ -2254,10 +2283,10 @@ public class SendActivity extends AppCompatActivity implements
 
             case 4:
                 if (destinationMarker4 != null) {
-                    DestinationNumberc(4);
+                    DestinationNumberc(3);
                     decraseLastPrice();
                     destinationMarker4.remove();
-                    directionLine.remove();
+
                     DestinationNumber--;
                     clearTextViewsDes();
                     setDestinationContainer.setVisibility(View.VISIBLE);
