@@ -713,9 +713,8 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 // hide keybord
-/*
-                hideKeyboard(SendActivity.this);
-*/
+                dismissKeyboard();
+
 
                 if (select_box_vije.isSelected()) {
                     Send_type = "vip";
@@ -780,9 +779,7 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 // hide keybord
-/*
-                hideKeyboard(SendActivity.this);
-*/
+                dismissKeyboard();
 
 
                 String Phonedes = Ephone_des.getText().toString();
@@ -844,6 +841,8 @@ public class SendActivity extends AppCompatActivity implements
 
             }
         });
+
+
         btn_logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1388,6 +1387,14 @@ public class SendActivity extends AppCompatActivity implements
         } else {
             return true;
         }
+    }
+
+    public void dismissKeyboard() {
+        Activity activity = SendActivity.this;
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != activity.getCurrentFocus())
+            imm.hideSoftInputFromWindow(activity.getCurrentFocus()
+                    .getApplicationWindowToken(), 0);
     }
 
 
@@ -2455,16 +2462,6 @@ public class SendActivity extends AppCompatActivity implements
         icon_box_kartkhon.setSelected(true);
     }
 
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 
     /**
      * box method byme

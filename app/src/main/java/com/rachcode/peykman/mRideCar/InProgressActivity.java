@@ -186,8 +186,18 @@ public class InProgressActivity extends AppCompatActivity
     // pelaq moshin
     @BindView(R.id.plauqeMashin)
     ConstraintLayout plauqeMashin;
-    @BindView(R.id.driver_police_number)
-    TextView driverPoliceNumber;
+
+
+    @BindView(R.id.driver_police_numberA)
+    TextView driver_police_numberA;
+    @BindView(R.id.driver_police_numberB)
+    TextView driver_police_numberB;
+    @BindView(R.id.driver_police_numberC)
+    TextView driver_police_numberC;
+
+
+
+
     @BindView(R.id.driver_police_numberr)
     TextView driverPoliceNumberr;
 
@@ -353,7 +363,7 @@ public class InProgressActivity extends AppCompatActivity
 
         priceText.setText(formatMony(request.getPrice()));
 
-        Glide.with(getApplicationContext()).load(driver.getPhoto()).into(driverImage);
+        //Glide.with(getApplicationContext()).load(driver.getPhoto()).into(driverImage);
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         orderNumber.setText("Order no. " + request.getid());
 
@@ -404,10 +414,28 @@ public class InProgressActivity extends AppCompatActivity
                 driverPoliceNumber1.setText(p[0].replace("", " "));
                 driverPoliceNumber2.setText(p[1].replace("", " "));
 
+                android.util.Log.i("www", "NumberOfVehicle: "+driver.getNumberOfVehicle());
                 break;
 
             case "scar":
                 // set peyk mashini
+                android.util.Log.i("www", "NumberOfVehicle: "+driver.getNumberOfVehicle());
+                plauqeMashin.setVisibility(View.VISIBLE);
+                String[] numberOfVehicle = driver.getNumberOfVehicle().replace(""," ").split("-");
+                android.util.Log.i("www", "NumberOfVehicle array: 0:"+numberOfVehicle[0]+"1:"+numberOfVehicle[1]+"2:"+numberOfVehicle[2]+"3:"+numberOfVehicle[3]);
+
+
+                String a0 = numberOfVehicle[0];
+                String a1 = numberOfVehicle[1];
+                String a2 = numberOfVehicle[2];
+                String a3 = numberOfVehicle[3];
+                driver_police_numberA.setText(a0);
+                driver_police_numberB.setText(a1);
+                driver_police_numberC.setText(a2);
+                driverPoliceNumberr.setText(a3);
+
+
+
                 /*plauqeMashin.setVisibility(View.VISIBLE);
                 String[] numberOfVehicle = driver.getNumberOfVehicle().split("-");
                 driverPoliceNumber.setText(numberOfVehicle[0].replace(""," "));
@@ -416,6 +444,7 @@ public class InProgressActivity extends AppCompatActivity
                 //plauqeMashin.setVisibility(View.VISIBLE);
                 //driverPoliceNumber.setText(driver.getNumberOfVehicle());
                 break;
+
         }
         /** box selector type peyment **/
 

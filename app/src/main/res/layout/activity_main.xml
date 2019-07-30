@@ -152,11 +152,11 @@
             android:background="#fff">
 
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/wallet_increase"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-
+                android:gravity="center_vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -186,7 +186,7 @@
                     app:layout_constraintStart_toEndOf="@+id/txt"
                     app:layout_constraintTop_toTopOf="@+id/txt"
                     app:srcCompat="@drawable/ic_increase18_green" />
-            </android.support.constraint.ConstraintLayout>c
+            </LinearLayout>
 
                 <TextView
                 android:id="@+id/txtBalance"

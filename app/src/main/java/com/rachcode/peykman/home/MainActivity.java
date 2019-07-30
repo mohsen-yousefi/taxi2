@@ -1,5 +1,6 @@
 package com.rachcode.peykman.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -31,6 +32,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
             }
         });
 
-        ConstraintLayout wallet_increase = findViewById(R.id.wallet_increase);
+        LinearLayout wallet_increase = findViewById(R.id.wallet_increase);
         wallet_increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
             }
         });
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
