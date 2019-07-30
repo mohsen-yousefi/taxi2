@@ -2,13 +2,17 @@ package com.rachcode.peykman;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +64,9 @@ public class ServicesPerformedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     HistoryAdapter historyAdapter;
 
+    DrawerLayout drawer;
+    ConstraintLayout design_wallet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,35 +78,9 @@ public class ServicesPerformedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         setupTabLayoutViewPager();
+        bottomNav();
     }
 
-    private void setupTabLayoutViewPager() {
-        GoTaxiTabProvider tabProvider = new GoTaxiTabProvider(this);
-        final MenuSelector selector = (MenuSelector) tabProvider;
-        mainTabLayout.setCustomTabView(tabProvider);
-
-
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("", Fragment.class)
-                .add("", Fragment.class)
-                .add("", Fragment.class)
-                .create());
-
-
-        ViewPager viewPager = new ViewPager(getApplicationContext());
-        viewPager.setAdapter(adapter);
-        mainTabLayout.setViewPager(viewPager);
-        //mainViewPager.setPagingEnabled(false);
-
-        mainTabLayout.setOnTabClickListener(new SmartTabLayout.OnTabClickListener() {
-            @Override
-            public void onTabClicked(int position) {
-                selector.selectMenu(position);
-            }
-        });
-
-    }
 
 
     private void requestData() {
@@ -158,6 +139,64 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                 Log.e("System error:", t.getLocalizedMessage());
             }
         });
+    }
+
+    private void setupTabLayoutViewPager() {
+        GoTaxiTabProvider tabProvider = new GoTaxiTabProvider(this);
+        final MenuSelector selector = (MenuSelector) tabProvider;
+        mainTabLayout.setCustomTabView(tabProvider);
+
+        /*adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add(R.string.main_menuHome, HomeFragment.class)
+                .add(R.string.main_menuHistory, HistoryFragment.class)
+                .add(R.string.main_menuHelp, HelpFragment.class)
+                .add(R.string.main_menuSetting, SettingFragment.class)
+                .create());*/
+
+
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add("", Fragment.class)
+                .add("", Fragment.class)
+                .add("", Fragment.class)
+                .create());
+
+
+        ViewPager viewPager = new ViewPager(getApplicationContext());
+        viewPager.setAdapter(adapter);
+        mainTabLayout.setViewPager(viewPager);
+        //mainViewPager.setPagingEnabled(false);
+
+
+        mainTabLayout.setOnTabClickListener(new SmartTabLayout.OnTabClickListener() {
+            @Override
+            public void onTabClicked(int position) {
+                selector.selectMenu(position);
+
+                // remove shodow
+                drawer.setScrimColor(Color.TRANSPARENT);
+                drawer.setDrawerElevation(0);
+
+                // bottom nav item click
+                if (position == 0) {
+                    design_wallet.setVisibility(View.VISIBLE);
+                    drawer.closeDrawers();
+                } else if (position == 1) {
+                    design_wallet.setVisibility(View.GONE);
+                    drawer.closeDrawers();
+                } else if (position == 2) {
+                    drawer.openDrawer(Gravity.RIGHT);
+                    //design_wallet.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    private void bottomNav() {
+        drawer = findViewById(R.id.drawer);
+        design_wallet = findViewById(R.id.design_wallet);
     }
 
     class Adapter extends RecyclerView.Adapter<ViewHolder> {
