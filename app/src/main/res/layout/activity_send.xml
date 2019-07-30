@@ -1917,7 +1917,7 @@
         android:id="@+id/navigation_view_right"
         android:layout_width="280dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
+        android:layout_gravity=""
         android:layoutDirection="ltr">
 
 
@@ -1928,11 +1928,12 @@
             android:layoutDirection="ltr">
 
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/wallet_increase"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -1961,7 +1962,7 @@
                     app:layout_constraintStart_toEndOf="@+id/txt"
                     app:layout_constraintTop_toTopOf="@+id/txt"
                     app:srcCompat="@drawable/ic_increase18_green" />
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
             c
 
             <TextView
