@@ -49,8 +49,8 @@
     <string name="text_next">Next</string>
     <string name="text_send">Send</string>
     <string name="text_save">Save</string>
-    <string name="text_noInternet">No Internet connection!</string>
-    <string name="text_close">Close</string>
+    <string name="text_noInternet">اتصال شما برقرار نیست!</string>
+    <string name="text_close">بستن</string>
     <string name="update_now">Update</string>
     <string name="no">No</string>
     <string name="text_updating">Update money</string>

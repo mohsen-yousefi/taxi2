@@ -2,6 +2,7 @@ package com.rachcode.peykman.model.json.fcm;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.rachcode.peykman.model.GetStopTime;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,6 +31,16 @@ public class DriverRequest implements Serializable {
     @SerializedName("totalPrice")
     @Expose
     private String totalPrice;
+
+    @SerializedName("delay")
+    @Expose
+    private int delay;
+
+    @SerializedName("getStopTime")
+    @Expose
+    private GetStopTime getStopTime;
+
+
     @SerializedName("byme_price")
     @Expose
     private int byme_price;
@@ -67,6 +78,9 @@ public class DriverRequest implements Serializable {
     @Expose
     @SerializedName("time_accept")
     private String time_accept;
+    @Expose
+    @SerializedName("go_back")
+    private int go_back;
     @SerializedName("sender_type")
     @Expose
     private String sender_type;
@@ -182,12 +196,6 @@ public class DriverRequest implements Serializable {
     private String receiverPhone;
 
 
-
-
-
-
-
-
     @Expose
     @SerializedName("receiver_name_second")
     private String receiver_name_second;
@@ -225,12 +233,6 @@ public class DriverRequest implements Serializable {
     @Expose
     @SerializedName("receiver_phone_fourth")
     private String receiver_phone_fourth;
-
-
-
-
-
-
 
 
     @SerializedName("box_type")
@@ -871,5 +873,29 @@ public class DriverRequest implements Serializable {
 
     public void setMablaghTakhfifSabet(int mablaghTakhfifSabet) {
         this.mablaghTakhfifSabet = mablaghTakhfifSabet;
+    }
+
+    public int getGo_back() {
+        return go_back;
+    }
+
+    public void setGo_back(int go_back) {
+        this.go_back = go_back;
+    }
+
+    public GetStopTime getGetStopTime() {
+        return getStopTime;
+    }
+
+    public void setGetStopTime(GetStopTime getStopTime) {
+        this.getStopTime = getStopTime;
+    }
+
+    public int getDelay() {
+        return delay;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 }

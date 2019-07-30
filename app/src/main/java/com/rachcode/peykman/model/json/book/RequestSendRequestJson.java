@@ -2,6 +2,7 @@ package com.rachcode.peykman.model.json.book;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.rachcode.peykman.model.GetStopTime;
 
 import java.io.Serializable;
 
@@ -228,6 +229,10 @@ public class RequestSendRequestJson implements Serializable {
     @Expose
     @SerializedName("insurance_id")
     public int insurance_id;
+
+    @Expose
+    @SerializedName("getStopTime")
+    public GetStopTime getStopTime;
 
 
     @Expose

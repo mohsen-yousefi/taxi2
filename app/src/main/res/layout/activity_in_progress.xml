@@ -648,53 +648,6 @@
                             android:layout_alignParentBottom="true"
                             android:visibility="gone">
 
-                            <android.support.constraint.ConstraintLayout
-                                android:layout_width="0dp"
-                                android:layout_height="56dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="28dp"
-                                android:background="@drawable/oval56"
-                                app:layout_constraintBottom_toTopOf="@+id/constraintLayout1"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <TextView
-                                    android:id="@+id/textView18"
-                                    android:layout_width="110dp"
-                                    android:layout_height="0dp"
-                                    android:background="@drawable/oval57"
-                                    android:fontFamily="@font/iransans_medium"
-                                    android:gravity="center"
-                                    android:text="اعمال تخفیف"
-                                    android:textColor="#e6eaf0"
-                                    android:textSize="15dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <EditText
-                                    android:id="@+id/editText"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    android:layout_marginTop="8dp"
-                                    android:layout_marginEnd="8dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:backgroundTint="#fff"
-                                    android:ems="10"
-                                    android:fontFamily="@font/iransans_fa_num_bold"
-                                    android:hint="اگر کد تخفیف دارید آن را بنویسید"
-                                    android:inputType="text"
-                                    android:textColor="#707990"
-                                    android:textColorHint="#707990"
-                                    android:textSize="14dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/textView18"
-                                    app:layout_constraintTop_toTopOf="parent" />
-                            </android.support.constraint.ConstraintLayout>
 
                             <android.support.constraint.ConstraintLayout
                                 android:id="@+id/constraintLayout1"

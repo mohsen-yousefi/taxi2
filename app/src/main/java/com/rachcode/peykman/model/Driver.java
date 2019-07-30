@@ -60,6 +60,10 @@ public class Driver  extends RealmObject implements Serializable {
     @SerializedName("driver_job")
     @Expose
     private String driverJob;
+
+    @SerializedName("feature")
+    @Expose
+    private String feature;
     @SerializedName("distance")
     @Expose
     private String distance;
@@ -192,4 +196,11 @@ public class Driver  extends RealmObject implements Serializable {
         this.distance = distance;
     }
 
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
 }

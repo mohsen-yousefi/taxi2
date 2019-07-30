@@ -3,6 +3,7 @@ package com.rachcode.peykman.model.json.menu;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import com.rachcode.peykman.model.CountData;
 import com.rachcode.peykman.model.ItemHistory;
 
 import java.util.ArrayList;
@@ -19,5 +20,9 @@ public class HistoryResponseJson {
     @Expose
     @SerializedName("data")
     public ArrayList<ItemHistory> data = new ArrayList<>();
+
+    @Expose
+    @SerializedName("count_data")
+    public ArrayList<CountData>  count_data = new ArrayList<>();
 
 }

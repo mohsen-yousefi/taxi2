@@ -306,6 +306,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setProduct_type(transaksi.getProduct_type());
             request.setEndLongitude(transaksi.getEndLongitude());
             request.setPrice(param.price);
+            request.setDelay(param.delay);
             request.setFinal_price(param.final_price);
             request.setByme_price(param.byme_price);
             request.setTotalPrice(param.totalPrice);
@@ -329,6 +330,8 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setType(ORDER);
 
             request.setItemName(transaksi.getItemName());
+            request.setGetStopTime(param.getStopTime);
+            request.setGo_back(param.go_back);
             request.setSenderFloor(transaksi.getSenderFloor());
             request.setSenderPlaque(transaksi.getSenderPlaque());
             request.setSenderUnit(transaksi.getSenderUnit());

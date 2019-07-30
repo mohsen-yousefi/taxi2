@@ -396,7 +396,7 @@ public class InProgressActivity extends AppCompatActivity
             }
 
         // set pelaq
-        switch (driver.getDriverJob()) {
+        switch (driver.getFeature()) {
             case "smotor":
                 // set peyk motori
                 plauqeMotor.setVisibility(View.VISIBLE);
@@ -708,25 +708,26 @@ private void ShowDoialg(final String is_pay){
             public void onResponse(Call<GetDriverLatLongResponseJson> call, Response<GetDriverLatLongResponseJson> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getstatus().equals("success")) {
-                        android.util.Log.i("immsmdsm", "qqqqqqqq: ");
-                        GetDriverLatLongResponseJson responseJson = new GetDriverLatLongResponseJson();
+                         GetDriverLatLongResponseJson responseJson = new GetDriverLatLongResponseJson();
                         responseJson = response.body();
                         Toast.makeText(context, "lat: " + responseJson.getData().get(0).getLatitude(), Toast.LENGTH_SHORT).show();
+                       //IF FOR MAKE driver marker Onmap For First Time
                         if (!isFirst) {
                             isFirst = true;
-                            switch (driver.getDriverJob()) {
-                                case "smotor":
+                            android.util.Log.i("driverjobbb", "onResponse: "+driver.getDriverJob());
+                            switch (driver.getFeature()) {
+                                case "Send-Motor":
                                     marker = gMap.addMarker(new MarkerOptions()
                                             .position(new LatLng(responseJson.getData().get(0).getLatitude(), responseJson.getData().get(0).getLongitude()))
                                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ride_position)));
                                     break;
 
-                                case "scar":
+                                case "Send-Car":
                                     marker = gMap.addMarker(new MarkerOptions()
                                             .position(new LatLng(responseJson.getData().get(0).getLatitude(), responseJson.getData().get(0).getLongitude()))
                                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_car_position)));
                                     break;
-                                    case "svanet":
+                                    case "Send-Vanet":
                                     marker = gMap.addMarker(new MarkerOptions()
                                             .position(new LatLng(responseJson.getData().get(0).getLatitude(), responseJson.getData().get(0).getLongitude()))
                                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_vanet_position)));

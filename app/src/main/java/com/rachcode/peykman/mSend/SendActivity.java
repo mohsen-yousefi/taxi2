@@ -995,8 +995,7 @@ public class SendActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
         if (go_back == 1){
-            android.util.Log.i("mnidsf0u9dsjfjcs9sjf9", "mnidsf0u9dsjfjcs9sjf9: ");
-            price *=2;
+              price *=2;
             Toast.makeText(SendActivity.this, "دوبرابر شد", Toast.LENGTH_SHORT).show();
         }
                 if (isDriverAvailable) {
@@ -1101,7 +1100,7 @@ public class SendActivity extends AppCompatActivity implements
         param.mablaghTakhfifSabet = mablaghTakhfifSabet;
         param.ads_credit = designedFitur.getDiscount_id();
 
-param.go_back =go_back;
+        param.go_back = go_back;
         param.final_price = finall_price;
         param.distance = Unit_distance;
 /*
@@ -1135,7 +1134,7 @@ param.go_back =go_back;
         param.sender_floor = Etabaghe_pik.getText().toString();
         param.insurance_id = mboxInsurances_clicked.get(Insurances_id_clicked).id;
         param.delay = StopTimeId;
-
+        param.getStopTime = getStopTime;
         param.product_id = ProductTypeItemSelected;
         param.receiver_plaque = receiver_plaque_first;
         param.receiver_plaque_second = receiver_plaque_second;
@@ -1430,6 +1429,7 @@ param.go_back =go_back;
 
    if (getStopTime != null){
        StopTimeId=Integer.parseInt(getStopTime.getTimeId());
+        price +=  Integer.parseInt(getStopTime.getTimeCost());
    }else{
        StopTimeId=0;
 
@@ -2185,6 +2185,10 @@ param.go_back =go_back;
 
     @Override
     public void onBackPressed() {
+        if (drawer.isDrawerOpen(Gravity.RIGHT)){
+            drawer.closeDrawer(Gravity.RIGHT);
+            return;
+        }
         if (des_detail.getVisibility() == View.VISIBLE) {
             des_detail.setVisibility(View.GONE);
         }

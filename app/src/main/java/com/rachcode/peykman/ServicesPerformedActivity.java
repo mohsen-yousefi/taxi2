@@ -24,6 +24,7 @@ import com.rachcode.peykman.api.ServiceGenerator;
 import com.rachcode.peykman.api.service.UserService;
 import com.rachcode.peykman.config.General;
 import com.rachcode.peykman.home.submenu.home.HomeFragment;
+import com.rachcode.peykman.model.CountData;
 import com.rachcode.peykman.model.ItemHistory;
 import com.rachcode.peykman.model.UserData;
 import com.rachcode.peykman.model.json.menu.HistoryRequestJson;
@@ -33,6 +34,7 @@ import com.rachcode.peykman.utils.Log;
 import com.rachcode.peykman.utils.MenuSelector;
 
 import org.json.JSONArray;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -46,6 +48,15 @@ public class ServicesPerformedActivity extends AppCompatActivity {
 
     @BindView(R.id.main_tabLayout)
     SmartTabLayout mainTabLayout;
+    @BindView(R.id.txtCountServicePeyk)
+    TextView txtCountServicePeyk;
+
+    @BindView(R.id.txtCountServicePost)
+    TextView txtCountServicePost;
+    @BindView(R.id.txtCountServiceFood)
+    TextView txtCountServiceFood;
+    @BindView(R.id.txtCountServiceStore)
+    TextView txtCountServiceStore;
     RecyclerView recyclerView;
     HistoryAdapter historyAdapter;
 
@@ -96,45 +107,36 @@ public class ServicesPerformedActivity extends AppCompatActivity {
         HistoryRequestJson request = new HistoryRequestJson();
         request.id = user.getId();
 
-        android.util.Log.i("www", "requestData: user_id:"+request.id);
+        android.util.Log.i("www", "requestData: user_id:" + request.id);
         UserService service = ServiceGenerator.createService(UserService.class, user.getEmail(), user.getPassword());
         service.getCompleteHistory(request).enqueue(new Callback<HistoryResponseJson>() {
             @Override
             public void onResponse(Call<HistoryResponseJson> call, Response<HistoryResponseJson> response) {
                 JSONArray j = new JSONArray();
                 j.put(response.body().data);
-                android.util.Log.i("www", "onResponse123: "+j);
+                android.util.Log.i("www", "onResponse123: " + j);
                 if (response.isSuccessful()) {
                     ArrayList<ItemHistory> data = response.body().data;
+                    ArrayList<CountData> countData = response.body().count_data;
 
                     recyclerView.setVisibility(View.VISIBLE);
-
-                    for (int i = 0; i < data.size(); i++) {
-                        android.util.Log.i("HISTORY", "color: " + data.get(i).color);
-
-                        switch (data.get(i).order_feature) {
-                        /*    case "Go-Moto":
-                                data.get(i).image_id = R.drawable.ride;
+                    for (int i = 0; i < countData.size(); i++) {
+                        switch (countData.get(i).driver_job) {
+                            case "peyk":
+                                txtCountServicePeyk.setText(countData.get(i).COUNT+" سرویس");
                                 break;
-                            case "Go-Cab":
-                                data.get(i).image_id = R.drawable.car;
-                                break;*/
-
-                           /* case "GO-Service":
-                                data.get(i).image_id = R.drawable.ic_mservice;
+                                case "post":
+                                    txtCountServicePost.setText(countData.get(i).COUNT+" سرویس");
                                 break;
-                            case "Go-Massage":
-                                data.get(i).image_id = R.drawable.massage;
+                                case "food":
+                                    txtCountServiceFood.setText(countData.get(i).COUNT+" سرویس");
                                 break;
-                            case "Go-Food":
-                                data.get(i).image_id = R.drawable.ic_mfood;
-                                break;*/
-
-                            default:
-                                data.get(i).image_id = R.drawable.car;
+                                case "shop":
+                                    txtCountServiceStore.setText(countData.get(i).COUNT+" سرویس");
                                 break;
                         }
                     }
+
 
                     LinearLayoutManager layoutManager = new LinearLayoutManager(ServicesPerformedActivity.this);
 
@@ -188,8 +190,8 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                     holder.transActionType.setText("سرویس پیک وانت");
                     break;
             }
-            holder.origin_address.setText("مبدا:"+mDataSet.get(position).origin_address);
-            holder.destination_address.setText("مقصد:"+mDataSet.get(position).destination_address);
+            holder.origin_address.setText("مبدا:" + mDataSet.get(position).origin_address);
+            holder.destination_address.setText("مقصد:" + mDataSet.get(position).destination_address);
             holder.price.setText(formatMony(String.valueOf(mDataSet.get(position).price)));
             String[] date = mDataSet.get(position).order_start_time.split("-");
             holder.date.setText(date[0]);
