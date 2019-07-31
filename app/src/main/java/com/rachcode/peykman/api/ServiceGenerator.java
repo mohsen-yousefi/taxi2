@@ -25,7 +25,7 @@ import static com.rachcode.peykman.utils.Log.LOG;
 
 public class ServiceGenerator {
 
-    public static String URL_WEB = "http://androidamooz.ir/";
+    public static String URL_WEB = "http://peykman.com/";
     public static String API_BASE_URL = URL_WEB+"utaxi/api.php/";
 
     public static final String Privacy = URL_WEB + "index.php/c_utama/privacy";

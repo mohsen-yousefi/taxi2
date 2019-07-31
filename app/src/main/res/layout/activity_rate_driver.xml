@@ -102,7 +102,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/iransans_bold"
-                        android:text="نوع پیک : سایپا پراید 111"
+                        android:text="نوع وسیله : سایپا پراید 111"
                         android:textColor="#aba9ab"
                         android:textSize="14dp" />
 

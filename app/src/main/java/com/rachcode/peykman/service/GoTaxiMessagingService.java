@@ -63,7 +63,7 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         if (remoteMessage.getData() != null) {
-            Log.e("FCM DATA", remoteMessage.getData().toString());
+             android.util.Log.i("FfCM DATA", remoteMessage.getData().toString());
             parseAndSendMessage(remoteMessage.getData());
             messageHandler(remoteMessage);
         }

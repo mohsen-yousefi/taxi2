@@ -346,6 +346,8 @@ public class InProgressActivity extends AppCompatActivity
 
         driver = (Driver) getIntent().getSerializableExtra("driver");
 
+        android.util.Log.i("innnnnn", "driver: "+driver.getFirstName()+" last : "+driver.getLastName());
+
         request = (DriverRequest) getIntent().getSerializableExtra("request");
         mSend_price.setText(String.valueOf(request.getPrice()));
         android.util.Log.i("driverLog", " drivergetPhoto: " + driver.getPhoto());
@@ -1105,10 +1107,17 @@ private void ShowDoialg(final String is_pay){
                 isCancelable = false;
 //                new Queries(new DBHandler(getApplicationContext())).truncate(DBHandler.TABLE_CHAT);
                 Toast.makeText(getApplicationContext(), "سفر شما تمام شد", Toast.LENGTH_SHORT).show();
+
+
                 Intent intent = new Intent(getApplicationContext(), RateDriverActivity.class);
                 intent.putExtra("id_transaksi", request.getid());
                 intent.putExtra("id_pelanggan", loginUser.getId());
                 intent.putExtra("driver_photo", driver.getPhoto());
+                intent.putExtra("dfirst_name", driver.getFirstName());
+                intent.putExtra("dlast_name", driver.getLastName());
+                intent.putExtra("brand", driver.getBrand());
+                intent.putExtra("type", driver.getType());
+                intent.putExtra("color", driver.getColor());
                 intent.putExtra("id_driver", driver.getId());
                 startActivity(intent);
                 finish();

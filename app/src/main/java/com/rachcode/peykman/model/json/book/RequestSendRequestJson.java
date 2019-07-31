@@ -27,6 +27,10 @@ public class RequestSendRequestJson implements Serializable {
     @Expose
     @SerializedName("discount_id")
     public String discount_id;
+
+    @Expose
+    @SerializedName("customer_picture")
+    public String customer_picture;
     @Expose
     @SerializedName("totalPrice")
     public String totalPrice;

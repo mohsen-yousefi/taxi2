@@ -1095,6 +1095,7 @@ public class SendActivity extends AppCompatActivity implements
         param.end_longitude_second = destinationLatLang2.longitude;
         param.end_latitude_third = destinationLatLang3.latitude;
         param.end_latitude_fourth = destinationLatLang4.latitude;
+        param.customer_picture = userLogin.getProfilepicture();
         param.end_longitude_fourth = destinationLatLang4.longitude;
         param.mablaghTakhfifSabet = mablaghTakhfifSabet;
         param.ads_credit = designedFitur.getDiscount_id();

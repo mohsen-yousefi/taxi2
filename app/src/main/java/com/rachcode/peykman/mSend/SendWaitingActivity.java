@@ -307,6 +307,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             request.setEndLongitude(transaksi.getEndLongitude());
             request.setPrice(param.price);
             request.setDelay(param.delay);
+            request.setCustomer_picture(param.customer_picture);
             request.setFinal_price(param.final_price);
             request.setByme_price(param.byme_price);
             request.setTotalPrice(param.totalPrice);

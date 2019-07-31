@@ -29,6 +29,7 @@ import com.rachcode.peykman.model.json.book.RateDriverRequestJson;
 import com.rachcode.peykman.model.json.book.RateDriverResponseJson;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,12 +40,16 @@ public class RateDriverActivity extends AppCompatActivity {
     float nilai;
     @BindView(R.id.driver_image)
     de.hdodenhof.circleimageview.CircleImageView driverImage;
+    @BindView(R.id.driver_name)
+    TextView driver_name;
+    @BindView(R.id.driver_job)
+    TextView driver_job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_driver);
-
+        ButterKnife.bind(this);
         if (General.ENABLE_RTL_MODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -61,12 +66,25 @@ public class RateDriverActivity extends AppCompatActivity {
         final String idPelanggan = getIntent().getStringExtra("id_pelanggan");
         final String idDriver = getIntent().getStringExtra("id_driver");
         final String driver_photo = getIntent().getStringExtra("driver_photo");
-/*
+
+        final String driver_name = getIntent().getStringExtra("dfirst_name")+" "+getIntent().getStringExtra("dlast_name");
+
+        final String driver_type ;
+
+        String driverType =  "نوع سرویس: " + getIntent().getStringExtra("brand")+ " " +  getIntent().getStringExtra("type")+ " (" + getIntent().getStringExtra("color") + ")";
+
+        this.driver_name.setText(driver_name);
+
+
+
+        this.driver_job.setText(driverType);
+
+        /*
         Log.i(",,,,,", "onCreate: "+driver_photo);
 */
-/*
+
         Glide.with(getApplicationContext()).load(driver_photo).into(driverImage);
-*/
+
 
 
 //        selectionFitur(orderFitur, logoFitur);
@@ -104,7 +122,7 @@ public class RateDriverActivity extends AppCompatActivity {
         });
     }
 
-    private void selectionFitur(String fitur, ImageView logo) {
+   /* private void selectionFitur(String fitur, ImageView logo) {
 
         switch (fitur) {
             case "1":
@@ -117,7 +135,7 @@ public class RateDriverActivity extends AppCompatActivity {
                 break;
         }
     }
-
+*/
     private void ratingUser(RateDriverRequestJson request) {
 
         UserData loginUser = GoTaxiApplication.getInstance(RateDriverActivity.this).getLoginUserD();

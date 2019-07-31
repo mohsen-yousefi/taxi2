@@ -25,6 +25,9 @@ public class DriverRequest implements Serializable {
     @SerializedName("customer_name")
     @Expose
     private String customer_name;
+    @SerializedName("customer_picture")
+    @Expose
+    private String customer_picture;
     @SerializedName("customer_phone")
     @Expose
     private String customer_phone;
@@ -897,5 +900,13 @@ public class DriverRequest implements Serializable {
 
     public void setDelay(int delay) {
         this.delay = delay;
+    }
+
+    public String getCustomer_picture() {
+        return customer_picture;
+    }
+
+    public void setCustomer_picture(String customer_picture) {
+        this.customer_picture = customer_picture;
     }
 }
