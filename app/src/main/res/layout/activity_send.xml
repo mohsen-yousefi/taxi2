@@ -108,9 +108,6 @@
                         android:id="@+id/top_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/spacing_middle"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:layout_marginEnd="@dimen/spacing_middle"
                         android:layout_marginBottom="12dp"
                         app:cardBackgroundColor="@android:color/white"
                         app:cardCornerRadius="3dp"
@@ -576,9 +573,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/top_address"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="12dp"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
                         android:layoutDirection="rtl"
@@ -589,8 +587,6 @@
                             android:layout_width="100dp"
                             android:layout_height="42dp"
                             android:layout_marginLeft="4dp"
-                            android:layout_below="@id/top_address"
-                            android:layout_centerHorizontal="true"
                             android:background="@drawable/oval110"
                             android:gravity="center"
                             android:layoutDirection="rtl"
@@ -615,8 +611,6 @@
                             android:id="@+id/btnTopAddress"
                             android:layout_width="150dp"
                             android:layout_height="42dp"
-                            android:layout_below="@id/top_address"
-                            android:layout_centerHorizontal="true"
                             android:background="@drawable/oval110"
                             android:gravity="center"
                             android:layoutDirection="rtl"
@@ -864,7 +858,7 @@
                                     android:background="@drawable/oval15"
                                     android:fontFamily="@font/iransans_fa_num_medium"
                                     android:hint="پلاک"
-                                    android:inputType="text"
+                                    android:inputType="number"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
                                     android:textColor="#8c8e95"
@@ -885,7 +879,7 @@
                                     android:background="@drawable/oval15"
                                     android:fontFamily="@font/iransans_fa_num_medium"
                                     android:hint="طبقه"
-                                    android:inputType="text"
+                                    android:inputType="number"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
                                     android:textColor="#8c8e95"
@@ -1040,7 +1034,7 @@
                                     android:background="@drawable/oval15"
                                     android:fontFamily="@font/iransans_fa_num_medium"
                                     android:hint="پلاک"
-                                    android:inputType="text"
+                                    android:inputType="number"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
                                     android:textColor="#8c8e95"
@@ -1063,7 +1057,7 @@
                                     android:background="@drawable/oval15"
                                     android:fontFamily="@font/iransans_fa_num_medium"
                                     android:hint="طبقه"
-                                    android:inputType="text"
+                                    android:inputType="number"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"
                                     android:textColor="#8c8e95"
@@ -1704,10 +1698,14 @@
                     app:cardBackgroundColor="#ffffff"
                     app:cardCornerRadius="25dp">
 
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp">
+
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="25dp">
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/txt"
@@ -1904,7 +1902,7 @@
                             app:layout_constraintStart_toStartOf="parent" />
 
                     </android.support.constraint.ConstraintLayout>
-
+                    </ScrollView>
                 </android.support.v7.widget.CardView>
 
             </android.support.v7.widget.CardView>

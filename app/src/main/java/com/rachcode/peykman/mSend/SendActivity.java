@@ -15,6 +15,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,20 +23,25 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,11 +76,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.rachcode.peykman.ActivityAbout;
+import com.rachcode.peykman.ActivityGardeshHesab;
+import com.rachcode.peykman.ActivityProfile;
 import com.rachcode.peykman.Favorites;
 import com.rachcode.peykman.ActivityTest2;
 import com.rachcode.peykman.GoTaxiApplication;
 import com.rachcode.peykman.GozinehaActivity;
 import com.rachcode.peykman.R;
+import com.rachcode.peykman.ServicesPerformedActivity;
 import com.rachcode.peykman.api.MapDirectionAPI;
 import com.rachcode.peykman.api.ServiceGenerator;
 import com.rachcode.peykman.api.service.BookService;
@@ -338,7 +348,7 @@ public class SendActivity extends AppCompatActivity implements
 
     private void setupTabLayoutViewPager() {
         GoTaxiTabProvider tabProvider = new GoTaxiTabProvider(this);
-        final MenuSelector selector = (MenuSelector) tabProvider;
+        selector = (MenuSelector) tabProvider;
         mainTabLayout.setCustomTabView(tabProvider);
 
         /*adapter = new FragmentPagerItemAdapter(
@@ -358,7 +368,7 @@ public class SendActivity extends AppCompatActivity implements
                 .create());
 
 
-        ViewPager viewPager = new ViewPager(getApplicationContext());
+        viewPager = new ViewPager(getApplicationContext());
         viewPager.setAdapter(adapter);
         mainTabLayout.setViewPager(viewPager);
         //mainViewPager.setPagingEnabled(false);
@@ -555,6 +565,66 @@ public class SendActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
         checkLocationPermission();
 
+
+        // view wallet
+        updatetext();
+
+        selectorBtnWallet10Toman();
+
+
+        btnWallet10Toman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectorBtnWallet10Toman();
+            }
+        });
+
+        btnWallet20Toman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectorBtnWallet20Toman();
+            }
+        });
+
+        btnWallet50Toman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectorBtnWallet50Toman();
+            }
+        });
+        button_p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isFirst=true;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://peykman.com/utaxi/api.php/UserInventory/request?price="+edtTextPrice.getText().toString()+"&phone="+userLogin.getPhone()));
+                startActivity(browserIntent);
+            }
+        });
+        // price ++
+        increase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int price = 5000 + Integer.parseInt(edtTextPrice.getText().toString());
+                edtTextPrice.setText(String.valueOf(price));
+            }
+        });
+
+
+
+        // price --
+        reduce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int PriceX = Integer.parseInt(edtTextPrice.getText().toString());
+                if (PriceX != 0 && PriceX > 5000) {
+                    int price = Integer.parseInt(edtTextPrice.getText().toString()) - 5000;
+
+                    edtTextPrice.getText().clear();
+                    edtTextPrice.setText(String.valueOf(price));
+                }
+            }
+        });
+
         btnTopAddressGozineha.setVisibility(View.GONE);
         btnTopAddressGozineha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -714,6 +784,7 @@ public class SendActivity extends AppCompatActivity implements
             public void onClick(View view) {
                 // hide keybord
                 dismissKeyboard();
+                detail.setVisibility(View.VISIBLE);
 
 
                 if (select_box_vije.isSelected()) {
@@ -780,7 +851,7 @@ public class SendActivity extends AppCompatActivity implements
             public void onClick(View view) {
                 // hide keybord
                 dismissKeyboard();
-
+                detail.setVisibility(View.VISIBLE);
 
                 String Phonedes = Ephone_des.getText().toString();
                 String Namedec = Ename_des.getText().toString();
@@ -1000,8 +1071,12 @@ public class SendActivity extends AppCompatActivity implements
                 if (isDriverAvailable) {
                     selectBoxPishKeraye();
                     top_address.setVisibility(View.GONE);
+
+
+                    design_wallet.setVisibility(View.GONE);
                     request_datile.setVisibility(View.VISIBLE);
                     scroll_view_design.setVisibility(View.VISIBLE);
+
 
                     Toast.makeText(SendActivity.this, "price: " + price, Toast.LENGTH_LONG).show();
                     finall_price = price;
@@ -1045,8 +1120,85 @@ public class SendActivity extends AppCompatActivity implements
         });
 
 
-        setupTabLayoutViewPager();
         bottomNav();
+        setupTabLayoutViewPager();
+        setNavigitionView();
+
+    }
+
+    private MenuSelector selector;
+    private ViewPager viewPager;
+    private void setNavigitionView() {
+        NavigationView navigation_view = findViewById(R.id.navigation_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageView back = findViewById(R.id.btn_logo);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                drawer.closeDrawers();
+            }
+        });
+        //setSupportActionBar(toolbar);
+
+
+        /*ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.s1,R.string.s2);
+        drawerToggle.syncState();*/
+        //drwable.setDrawerListener(drawerToggle);
+
+
+        // set button nav
+        ConstraintLayout about = findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.closeDrawers();
+                startActivity(new Intent(getApplication(), ActivityAbout.class));
+                //finish();
+            }
+        });
+
+
+        ConstraintLayout profile = findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.closeDrawers();
+                startActivity(new Intent(getApplication(), ActivityProfile.class));
+            }
+        });
+
+
+        // set button nav
+        ConstraintLayout gardeshHsab = findViewById(R.id.gardesh_hesab);
+        gardeshHsab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.closeDrawers();
+                startActivity(new Intent(getApplication(), ActivityGardeshHesab.class));
+            }
+        });
+
+        ConstraintLayout servicesPerformed = findViewById(R.id.khedemat_anjam_shode);
+        servicesPerformed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.closeDrawers();
+                startActivity(new Intent(getApplication(), ServicesPerformedActivity.class));
+            }
+        });
+
+        LinearLayout wallet_increase = findViewById(R.id.wallet_increase);
+        wallet_increase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                design_wallet.setVisibility(View.VISIBLE);
+                selector.selectMenu(0);
+                viewPager.setCurrentItem(0);
+                drawer.closeDrawers();
+
+            }
+        });
     }
 
 
@@ -1435,6 +1587,8 @@ public class SendActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
+        updatetext();
+
    if (getStopTime != null){
        StopTimeId=Integer.parseInt(getStopTime.getTimeId());
         price +=  Integer.parseInt(getStopTime.getTimeCost());
@@ -1799,6 +1953,7 @@ public class SendActivity extends AppCompatActivity implements
                 Log.e("www", "createMarker: " + e.getMessage());
             }
         } else {
+
             isDriverAvailable = false;
             Toast.makeText(this, "راننده ای یافت نشد !", Toast.LENGTH_SHORT).show();
         }
@@ -1829,6 +1984,7 @@ public class SendActivity extends AppCompatActivity implements
 
 
     private void onPickUpClick() {
+        if (isDriverAvailable) detail.setVisibility(View.GONE);
         if (pickUpMarker != null) pickUpMarker.remove();
         if (directionLine != null)
             destinationLatLang = null;
@@ -1847,6 +2003,7 @@ public class SendActivity extends AppCompatActivity implements
     }
 
     private void picup(LatLng postion, int designd) {
+
         if (!driverAvailable.isEmpty()) {
             top_address.setVisibility(View.GONE);
             btnTopAddress.setVisibility(View.GONE);
@@ -1916,6 +2073,7 @@ public class SendActivity extends AppCompatActivity implements
         btnTopAddress.setVisibility(View.GONE);
         switch (DestinationNumber) {
             case 0:
+                detail.setVisibility(View.GONE);
                 if (destinationMarker != null) destinationMarker.remove();
                 destinationMarker = mMap.addMarker(new MarkerOptions()
                         .position(centerPos)
@@ -1928,6 +2086,7 @@ public class SendActivity extends AppCompatActivity implements
                 fillAddress(2, destinationLatLang);
                 break;
             case 1:
+                detail.setVisibility(View.GONE);
                 if (destinationMarker2 != null) destinationMarker2.remove();
                 destinationMarker2 = mMap.addMarker(new MarkerOptions()
                         .position(centerPos)
@@ -1937,6 +2096,7 @@ public class SendActivity extends AppCompatActivity implements
                 fillAddress(3, destinationLatLang2);
                 break;
             case 2:
+                detail.setVisibility(View.GONE);
                 if (destinationMarker3 != null) destinationMarker3.remove();
                 destinationMarker3 = mMap.addMarker(new MarkerOptions()
                         .position(centerPos)
@@ -1947,6 +2107,7 @@ public class SendActivity extends AppCompatActivity implements
 
                 break;
             case 3:
+                detail.setVisibility(View.GONE);
                 if (destinationMarker4 != null) destinationMarker4.remove();
                 destinationMarker4 = mMap.addMarker(new MarkerOptions()
                         .position(centerPos)
@@ -2467,5 +2628,84 @@ public class SendActivity extends AppCompatActivity implements
     /**
      * box method byme
      **/
+
+
+
+
+    ///////////////////////////////////////////
+    // editText price
+    @BindView(R.id.editText3)
+    EditText edtTextPrice;
+
+    // button price custom
+    @BindView(R.id.btnWallet10)
+    TextView btnWallet10Toman;
+    // button price custom
+    @BindView(R.id.txtBalance)
+    TextView txtBalance;
+    @BindView(R.id.btnWallet20)
+    TextView btnWallet20Toman;
+    @BindView(R.id.btnWallet50)
+    TextView btnWallet50Toman;
+
+
+    @BindView(R.id.button5)
+    Button button_p;
+    @BindView(R.id.imageView18)
+    ImageView increase;
+    // btn price --
+    @BindView(R.id.imageView10)
+    ImageView reduce;
+    private Boolean isFirst = false;
+
+
+    private void updatetext(){
+        userLogin = GoTaxiApplication.getInstance(getApplication()).getLoginUserD();
+        txtBalance.setText(formatMony(userLogin.getBalance()));
+    }
+
+
+    private void selectorBtnWallet10Toman(){
+        btnWallet10Toman.setSelected(true);
+        btnWallet20Toman.setSelected(false);
+        btnWallet50Toman.setSelected(false);
+
+        edtTextPrice.getText().clear();
+        edtTextPrice.setText("10000");
+    }
+
+    private void selectorBtnWallet20Toman(){
+        btnWallet10Toman.setSelected(false);
+        btnWallet20Toman.setSelected(true);
+        btnWallet50Toman.setSelected(false);
+
+        edtTextPrice.getText().clear();
+        edtTextPrice.setText("20000");
+    }
+
+    private void selectorBtnWallet50Toman(){
+        btnWallet10Toman.setSelected(false);
+        btnWallet20Toman.setSelected(false);
+        btnWallet50Toman.setSelected(true);
+
+        edtTextPrice.getText().clear();
+        edtTextPrice.setText("50000");
+    }
+
+
+    public String formatMony(String price) {
+        String formattedText = price + " " + General.MONEY;
+
+        return formattedText;
+    }
+    public static void saveUser(Context context, UserData user) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.delete(UserData.class);
+        realm.copyToRealm(user);
+        realm.commitTransaction();
+
+        GoTaxiApplication.getInstance(context).setLoginUserD(user);
+    }
 
 }

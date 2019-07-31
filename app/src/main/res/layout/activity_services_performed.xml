@@ -362,7 +362,7 @@
             android:layout_marginBottom="56dp"
             android:background="@color/colorAccent"
             android:layoutDirection="ltr"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -861,6 +861,7 @@
                 android:id="@+id/khedemat_anjam_shode"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

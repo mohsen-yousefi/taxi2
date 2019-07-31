@@ -115,6 +115,14 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
         drwable = findViewById(R.id.drwable);
         NavigationView navigation_view = findViewById(R.id.navigation_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageView back = findViewById(R.id.btn_logo);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                drwable.closeDrawers();
+            }
+        });
         //setSupportActionBar(toolbar);
 
 
@@ -128,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drwable.closeDrawers();
                 startActivity(new Intent(MainActivity.this, ActivityAbout.class));
                 //finish();
             }
@@ -138,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drwable.closeDrawers();
                 startActivity(new Intent(MainActivity.this, ActivityProfile.class));
              }
         });
@@ -148,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
         gardeshHsab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drwable.closeDrawers();
                 startActivity(new Intent(MainActivity.this, ActivityGardeshHesab.class));
             }
         });
@@ -156,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements SnackbarControlle
         servicesPerformed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drwable.closeDrawers();
                 startActivity(new Intent(MainActivity.this, ServicesPerformedActivity.class));
             }
         });
