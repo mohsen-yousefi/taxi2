@@ -350,14 +350,7 @@ public class VerificationActivity extends AppCompatActivity implements OnClickLi
                     if (response.body().getData().get(0).getProfilepicture() == null){
                     }else{
 
-
-
-
                         Picasso.with(VerificationActivity.this).load(user.getProfilepicture()).into(target);
-
-
-
-
                     }
 
                     Utils.saveUser(VerificationActivity.this,user);
@@ -368,7 +361,6 @@ public class VerificationActivity extends AppCompatActivity implements OnClickLi
 
                 } else if (responseUser.getStatus().equals("active_codes_dont_match")) {
                     Toast.makeText(getApplicationContext(), "کد اشتباه است.", Toast.LENGTH_SHORT).show();
-
                 } else if (responseUser.getStatus().equals("BANNED")) {
                     Toast.makeText(getApplicationContext(), "مشکلی برای اکانت شما پیش آمده لطفا با پشتیبانی تماس حاصل فرمائید.", Toast.LENGTH_SHORT).show();
 
