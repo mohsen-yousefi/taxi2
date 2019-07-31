@@ -54,7 +54,7 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
     @Override
     public void onCreate() {
         super.onCreate();
-        intent = new Intent(BROADCAST_ACTION);
+         intent = new Intent(BROADCAST_ACTION);
         intentOrder = new Intent(BROADCAST_ORDER);
     }
 
@@ -62,8 +62,11 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        android.util.Log.i("xvwq1", "onMessageReceived birinn: ");
         if (remoteMessage.getData() != null) {
-             android.util.Log.i("FfCM DATA", remoteMessage.getData().toString());
+            android.util.Log.i("xvwq1", "onMessageReceived dakhel: ");
+
+            android.util.Log.i("FfCM DATA", remoteMessage.getData().toString());
             parseAndSendMessage(remoteMessage.getData());
             messageHandler(remoteMessage);
         }
@@ -71,6 +74,9 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
 
     private void parseAndSendMessage(Map<String, String> mapResponse) {
         int code = Integer.parseInt(mapResponse.get("type"));
+        android.util.Log.i("xvwq1", "parseAndSendMessage code: "+code);
+
+
 //        int FEATURE = Integer.parseInt(mapResponse.get("order_fitur"));
         Log.e("PUBLISH", mapResponse.toString());
         switch (code) {
@@ -116,8 +122,11 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
 
 
     private void messageHandler(RemoteMessage remoteMessage) {
-//        Log.e("FCM DATA", remoteMessage.getData().toString());
         int code = Integer.parseInt(remoteMessage.getData().get("type"));
+
+        android.util.Log.i("xvwq1", "messageHandler code: "+code);
+
+//        Log.e("FCM DATA", remoteMessage.getData().toString());
         switch (code) {
             case ORDER:
                 orderHandler(remoteMessage);
@@ -131,8 +140,9 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
     }
 
     private void orderHandler(RemoteMessage remoteMessage) {
-
         int code = Integer.parseInt(remoteMessage.getData().get("response"));
+
+        android.util.Log.i("xvwq1", "orderHandler code: "+code);
         Bundle data = new Bundle();
         data.putInt("code", code);
         intentToOrder(data);
@@ -161,6 +171,7 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
                     }
                 });
 
+/*
                 Intent intent = new Intent(getApplicationContext(), RateDriverActivity.class);
                 intent.putExtra("id_transaksi", remoteMessage.getData().get("id_transaksi"));
                 intent.putExtra("id_pelanggan", remoteMessage.getData().get("id_pelanggan"));
@@ -168,6 +179,7 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
                 intent.putExtra("id_driver", remoteMessage.getData().get("id_driver"));
                 intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+*/
 
 
                 break;
@@ -216,6 +228,8 @@ public class GoTaxiMessagingService extends FirebaseMessagingService {
     }
 
     private void intentToOrder(Bundle bundle) {
+        android.util.Log.i("xvwq1", "intentToOrder bundle: "+bundle);
+
         intentOrder.putExtras(bundle);
         sendBroadcast(intentOrder);
     }
