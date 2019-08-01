@@ -20,8 +20,8 @@ public class DriverResponse implements Serializable {
     @SerializedName("id")
     private String id;
     @Expose
-    @SerializedName("id_transaksi")
-    private String idTransaksi;
+    @SerializedName("transaction_id")
+    private String transaction_id;
     @Expose
     @SerializedName("response")
     private String response;
@@ -35,11 +35,11 @@ public class DriverResponse implements Serializable {
     }
 
     public String getIdTransaksi() {
-        return idTransaksi;
+        return transaction_id;
     }
 
-    public void setIdTransaksi(String idTransaksi) {
-        this.idTransaksi = idTransaksi;
+    public void setIdTransaksi(String transaction_id) {
+        this.transaction_id = transaction_id;
     }
 
     public String getResponse() {

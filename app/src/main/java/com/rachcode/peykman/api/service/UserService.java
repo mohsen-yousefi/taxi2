@@ -22,6 +22,7 @@ import com.rachcode.peykman.model.json.user.GetBannerResponseJson;
 import com.rachcode.peykman.model.json.user.GetFiturResponseJson;
 import com.rachcode.peykman.model.json.user.GetSaldoRequestJson;
 import com.rachcode.peykman.model.json.user.GetSaldoResponseJson;
+import com.rachcode.peykman.model.json.user.InprogressTransaction;
 import com.rachcode.peykman.model.json.user.LoginRequestJson;
 import com.rachcode.peykman.model.json.user.LoginResponseJson;
 import com.rachcode.peykman.model.json.user.PulsaRequestJson;
@@ -64,6 +65,10 @@ public interface UserService {
 
     @POST("customer/login")
     Call<LoginResponseJson> login(@Body LoginRequestJson param);
+
+    @FormUrlEncoded
+    @POST("customer/inprogress_transaction")
+    Call<InprogressTransaction> driver_request(@Field("id") String id);
 
     @FormUrlEncoded
     @POST("customer/register_user")

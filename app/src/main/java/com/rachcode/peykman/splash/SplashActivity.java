@@ -43,8 +43,11 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.rachcode.peykman.mRideCar.InProgressActivity;
 import com.rachcode.peykman.mSend.SendActivity;
 import com.rachcode.peykman.model.UserData;
+import com.rachcode.peykman.model.json.fcm.DriverRequest;
+import com.rachcode.peykman.model.json.user.InprogressTransaction;
 import com.rachcode.peykman.model.json.user.LoginRequestJson;
 import com.rachcode.peykman.model.json.user.LoginResponseJson;
 import com.rachcode.peykman.signUp.VerificationActivity;
@@ -277,17 +280,40 @@ public void ChekUserStatus() {
      request.setRegId(null);
 
 
-    UserService service = ServiceGenerator.createService(UserService.class);
+    final UserService service = ServiceGenerator.createService(UserService.class);
     service.login(request).enqueue(new Callback<LoginResponseJson>() {
         @Override
         public void onResponse(Call<LoginResponseJson> call, Response<LoginResponseJson> response) {
             if (response.isSuccessful()) {
                 if (response.body().getMessage().equalsIgnoreCase("found")) {
 
+                    service.driver_request(response.body().getData().get(0).getId()).enqueue(new Callback<InprogressTransaction>() {
+                        @Override
+                        public void onResponse(Call<InprogressTransaction> call, Response<InprogressTransaction> response) {
 
-                    Intent   intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                            android.util.Log.i("ddddddddddddsq", "onResponse: "+response.body().toString());
+                            if (response.isSuccessful()){
+                                InprogressTransaction inprogressTransaction = response.body();
+                                if (inprogressTransaction.getstatus().equals("fail")){
+                                    Intent   intent = new Intent(SplashActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else if (inprogressTransaction.getstatus().equals("success")){
+                                    Intent intent = new Intent(SplashActivity.this, InProgressActivity.class);
+                                    intent.putExtra("driver", inprogressTransaction.getdriver());
+                                    intent.putExtra("request", inprogressTransaction.getData());
+                                     startActivity(intent);
+                                }
+                              }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<InprogressTransaction> call, Throwable t) {
+                            android.util.Log.i("ddddddddddddsq", "onFailure: "+t.getMessage());
+                        }
+                    });
+
                 } else {
                     Toast.makeText(SplashActivity.this,"مشکلی  پیش آمده با پشتیبانی در ارتباط باشید !", Toast.LENGTH_SHORT).show();
 

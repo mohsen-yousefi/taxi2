@@ -13,18 +13,21 @@ import java.util.Date;
 
 public class DriverRequest implements Serializable {
 
-    @SerializedName("id")
+    @SerializedName("transaction_id")
     @Expose
-    private String id;
+    private String transaction_id;
     @SerializedName("reg_id")
     @Expose
     private String regId;
-    @SerializedName("mablaghTakhfifSabet")
+    @SerializedName("discount_amount")
     @Expose
-    private int mablaghTakhfifSabet;
+    private int discount_amount;
     @SerializedName("customer_name")
     @Expose
     private String customer_name;
+    @SerializedName("customer_last_name")
+    @Expose
+    private String customer_last_name;
     @SerializedName("customer_picture")
     @Expose
     private String customer_picture;
@@ -39,14 +42,14 @@ public class DriverRequest implements Serializable {
     @Expose
     private int delay;
 
-    @SerializedName("getStopTime")
+   /* @SerializedName("getStopTime")
     @Expose
-    private GetStopTime getStopTime;
+    private GetStopTime getStopTime;*/
 
 
-    @SerializedName("byme_price")
+    @SerializedName("insurance_price")
     @Expose
-    private int byme_price;
+    private int insurance_price;
     @SerializedName("user_inventory")
     @Expose
     private int user_inventory;
@@ -56,11 +59,6 @@ public class DriverRequest implements Serializable {
     @SerializedName("price_takhfifed")
     @Expose
     private int price_takhfifed;
-
-
-
-
-
     @Expose
     @SerializedName("receiver_plaque_second")
     private String receiver_plaque_second;
@@ -292,7 +290,7 @@ public class DriverRequest implements Serializable {
     }
 
     public String getid() {
-        return id;
+        return transaction_id;
     }
 
     public String getRegId() {
@@ -371,7 +369,7 @@ public class DriverRequest implements Serializable {
 
 
     public void setid(String id) {
-        this.id = id;
+        this.transaction_id = id;
     }
     public String getTime_accept() {
         return time_accept;
@@ -636,12 +634,12 @@ public class DriverRequest implements Serializable {
         this.product_description = product_description;
     }
 
-    public int getByme_price() {
-        return byme_price;
+    public int getinsurance_price() {
+        return insurance_price;
     }
 
-    public void setByme_price(int byme_price) {
-        this.byme_price = byme_price;
+    public void setinsurance_price(int insurance_price) {
+        this.insurance_price = insurance_price;
     }
 
     public int getPrice_takhfifed() {
@@ -870,12 +868,12 @@ public class DriverRequest implements Serializable {
         this.final_price = final_price;
     }
 
-    public int getMablaghTakhfifSabet() {
-        return mablaghTakhfifSabet;
+    public int getdiscount_amount() {
+        return discount_amount;
     }
 
-    public void setMablaghTakhfifSabet(int mablaghTakhfifSabet) {
-        this.mablaghTakhfifSabet = mablaghTakhfifSabet;
+    public void setdiscount_amount(int discount_amount) {
+        this.discount_amount = discount_amount;
     }
 
     public int getGo_back() {
@@ -886,13 +884,13 @@ public class DriverRequest implements Serializable {
         this.go_back = go_back;
     }
 
-    public GetStopTime getGetStopTime() {
+/*    public GetStopTime getGetStopTime() {
         return getStopTime;
     }
 
     public void setGetStopTime(GetStopTime getStopTime) {
         this.getStopTime = getStopTime;
-    }
+    }*/
 
     public int getDelay() {
         return delay;
@@ -908,5 +906,13 @@ public class DriverRequest implements Serializable {
 
     public void setCustomer_picture(String customer_picture) {
         this.customer_picture = customer_picture;
+    }
+
+    public String getCustomer_last_name() {
+        return customer_last_name;
+    }
+
+    public void setCustomer_last_name(String customer_last_name) {
+        this.customer_last_name = customer_last_name;
     }
 }

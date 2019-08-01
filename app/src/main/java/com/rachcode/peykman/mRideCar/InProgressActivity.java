@@ -47,6 +47,7 @@ import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -308,7 +309,6 @@ public class InProgressActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 ShowDoialg("2");
-                    selectBoxNaghdi();
 
              }
         });
@@ -320,7 +320,6 @@ public class InProgressActivity extends AppCompatActivity
             public void onClick(View view) {
 
         ShowDoialg("3");
-                    selectBoxKartkhon();
 
             }
         });
@@ -349,7 +348,8 @@ public class InProgressActivity extends AppCompatActivity
         android.util.Log.i("innnnnn", "driver: "+driver.getFirstName()+" last : "+driver.getLastName());
 
         request = (DriverRequest) getIntent().getSerializableExtra("request");
-        mSend_price.setText(String.valueOf(request.getPrice()));
+        mSend_price.setText(String.valueOf(request.getTotalPrice()));
+        mSend_price.setText(String.valueOf(request.getFinal_price()));
         android.util.Log.i("driverLog", " drivergetPhoto: " + driver.getPhoto());
 
         Log.e("DATA DRIVER", driver.getFirstName() + " " + driver.getLastName());
@@ -358,8 +358,7 @@ public class InProgressActivity extends AppCompatActivity
 
         pickUpText.setText(request.getOriginAddress());
         destinationText.setText(request.getDestinationAddress());
-        String format = String.format(Locale.US, "Distance %.2f " + General.UNIT_OF_DISTANCE, request.getDistance());
-        distanceText.setText(format);
+
 
 
 
@@ -370,12 +369,12 @@ public class InProgressActivity extends AppCompatActivity
         orderNumber.setText("Order no. " + request.getid());
 
 
-        price_pardakht.setText(formatMony(request.getPrice()));
+        price_pardakht.setText(formatMony(String.valueOf(request.getFinal_price())));
 
-        byme.setText(formatMony(String.valueOf(request.getByme_price())));
-        codee_takhfif.setText(formatMony(String.valueOf(request.getPrice_takhfifed())));
+        byme.setText(formatMony(String.valueOf(request.getinsurance_price())));
+        codee_takhfif.setText(formatMony(String.valueOf(request.getdiscount_amount())));
         totalprice.setText(formatMony(request.getTotalPrice()));
-        my_price.setText(formatMony(String.valueOf(request.getUser_inventory())));
+        my_price.setText(formatMony(String.valueOf(loginUser.getBalance())));
 
         Toast.makeText(context, "00000000000", Toast.LENGTH_SHORT).show();
 
@@ -490,7 +489,6 @@ public class InProgressActivity extends AppCompatActivity
                 } else {
                   ShowDoialg("1");
 
-                        selectBoxOnline();
 
 
 
@@ -588,7 +586,7 @@ public class InProgressActivity extends AppCompatActivity
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Can not be undone, trip has started!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "شما نمیتوانید سفر شروع شده را لغو کنید!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -903,7 +901,9 @@ private void ShowDoialg(final String is_pay){
         gMap = googleMap;
 
         isMapReady = true;
-
+        googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                        this, R.raw.style_map));
         updateLastLocation(true);
         requestRoute();
 
@@ -966,12 +966,12 @@ private void ShowDoialg(final String is_pay){
             case 0:
                 gMap.addMarker(createMark(0, latLngPikup));
                 gMap.addMarker(createMark(1, dis1));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 16f));
                 break;
             case 1:
                 gMap.addMarker(createMark(0, latLngPikup));
                 gMap.addMarker(createMark(1, dis1));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 16f));
 
 
 
@@ -980,7 +980,7 @@ private void ShowDoialg(final String is_pay){
                 gMap.addMarker(createMark(0, latLngPikup));
                 gMap.addMarker(createMark(1, dis1));
                 gMap.addMarker(createMark(2, dis2));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 16f));
 
 
                 break;
@@ -989,7 +989,7 @@ private void ShowDoialg(final String is_pay){
                 gMap.addMarker(createMark(2, dis1));
                 gMap.addMarker(createMark(2, dis2));
                 gMap.addMarker(createMark(3, dis3));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 16f));
 
 
                 break;
@@ -999,7 +999,7 @@ private void ShowDoialg(final String is_pay){
                 gMap.addMarker(createMark(3, dis2));
                 gMap.addMarker(createMark(3, dis3));
                 gMap.addMarker(createMark(4, dis4));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 14f));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngPikup, 16f));
 
                 break;
         }
@@ -1018,10 +1018,10 @@ private void ShowDoialg(final String is_pay){
         if (pickUpLatLng != null) {
             if (move) {
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                        pickUpLatLng, 15f)
+                        pickUpLatLng, 16f)
                 );
 
-                gMap.animateCamera(CameraUpdateFactory.zoomTo(15f));
+                gMap.animateCamera(CameraUpdateFactory.zoomTo(16f));
             }
 //            fetchNearDriver();
         }
@@ -1194,7 +1194,7 @@ private void ShowDoialg(final String is_pay){
         switch (positionMarker) {
             case 0:
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icm_pik));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
                 break;
 
             case 1:

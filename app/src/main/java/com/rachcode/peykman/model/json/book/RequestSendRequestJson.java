@@ -19,8 +19,8 @@ public class RequestSendRequestJson implements Serializable {
     @SerializedName("ads_code")
     public int ads_code;
     @Expose
-    @SerializedName("mablaghTakhfifSabet")
-    public int mablaghTakhfifSabet;
+    @SerializedName("discount_amount")
+    public int discount_amount;
     @Expose
     @SerializedName("ads_credit")
     public String ads_credit;
@@ -49,8 +49,8 @@ public class RequestSendRequestJson implements Serializable {
     @SerializedName("delay")
     public int delay;
     @Expose
-    @SerializedName("byme_price")
-    public int byme_price;
+    @SerializedName("insurance_price")
+    public int insurance_price;
     @Expose
     @SerializedName("go_back")
     public int go_back;

@@ -15,8 +15,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*import com.github.ornolfr.ratingview.RatingView;*/
+import com.github.ornolfr.ratingview.RatingView;
 import com.bumptech.glide.Glide;
+import com.github.ornolfr.ratingview.RatingView;
 import com.rachcode.peykman.GoTaxiApplication;
 import com.rachcode.peykman.R;
 import com.rachcode.peykman.api.ServiceGenerator;
@@ -59,7 +60,7 @@ public class RateDriverActivity extends AppCompatActivity {
 
         activity = RateDriverActivity.this;
         TextView butSubmit = (TextView) findViewById(R.id.butSubmit);
-        //final RatingView ratingBar = (RatingView) findViewById(R.id.ratingBar);
+        final RatingView ratingBar = (RatingView) findViewById(R.id.ratingBar);
         final EditText addComment = (EditText) findViewById(R.id.addComment);
 
         final String idTransaksi = getIntent().getStringExtra("id_transaksi");
@@ -87,13 +88,12 @@ public class RateDriverActivity extends AppCompatActivity {
 
 
 
-//        selectionFitur(orderFitur, logoFitur);
-        /*ratingBar.setOnRatingChangedListener(new RatingView.OnRatingChangedListener() {
+          ratingBar.setOnRatingChangedListener(new RatingView.OnRatingChangedListener() {
             @Override
             public void onRatingChange(float oldRating, float newRating) {
                 nilai = newRating;
             }
-        });*/
+        });
 
 //        final JSONObject jRate = new JSONObject();
 //        try {
@@ -122,20 +122,7 @@ public class RateDriverActivity extends AppCompatActivity {
         });
     }
 
-   /* private void selectionFitur(String fitur, ImageView logo) {
 
-        switch (fitur) {
-            case "1":
-                logo.setImageResource(R.drawable.ic_mride);
-                break;
-            case "2":
-                logo.setImageResource(R.drawable.ic_mcar);
-                break;
-            default:
-                break;
-        }
-    }
-*/
     private void ratingUser(RateDriverRequestJson request) {
 
         UserData loginUser = GoTaxiApplication.getInstance(RateDriverActivity.this).getLoginUserD();

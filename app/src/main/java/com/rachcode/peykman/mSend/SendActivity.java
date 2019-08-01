@@ -150,7 +150,7 @@ public class SendActivity extends AppCompatActivity implements
     LinearLayout setDestinationContainer;
     @BindView(R.id.mSend_pickUpButton)
     ImageView setPickUpButton;
-    int mablaghTakhfifSabet;
+    int discount_amount;
     @BindView(R.id.btn_step_next)
     ConstraintLayout btn_step_next;
     String pickUpText;
@@ -166,7 +166,7 @@ public class SendActivity extends AppCompatActivity implements
     ConstraintLayout request_datile;
     @BindView(R.id.c1)
     ConstraintLayout c1;
-    int byme_price;
+    int insurance_price;
     @BindView(R.id.top_address)
     CardView top_address;
     @BindView(R.id.mSend_destinationButton)
@@ -647,7 +647,7 @@ public class SendActivity extends AppCompatActivity implements
                 BookService service = ServiceGenerator.createService(BookService.class);
                 OffecrcodeequestJson param = new OffecrcodeequestJson();
                 param.setOrder_feature(designedFitur.getIdFeature());
-                finall_price -= byme_price ;
+                finall_price -= insurance_price ;
                 param.setPrice(finall_price);
                 param.setCoupon_serial(offerText.getText().toString());
                 service.getOfferCode(param).enqueue(new Callback<offerCodeResponseJson>() {
@@ -662,11 +662,11 @@ public class SendActivity extends AppCompatActivity implements
 
                                 ads_code = Integer.parseInt(responseJson.getData().getAds_credit());
                                 finall_price -= Integer.parseInt(responseJson.getData().getfinal_price());
-                                finall_price += byme_price;
+                                finall_price += insurance_price;
 
                                 price_pardakht.setText(formatMony(finall_price));
-                                mablaghTakhfifSabet += Integer.parseInt(responseJson.getData().getfinal_price());
-                                codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
+                                discount_amount += Integer.parseInt(responseJson.getData().getfinal_price());
+                                codee_takhfif.setText(formatMony(discount_amount));
 
                                 Toast.makeText(SendActivity.this, "تخفیف با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
                             }
@@ -1092,26 +1092,26 @@ public class SendActivity extends AppCompatActivity implements
 
 
                     Float calculate_offer = (int) price * (1 - (darsadTakhfifSabet / 100.0f));
-                    mablaghTakhfifSabet = Math.round(calculate_offer);
-                    android.util.Log.i("mohasebe", "mablaghTakhfifSabet: " + mablaghTakhfifSabet);
-                    mablaghTakhfifSabet = Math.round(mablaghTakhfifSabet);
+                    discount_amount = Math.round(calculate_offer);
+                    android.util.Log.i("mohasebe", "discount_amount: " + discount_amount);
+                    discount_amount = Math.round(discount_amount);
                     if (UserInventory < finall_price) {
                         Toast.makeText(SendActivity.this, "موجودی شما برای پرداخت آنلاین کافی نیست !", Toast.LENGTH_SHORT).show();
                         selectBoxNaghdi();
                     } else {
                         selectBoxOnline();
                     }
-                    byme_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
+                    insurance_price = (int) mboxInsurances_clicked.get(Insurances_id_clicked).premium;
 
-                    finall_price = (int) (price - mablaghTakhfifSabet);
-                    finall_price += byme_price;
+                    finall_price = (int) (price - discount_amount);
+                    finall_price += insurance_price;
                     totalprice.setText(formatMony(price));
 
-                    codee_takhfif.setText(formatMony(mablaghTakhfifSabet));
+                    codee_takhfif.setText(formatMony(discount_amount));
 
                     price_pardakht.setText(formatMony(finall_price));
 
-                    byme.setText(formatMony(byme_price));
+                    byme.setText(formatMony(insurance_price));
                 } else {
                     Toast.makeText(SendActivity.this, "سرویس خود را تغییر دهید", Toast.LENGTH_SHORT).show();
                 }
@@ -1249,7 +1249,7 @@ public class SendActivity extends AppCompatActivity implements
         param.end_latitude_fourth = destinationLatLang4.latitude;
         param.customer_picture = userLogin.getProfilepicture();
         param.end_longitude_fourth = destinationLatLang4.longitude;
-        param.mablaghTakhfifSabet = mablaghTakhfifSabet;
+        param.discount_amount = discount_amount;
         param.ads_credit = designedFitur.getDiscount_id();
 
         param.go_back = go_back;
@@ -1263,7 +1263,7 @@ public class SendActivity extends AppCompatActivity implements
         param.price_takhfifed = price_takhfifed;
 */
          param.price = String.valueOf(price);
-        param.byme_price = byme_price;
+        param.insurance_price = insurance_price;
         param.totalPrice = String.valueOf(price);
         param.origin_address = pickUpText;
         param.destination_address = destinationText;
@@ -2033,7 +2033,7 @@ public class SendActivity extends AppCompatActivity implements
             case 1:
                 if (pickUpLatLang != null && destinationLatLang != null) {
                     MapDirectionAPI.getDirection(pickUpLatLang, destinationLatLang).enqueue(updateRouteCallback);
-                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang, 13);
+                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang, 15);
                     mMap.animateCamera(camera);
                 }
                 break;
@@ -2041,7 +2041,7 @@ public class SendActivity extends AppCompatActivity implements
                 if (destinationLatLang != null && destinationLatLang2 != null) {
 
                     MapDirectionAPI.getDirection(destinationLatLang, destinationLatLang2).enqueue(updateRouteCallback);
-                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang2, 13);
+                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang2, 15);
                     mMap.animateCamera(camera);
                 }
                 break;
@@ -2051,7 +2051,7 @@ public class SendActivity extends AppCompatActivity implements
                     android.util.Log.i("qwax", "cas3");
 
                     MapDirectionAPI.getDirection(destinationLatLang2, destinationLatLang3).enqueue(updateRouteCallback);
-                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang3, 13);
+                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang3, 15);
                     mMap.animateCamera(camera);
                 }
                 break;
@@ -2060,7 +2060,7 @@ public class SendActivity extends AppCompatActivity implements
                     android.util.Log.i("qwax", "cas4");
 
                     MapDirectionAPI.getDirection(destinationLatLang3, destinationLatLang4).enqueue(updateRouteCallback);
-                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang4, 13);
+                    CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(destinationLatLang4, 15);
                     mMap.animateCamera(camera);
                 }
         }
