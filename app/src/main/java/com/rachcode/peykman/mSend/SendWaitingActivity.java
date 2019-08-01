@@ -136,7 +136,7 @@ public class SendWaitingActivity extends AppCompatActivity {
                         public void run() {
                             for (int i = 0; i < driverList.size(); i++) {
                                 if (threadRun) {
-
+                                    android.util.Log.i("xcerdqszcg", "thread loop i: "+i);
                                     fcmBroadcast(currentLoop);
 
                                 }

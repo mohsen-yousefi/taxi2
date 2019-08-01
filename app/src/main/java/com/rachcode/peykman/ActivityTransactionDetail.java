@@ -1,5 +1,6 @@
 package com.rachcode.peykman;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,30 @@ public class ActivityTransactionDetail extends AppCompatActivity {
     TextView originAddres;
     @BindView(R.id.textView57)
     TextView destriginAddres;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.textView65)
+    TextView request_time;
+    @BindView(R.id.textView404)
+    TextView price;
+    @BindView(R.id.textView505)
+    TextView discount;
+    @BindView(R.id.textView606)
+    TextView finprice;
+
+    @BindView(R.id.driver_police_numberA)
+    TextView driver_police_numberA;
+    @BindView(R.id.driver_police_numberB)
+    TextView driver_police_numberB;
+    @BindView(R.id.driver_police_numberC)
+    TextView driver_police_numberC;
+    @BindView(R.id.driver_police_numberr)
+    TextView driverPoliceNumberr;
+    @BindView(R.id.plauqeMashin)
+    ConstraintLayout plauqeMashin;
+    @BindView(R.id.plauqeMotor)
+    ConstraintLayout plauqeMotor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,25 +69,71 @@ public class ActivityTransactionDetail extends AppCompatActivity {
         originAddres.setText(itemHistory.origin_address);
         originAddres.setText(itemHistory.origin_address);
         destriginAddres.setText(itemHistory.destination_address);
-        switch (itemHistory.order_feature) {
+        String[] date = itemHistory.order_start_time.split("-");
+        title.setText(date[0]+" "+date[1]);
+        request_time.setText(date[0]+" "+date[1]);
+        price.setText(String.valueOf(itemHistory.price));
+        finprice.setText(String.valueOf(itemHistory.final_price));
+        discount.setText(String.valueOf(itemHistory.discount_amount));
+         switch (itemHistory.order_feature) {
             case "Send-Motor":
                 // set peyk motori
+                plauqeMotor.setVisibility(View.VISIBLE);
+
                  String[] p = itemHistory.number_of_vehicle.split("-");
                 driverPoliceNumber1.setText(p[0].replace("", " "));
                 driverPoliceNumber2.setText(p[1].replace("", " "));
 
+
+
                 break;
 
-            case "scar":
-                // set peyk mashini
+             case "Send-Car":
+                 // set peyk mashini
+                 plauqeMashin.setVisibility(View.VISIBLE);
+                 android.util.Log.i("www", "NumberOfVehicle: "+itemHistory.number_of_vehicle);
+                  String[] numberOfVehicle = itemHistory.number_of_vehicle.replace(""," ").split("-");
+                 android.util.Log.i("www", "NumberOfVehicle array: 0:"+numberOfVehicle[0]+"1:"+numberOfVehicle[1]+"2:"+numberOfVehicle[2]+"3:"+numberOfVehicle[3]);
+
+
+                 String a0 = numberOfVehicle[0];
+                 String a1 = numberOfVehicle[1];
+                 String a2 = numberOfVehicle[2];
+                 String a3 = numberOfVehicle[3];
+                 driver_police_numberA.setText(a0);
+                 driver_police_numberB.setText(a1);
+                 driver_police_numberC.setText(a2);
+                 driverPoliceNumberr.setText(a3);
+
+
+
                 /*plauqeMashin.setVisibility(View.VISIBLE);
                 String[] numberOfVehicle = driver.getNumberOfVehicle().split("-");
                 driverPoliceNumber.setText(numberOfVehicle[0].replace(""," "));
                 driverPoliceNumberr.setText(numberOfVehicle[1].replace(""," "));
 */
-                //plauqeMashin.setVisibility(View.VISIBLE);
-                //driverPoliceNumber.setText(driver.getNumberOfVehicle());
-                break;
+                 //plauqeMashin.setVisibility(View.VISIBLE);
+                 //driverPoliceNumber.setText(driver.getNumberOfVehicle());
+                 break;
+
+
+             case "Send-Vanet":
+                 // set peyk mashini
+                 android.util.Log.i("www", "NumberOfVehicle: "+itemHistory.number_of_vehicle);
+                 plauqeMashin.setVisibility(View.VISIBLE);
+                 String[] numberOfVehicleV = itemHistory.number_of_vehicle.replace(""," ").split("-");
+                 android.util.Log.i("www", "NumberOfVehicle array: 0:"+numberOfVehicleV[0]+"1:"+numberOfVehicleV[1]+"2:"+numberOfVehicleV[2]+"3:"+numberOfVehicleV[3]);
+
+
+                 String b0 = numberOfVehicleV[0];
+                 String b1 = numberOfVehicleV[1];
+                 String b2 = numberOfVehicleV[2];
+                 String b3 = numberOfVehicleV[3];
+                 driver_police_numberA.setText(b0);
+                 driver_police_numberB.setText(b1);
+                 driver_police_numberC.setText(b2);
+                 driverPoliceNumberr.setText(b3);
+                 break;
         }
 
 

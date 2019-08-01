@@ -21,6 +21,16 @@ public class ItemHistory implements Serializable {
     public String transaction_id;
 
     @Expose
+    @SerializedName("destination_count")
+    public String destination_count;
+    @Expose
+    @SerializedName("discount_amount")
+    public String discount_amount;
+    @Expose
+    @SerializedName("final_price")
+    public String final_price;
+
+    @Expose
     @SerializedName("driver_id")
     public String driver_id;
 

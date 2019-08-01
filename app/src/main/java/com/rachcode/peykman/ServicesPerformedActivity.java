@@ -130,22 +130,8 @@ public class ServicesPerformedActivity extends AppCompatActivity {
                 selectorBtnWallet50Toman();
             }
         });
-        button_p.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isFirst=true;
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://peykman.com/utaxi/api.php/UserInventory/request?price="+edtTextPrice.getText().toString()+"&phone="+userLogin.getPhone()));
-                startActivity(browserIntent);
-            }
-        });
+
         // price ++
-        increase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int price = 5000 + Integer.parseInt(edtTextPrice.getText().toString());
-                edtTextPrice.setText(String.valueOf(price));
-            }
-        });
 
 
 

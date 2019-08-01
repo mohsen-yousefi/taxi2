@@ -175,17 +175,16 @@
                                     app:layout_constraintVertical_bias="0.0" />
                             </android.support.constraint.ConstraintLayout>
 
+
                             <android.support.constraint.ConstraintLayout
                                 android:id="@+id/plauqeMotor"
                                 android:layout_width="65dp"
                                 android:layout_height="40dp"
-                                android:layout_marginTop="8dp"
+                                android:visibility="gone"
                                 android:background="@drawable/oval42"
-                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-                                app:layout_constraintVertical_bias="0.0">
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <TextView
                                     android:id="@+id/textView28"
@@ -244,11 +243,15 @@
                                 android:id="@+id/plauqeMashin"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
+                                android:layout_marginEnd="2dp"
                                 android:background="@drawable/oval42"
                                 android:visibility="gone"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/constraintLayout20"
+                                app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.3">
 
                                 <ImageView
                                     android:id="@+id/imageView17"
@@ -262,18 +265,44 @@
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:srcCompat="@drawable/pelak_iran" />
 
-                                <TextView
+                                <LinearLayout
                                     android:id="@+id/driver_police_number"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="2dp"
-                                    android:fontFamily="@font/iransans_fa_num_bold"
-                                    android:text="12"
-                                    android:textColor="#090808"
-                                    android:textSize="14dp"
+                                    android:orientation="horizontal"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/imageView17"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/driver_police_numberA"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/iransans_fa_num_bold"
+                                        android:text="12"
+                                        android:textColor="#090808"
+                                        android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/driver_police_numberB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/iransans_fa_num_bold"
+                                        android:text="ب"
+                                        android:textColor="#090808"
+                                        android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/driver_police_numberC"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/iransans_fa_num_bold"
+                                        android:text="345"
+                                        android:textColor="#090808"
+                                        android:textSize="14dp" />
+
+                                </LinearLayout>
 
                                 <TextView
                                     android:id="@+id/driver_police_numberr"
@@ -438,40 +467,6 @@
                                     app:layout_constraintTop_toTopOf="parent" />
                             </android.support.constraint.ConstraintLayout>
 
-                            <android.support.constraint.ConstraintLayout
-                                android:id="@+id/c2"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/c1">
-
-                                <TextView
-                                    android:id="@+id/textView100"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/iransans_fa_num_bold"
-                                    android:text="کد سرویس:"
-                                    android:textColor="#7f899d"
-                                    android:textSize="14dp"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <TextView
-                                    android:id="@+id/textView101"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/iransans_fa_num_bold"
-                                    android:text="PEYKMAN-222"
-                                    android:textColor="#7f899d"
-                                    android:textSize="14dp"
-                                    app:layout_constraintEnd_toStartOf="@+id/textView100"
-                                    app:layout_constraintHorizontal_bias="0.0"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-                            </android.support.constraint.ConstraintLayout>
 
                             <android.support.constraint.ConstraintLayout
                                 android:id="@+id/c3"
