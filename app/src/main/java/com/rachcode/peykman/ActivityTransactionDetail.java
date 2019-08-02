@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -49,6 +50,7 @@ public class ActivityTransactionDetail extends AppCompatActivity  implements OnM
     TextView destriginAddres;
     @BindView(R.id.title)
     TextView title;
+    SupportMapFragment mapFragment;
     @BindView(R.id.textView65)
     TextView request_time;
     @BindView(R.id.textView404)
@@ -171,8 +173,12 @@ public class ActivityTransactionDetail extends AppCompatActivity  implements OnM
                     .addApi(LocationServices.API)
                     .build();
         }
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mSend_mapView);
+        mapFragment.getMapAsync(this);
 
     }
+
 
 
     @Override
@@ -283,10 +289,10 @@ public class ActivityTransactionDetail extends AppCompatActivity  implements OnM
         if (pickUpLatLng != null) {
             if (move) {
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                        pickUpLatLng, 16f)
+                        pickUpLatLng, 14f)
                 );
 
-                gMap.animateCamera(CameraUpdateFactory.zoomTo(16f));
+                gMap.animateCamera(CameraUpdateFactory.zoomTo(14f));
             }
 //            fetchNearDriver();
         }

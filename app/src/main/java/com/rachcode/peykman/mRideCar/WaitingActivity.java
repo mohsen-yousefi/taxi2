@@ -164,6 +164,8 @@ public class WaitingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RequestRideCarResponseJson> call, Response<RequestRideCarResponseJson> response) {
                 if (response.isSuccessful()) {
+
+                    transaksi = response.body().getData().get(0);
 /*
                     buildDriverRequest(response.body());
 */
@@ -188,7 +190,7 @@ public class WaitingActivity extends AppCompatActivity {
 
                             if (threadRun) {
                                 CheckStatusTransaksiRequest param = new CheckStatusTransaksiRequest();
-                                param.settransaction_id(transaksi.getCustomerId());
+                                param.settransaction_id(transaksi.getid());
                                 service.checkStatusTransaksi(param).enqueue(new Callback<CheckStatusTransaksiResponse>() {
                                     @Override
                                     public void onResponse(Call<CheckStatusTransaksiResponse> call, Response<CheckStatusTransaksiResponse> response) {

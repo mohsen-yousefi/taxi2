@@ -136,7 +136,9 @@ public class SendWaitingActivity extends AppCompatActivity {
                         public void run() {
                             for (int i = 0; i < driverList.size(); i++) {
                                 if (threadRun) {
-                                    android.util.Log.i("xcerdqszcg", "thread loop i: "+i);
+                                    android.util.Log.i("llll", "driverList.size: "+driverList.size());
+                                    android.util.Log.i("llll", "thread loop i: "+i);
+                                    android.util.Log.i("llll", "currentLoop in loop: "+currentLoop);
                                     fcmBroadcast(currentLoop);
 
                                 }
@@ -151,7 +153,7 @@ public class SendWaitingActivity extends AppCompatActivity {
                             }
                             if (threadRun) {
                                 CheckStatusTransaksiRequest param = new CheckStatusTransaksiRequest();
-                                param.settransaction_id(transaksi.getCustomerId());
+                                param.settransaction_id(transaksi.getid());
                                 service.checkStatusTransaksi(param).enqueue(new Callback<CheckStatusTransaksiResponse>() {
                                     @Override
                                     public void onResponse(Call<CheckStatusTransaksiResponse> call, Response<CheckStatusTransaksiResponse> response) {
@@ -177,6 +179,7 @@ public class SendWaitingActivity extends AppCompatActivity {
 
                                             } else {
                                                 Log.e("DRIVER STATUS", "راننده ای یافت نشد!");
+                                                currentLoop=0;
                                                 activity.runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
@@ -376,11 +379,14 @@ public class SendWaitingActivity extends AppCompatActivity {
 
 
     private void fcmBroadcast(int index) {
-        android.util.Log.i("qqq", "fcmBroadcast:send ");
-        Driver driverToSend = driverList.get(index);
+         Driver driverToSend = driverList.get(index);
+        android.util.Log.i("llll", "currentLoop ghabl in fcmBroadcast: "+currentLoop);
         currentLoop++;
+        android.util.Log.i("llll", "currentLoop bad in fcmBroadcast: "+currentLoop);
+
         request.setTime_accept(new Date().getTime() + "");
         FCMMessage message = new FCMMessage();
+        android.util.Log.i("koseammatmmad", "token: "+driverToSend.getRegId()+"driver name"+driverToSend.getFirstName());
         message.setTo(driverToSend.getRegId());
         message.setData(request);
 
