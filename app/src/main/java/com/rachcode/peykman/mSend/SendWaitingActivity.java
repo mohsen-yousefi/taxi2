@@ -47,6 +47,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.rachcode.peykman.config.General.FCM_KEY;
+import static com.rachcode.peykman.mSend.SendActivity.aginRequest;
 import static com.rachcode.peykman.model.FCMType.ORDER;
 import static com.rachcode.peykman.model.json.fcm.DriverResponse.REJECT;
 
@@ -107,6 +108,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (request != null) {
+                    aginRequest = true;
 
                     cancelOrder();
 
@@ -180,6 +182,7 @@ public class SendWaitingActivity extends AppCompatActivity {
                                             } else {
                                                 Log.e("DRIVER STATUS", "راننده ای یافت نشد!");
                                                 currentLoop=0;
+                                                aginRequest = true;
                                                 activity.runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {

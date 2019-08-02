@@ -69,6 +69,7 @@ import com.rachcode.peykman.home.MainActivity;
 import com.rachcode.peykman.mSend.SendActivity;
 import com.rachcode.peykman.model.Driver;
 import com.rachcode.peykman.model.FavoriteAddress;
+import com.rachcode.peykman.model.RateDriverS;
 import com.rachcode.peykman.model.Transaksi;
 import com.rachcode.peykman.model.User;
 import com.rachcode.peykman.model.UserData;
@@ -84,6 +85,7 @@ import com.rachcode.peykman.model.json.fcm.FCMMessage;
 import com.rachcode.peykman.model.json.user.CheangePayResponse;
 import com.rachcode.peykman.model.json.user.RegisterResponseJson;
 import com.rachcode.peykman.signUp.SignUpActivity;
+import com.rachcode.peykman.signUp.VerificationActivity;
 import com.rachcode.peykman.utils.Log;
 import com.rachcode.peykman.utils.Utils;
 import com.rachcode.peykman.utils.db.DBHandler;
@@ -335,7 +337,6 @@ public class InProgressActivity extends AppCompatActivity
         context = getApplicationContext();
         realm = Realm.getDefaultInstance();
 
-//        readTransaction();
 
         loginUser = GoTaxiApplication.getInstance(InProgressActivity.this).getLoginUserD();
 
@@ -350,6 +351,20 @@ public class InProgressActivity extends AppCompatActivity
         request = (DriverRequest) getIntent().getSerializableExtra("request");
         mSend_price.setText(String.valueOf(request.getTotalPrice()));
         mSend_price.setText(String.valueOf(request.getFinal_price()));
+
+        RateDriverS transactionS = new RateDriverS();
+        transactionS.setBrand(driver.getBrand());
+
+        transactionS.setColor(driver.getColor());
+        transactionS.setCustomer_id(request.getCustomerId());
+        transactionS.setDfirst_name(driver.getFirstName());
+        transactionS.setDlast_name(driver.getLastName());
+        transactionS.setDriver_photo(driver.getPhoto());
+        transactionS.setId_driver(driver.getId());
+        transactionS.setTransaction_id(request.getid());
+        transactionS.setTransaction_id(request.getid());
+        transactionS.setType(driver.getType());
+        readTransaction(transactionS);
         android.util.Log.i("driverLog", " drivergetPhoto: " + driver.getPhoto());
 
         Log.e("DATA DRIVER", driver.getFirstName() + " " + driver.getLastName());
@@ -1110,8 +1125,8 @@ private void ShowDoialg(final String is_pay){
 
 
                 Intent intent = new Intent(getApplicationContext(), RateDriverActivity.class);
-                intent.putExtra("id_transaksi", request.getid());
-                intent.putExtra("id_pelanggan", loginUser.getId());
+                intent.putExtra("transaction_id", request.getid());
+                intent.putExtra("customer_id", loginUser.getId());
                 intent.putExtra("driver_photo", driver.getPhoto());
                 intent.putExtra("dfirst_name", driver.getFirstName());
                 intent.putExtra("dlast_name", driver.getLastName());
@@ -1132,14 +1147,9 @@ private void ShowDoialg(final String is_pay){
 
     }
 
-    private void readTransaction() {
-        RealmResults<Transaksi> results = realm.where(Transaksi.class).findAll();
-
-        Log.e("ALL TRANSACTION", results.toString());
-        Log.e("TRANSACTION SIZE", results.size() + "");
-        for (int i = 0; i < results.size(); i++) {
-            Log.e("TRANSACTION ID", results.get(i).getCustomerId() + "");
-        }
+    private void readTransaction(RateDriverS rateDriverS) {
+        android.util.Log.i("rateDriverS", "readTransaction: "+rateDriverS);
+        Utils.saveRateDriverS(InProgressActivity.this,rateDriverS);
     }
     public void selectBoxNaghdi() {
         select_box_naghdi.setSelected(true);

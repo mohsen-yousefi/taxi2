@@ -9,6 +9,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.rachcode.peykman.model.DiscountMpay;
 import com.rachcode.peykman.model.FirebaseToken;
 import com.rachcode.peykman.model.MfoodPartner;
+import com.rachcode.peykman.model.RateDriverS;
 import com.rachcode.peykman.model.User;
 import com.rachcode.peykman.model.UserData;
 
@@ -27,6 +28,7 @@ public class GoTaxiApplication extends Application {
 
     private User loginUser;
     private UserData loginUserD;
+    private RateDriverS rateDriverS;
 
     private Realm realmInstance;
 
@@ -72,6 +74,10 @@ public class GoTaxiApplication extends Application {
     public User getLoginUser() {
         return loginUser;
     }
+
+    public RateDriverS getRateDriverS() {
+        return rateDriverS;
+    }
     public UserData getLoginUserD() {
         return loginUserD;
     }
@@ -79,8 +85,13 @@ public class GoTaxiApplication extends Application {
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
     }
+
     public void setLoginUserD(UserData loginUser) {
         this.loginUserD = loginUser;
+    }
+
+    public void setRateDriverS(RateDriverS rateDriverS) {
+        this.rateDriverS = rateDriverS;
     }
 
     public final Realm getRealmInstance() {

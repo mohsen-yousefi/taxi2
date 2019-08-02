@@ -3,6 +3,7 @@ package com.rachcode.peykman.utils;
 import android.content.Context;
 
 import com.rachcode.peykman.GoTaxiApplication;
+import com.rachcode.peykman.model.RateDriverS;
 import com.rachcode.peykman.model.UserData;
 
 import io.realm.Realm;
@@ -44,5 +45,22 @@ public class Utils {
 
         GoTaxiApplication.getInstance(context).setLoginUserD(user);
     }
+
+    public static void saveRateDriverS(Context context, RateDriverS rateDriverS) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.delete(RateDriverS.class);
+        realm.copyToRealm(rateDriverS);
+        realm.commitTransaction();
+
+        GoTaxiApplication.getInstance(context).setRateDriverS(rateDriverS);
+    }
+
+    public static void removeRateDriverS(Context context) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.delete(RateDriverS.class);
+        realm.commitTransaction();
+     }
 
 }

@@ -28,14 +28,17 @@ import com.rachcode.peykman.model.User;
 import com.rachcode.peykman.model.UserData;
 import com.rachcode.peykman.model.json.book.RateDriverRequestJson;
 import com.rachcode.peykman.model.json.book.RateDriverResponseJson;
+import com.rachcode.peykman.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RateDriverActivity extends AppCompatActivity {
+    private Realm realm;
 
     RateDriverActivity activity;
     float nilai;
@@ -63,12 +66,13 @@ public class RateDriverActivity extends AppCompatActivity {
         final RatingView ratingBar = (RatingView) findViewById(R.id.ratingBar);
         final EditText addComment = (EditText) findViewById(R.id.addComment);
 
-        final String idTransaksi = getIntent().getStringExtra("id_transaksi");
-        final String idPelanggan = getIntent().getStringExtra("id_pelanggan");
+        final String transaction_id = getIntent().getStringExtra("transaction_id");
+        final String customer_id = getIntent().getStringExtra("customer_id");
         final String idDriver = getIntent().getStringExtra("id_driver");
         final String driver_photo = getIntent().getStringExtra("driver_photo");
 
-        final String driver_name = getIntent().getStringExtra("dfirst_name")+" "+getIntent().getStringExtra("dlast_name");
+        final String driver_name = getIntent().getStringExtra("dfirst_name")+" "+
+                getIntent().getStringExtra("dlast_name");
 
         final String driver_type ;
 
@@ -110,8 +114,8 @@ public class RateDriverActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 RateDriverRequestJson request = new RateDriverRequestJson();
-                request.transaction_id = idTransaksi;
-                request.customer_id = idPelanggan;
+                request.transaction_id = transaction_id;
+                request.customer_id = customer_id;
                 request.driver_id = idDriver;
                 request.rating = nilai + "";
                 request.note = addComment.getText().toString();
@@ -160,12 +164,14 @@ public class RateDriverActivity extends AppCompatActivity {
 
     private void finishDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-        alertDialogBuilder.setTitle(R.string.app_name);
-        alertDialogBuilder.setMessage(R.string.rate_message);
-        alertDialogBuilder.setPositiveButton("yes",
+        alertDialogBuilder.setTitle("پیک من");
+        alertDialogBuilder.setMessage("از اینکه از خدمات ما استفاده کردید متشکریم !");
+        alertDialogBuilder.setPositiveButton("بله",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
+
+                        Utils.removeRateDriverS(RateDriverActivity.this);
                         dialog.dismiss();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
@@ -177,4 +183,8 @@ public class RateDriverActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

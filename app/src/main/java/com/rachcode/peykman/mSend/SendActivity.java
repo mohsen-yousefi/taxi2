@@ -156,6 +156,7 @@ public class SendActivity extends AppCompatActivity implements
     String pickUpText;
     String destinationText;
     String destinationText2;
+    Boolean firstTimeGetDrivers = true;
     String destinationText3;
     String destinationText4;
     @BindView(R.id.btn_step_next_des)
@@ -237,9 +238,9 @@ public class SendActivity extends AppCompatActivity implements
 
     @BindView(R.id.main_tabLayout)
     SmartTabLayout mainTabLayout;
-    public static GetStopTime getStopTime=null;
-    private int StopTimeId= 0;
-    public static int go_back=0;
+    public static GetStopTime getStopTime = null;
+    private int StopTimeId = 0;
+    public static int go_back = 0;
 
     /**
      * pickup detile
@@ -260,6 +261,7 @@ public class SendActivity extends AppCompatActivity implements
     EditText Ephone_pik;
     HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
     int ads_code = 0;
+    int nearServiceCamerachengebool = 0;
     /**
      * dis detile
      **/
@@ -276,6 +278,10 @@ public class SendActivity extends AppCompatActivity implements
     @BindView(R.id.editText)
     EditText offerText;
     int lastprice;
+    int finall_price;
+    long finalll_price;
+    private boolean nearServiceCamerachenge = false;
+    private int lastDestancePrice = 0;
     /**
      * request taxi
      **/
@@ -283,22 +289,9 @@ public class SendActivity extends AppCompatActivity implements
     LinearLayout btn_request;
     @BindView(R.id.btn_request)
     ConstraintLayout btn_pay_request;
-
-    private int lastDestancePrice = 0;
-    //
     @BindView(R.id.mSend_next)
     TextView mSend_next;
-    private boolean nearServiceCamerachenge = false;
 
-    private void onSelectButtonRequest() {
-        btn_request.setSelected(true);
-        mSend_next.setSelected(true);
-    }
-
-    private void offSelectButtonRequest() {
-        btn_request.setSelected(false);
-        mSend_next.setSelected(false);
-    }
 
     private Boolean isDriverAvailable = false;
     @BindView(R.id.scroll_view_design)
@@ -333,123 +326,9 @@ public class SendActivity extends AppCompatActivity implements
     String receiver_phone_fourth = null;
 
 
-    int finall_price;
-    long finalll_price;
-
-    public void selectKamion() {
-/*        kamionSelect.setSelected(true);
-        vanetSelect.setSelected(false);
-        savariSelect.setSelected(false);
-        motorSelect.setSelected(false);
-
-        updateFitur();*/
-        Toast.makeText(this, "بزودی ...", Toast.LENGTH_SHORT).show();
-    }
-
-    private void setupTabLayoutViewPager() {
-        GoTaxiTabProvider tabProvider = new GoTaxiTabProvider(this);
-        selector = (MenuSelector) tabProvider;
-        mainTabLayout.setCustomTabView(tabProvider);
-
-        /*adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.main_menuHome, HomeFragment.class)
-                .add(R.string.main_menuHistory, HistoryFragment.class)
-                .add(R.string.main_menuHelp, HelpFragment.class)
-                .add(R.string.main_menuSetting, SettingFragment.class)
-                .create());*/
-
-
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("", Fragment.class)
-                .add("", Fragment.class)
-                .add("", Fragment.class)
-                .create());
-
-
-        viewPager = new ViewPager(getApplicationContext());
-        viewPager.setAdapter(adapter);
-        mainTabLayout.setViewPager(viewPager);
-        //mainViewPager.setPagingEnabled(false);
-
-
-        mainTabLayout.setOnTabClickListener(new SmartTabLayout.OnTabClickListener() {
-            @Override
-            public void onTabClicked(int position) {
-                selector.selectMenu(position);
-
-                // remove shodow
-                drawer.setScrimColor(Color.TRANSPARENT);
-                drawer.setDrawerElevation(0);
-
-                // bottom nav item click
-                if (position == 0) {
-                    design_wallet.setVisibility(View.VISIBLE);
-                    drawer.closeDrawers();
-                } else if (position == 1) {
-                    design_wallet.setVisibility(View.GONE);
-                    drawer.closeDrawers();
-                } else if (position == 2) {
-                    drawer.openDrawer(Gravity.RIGHT);
-                    //design_wallet.setVisibility(View.GONE);
-                }
-            }
-        });
-
-    }
-
-    public void selectVanet() {
-        kamionSelect.setSelected(false);
-        vanetSelect.setSelected(true);
-        savariSelect.setSelected(false);
-        motorSelect.setSelected(false);
-        if (designedFitur.getIdFeature() == 11)
-            return;
-        designedFitur = realm.where(Fitur.class).equalTo("id_feature", 11).findFirst();
-
-        updateFitur();
-    }
-
-    public void selectSavari() {
-        kamionSelect.setSelected(false);
-        vanetSelect.setSelected(false);
-        savariSelect.setSelected(true);
-        motorSelect.setSelected(false);
-        if (designedFitur.getIdFeature() == 10)
-            return;
-        designedFitur = realm.where(Fitur.class).equalTo("id_feature", 10).findFirst();
-
-        updateFitur();
-
-    }
-
-    public void selectMotor() {
-        kamionSelect.setSelected(false);
-        vanetSelect.setSelected(false);
-        savariSelect.setSelected(false);
-        motorSelect.setSelected(true);
-        if (designedFitur.getIdFeature() == 9)
-            return;
-        designedFitur = realm.where(Fitur.class).equalTo("id_feature", 9).findFirst();
-        updateFitur();
-    }
-
-
-//    @BindView(R.id.mSend_paymentGroup)
-//    RadioGroup paymentGroup;
-//    @BindView(R.id.mSend_mPayPayment)
-//    RadioButton mPayButton;
-//    @BindView(R.id.mSend_cashPayment)
-//    RadioButton cashButton;
-//    @BindView(R.id.mSend_topUp)
-//    Button topUpButton;
-
-
     SupportMapFragment mapFragment;
     int fiturId;
-    //    @BindView(R.id.mSend_mPayBalance)
-//    TextView mPayBalanceText;
+
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     private int ride_price = 0;
@@ -528,23 +407,8 @@ public class SendActivity extends AppCompatActivity implements
             }
         }
     };
+    public static boolean aginRequest=false;
 
-    private void setMargins(View view, int left, int top, int right, int bottom) {
-        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            p.setMargins(left, top, right, bottom);
-            view.requestLayout();
-        }
-    }
-
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
 
     @Override
     protected void onStart() {
@@ -562,12 +426,14 @@ public class SendActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send);
+        android.util.Log.i("pppp", "onCreate: ");
+
         ButterKnife.bind(this);
         checkLocationPermission();
 
 
-        // view wallet
-        updatetext();
+        // updagte Balance
+        updateBalance();
 
         selectorBtnWallet10Toman();
 
@@ -595,8 +461,8 @@ public class SendActivity extends AppCompatActivity implements
         button_p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isFirst=true;
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://peykman.com/utaxi/api.php/UserInventory/request?price="+edtTextPrice.getText().toString()+"&phone="+userLogin.getPhone()));
+                isFirst = true;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://peykman.com/utaxi/api.php/UserInventory/request?price=" + edtTextPrice.getText().toString() + "&phone=" + userLogin.getPhone()));
                 startActivity(browserIntent);
             }
         });
@@ -608,7 +474,6 @@ public class SendActivity extends AppCompatActivity implements
                 edtTextPrice.setText(String.valueOf(price));
             }
         });
-
 
 
         // price --
@@ -636,18 +501,13 @@ public class SendActivity extends AppCompatActivity implements
         });
 
 
-        /*if (General.ENABLE_RTL_MODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-            }
-        }*/
         offerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BookService service = ServiceGenerator.createService(BookService.class);
                 OffecrcodeequestJson param = new OffecrcodeequestJson();
                 param.setOrder_feature(designedFitur.getIdFeature());
-                finall_price -= insurance_price ;
+                finall_price -= insurance_price;
                 param.setPrice(finall_price);
                 param.setCoupon_serial(offerText.getText().toString());
                 service.getOfferCode(param).enqueue(new Callback<offerCodeResponseJson>() {
@@ -669,8 +529,7 @@ public class SendActivity extends AppCompatActivity implements
                                 codee_takhfif.setText(formatMony(discount_amount));
 
                                 Toast.makeText(SendActivity.this, "تخفیف با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(SendActivity.this, "no", Toast.LENGTH_SHORT).show();
 
                             }
@@ -1009,9 +868,7 @@ public class SendActivity extends AppCompatActivity implements
 
         setupFitur();
         updateFitur();
-/*
-        setupAutocompleteTextView();
-*/
+
         setSpinner();
 
 
@@ -1064,10 +921,10 @@ public class SendActivity extends AppCompatActivity implements
         btn_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-        if (go_back == 1){
-              price *=2;
-            Toast.makeText(SendActivity.this, "دوبرابر شد", Toast.LENGTH_SHORT).show();
-        }
+                if (go_back == 1) {
+                    price *= 2;
+                    Toast.makeText(SendActivity.this, "دوبرابر شد", Toast.LENGTH_SHORT).show();
+                }
                 if (isDriverAvailable) {
                     selectBoxPishKeraye();
                     top_address.setVisibility(View.GONE);
@@ -1128,6 +985,7 @@ public class SendActivity extends AppCompatActivity implements
 
     private MenuSelector selector;
     private ViewPager viewPager;
+
     private void setNavigitionView() {
         NavigationView navigation_view = findViewById(R.id.navigation_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -1262,7 +1120,7 @@ public class SendActivity extends AppCompatActivity implements
 /*
         param.price_takhfifed = price_takhfifed;
 */
-         param.price = String.valueOf(price);
+        param.price = String.valueOf(price);
         param.insurance_price = insurance_price;
         param.totalPrice = String.valueOf(price);
         param.origin_address = pickUpText;
@@ -1470,11 +1328,12 @@ public class SendActivity extends AppCompatActivity implements
     private void setupFitur() {
         if (designedFitur.getIdFeature() == 9) {
             selectMotor();
-        } /*else if (fitur.getIdFeature() == 2) {
-            title.setText(R.string.home_mCar);
-            logo.setImageResource(R.drawable.car);
-            selectCar();
-        }*/
+        } else if (designedFitur.getIdFeature() == 11) {
+            selectVanet();
+
+        } else if (designedFitur.getIdFeature() == 10) {
+            selectSavari();
+        }
     }
 
     public void selectBoxVije() {
@@ -1586,16 +1445,27 @@ public class SendActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-updateFitur();
-        updatetext();
 
-   if (getStopTime != null){
-       StopTimeId=Integer.parseInt(getStopTime.getTimeId());
-        price +=  Integer.parseInt(getStopTime.getTimeCost());
-   }else{
-       StopTimeId=0;
 
-   }
+        if (aginRequest){
+            if (pickUpLatLang != null){
+                aginRequest= false;
+                fetchNearDriver(pickUpLatLang.latitude, pickUpLatLang.longitude, 0);
+                android.util.Log.i("pdlfgskpkgfesko", "lat"+pickUpLatLang.latitude+ "long"+pickUpLatLang.longitude);
+            }
+        }else{
+            updateFitur();
+            updateBalance();
+        }
+
+
+        if (getStopTime != null) {
+            StopTimeId = Integer.parseInt(getStopTime.getTimeId());
+            price += Integer.parseInt(getStopTime.getTimeCost());
+        } else {
+            StopTimeId = 0;
+
+        }
         /////////////////////////
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         android.util.Log.i(TAG, "search_location_111: " + search_location);
@@ -1620,7 +1490,7 @@ updateFitur();
 
         if (requestCode == REQUEST_PERMISSION_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                updateLastLocation(true);
+
             } else {
 
             }
@@ -1651,8 +1521,7 @@ updateFitur();
         }
         driverMarkers.clear();
 
-        if (isMapReady) updateLastLocation(false);
-        fetchNearDriver();
+        if (isMapReady) ;
         int DestinationNumber_for = DestinationNumber;
         priceText.setText(String.valueOf(0));
         price = 0;
@@ -1661,13 +1530,14 @@ updateFitur();
 
             DestinationNumber = i;
             requestRoute();
+            fetchNearDriver();
         }
     }
 
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        updateLastLocation(true);
+
     }
 
     @Override
@@ -1702,9 +1572,17 @@ updateFitur();
             @Override
             public void onCameraIdle() {
                 if (pickUpLatLang == null) {
-                    nearServiceCamerachenge = true;
                     CurentMarkerPostion = mMap.getCameraPosition().target;
-                    fetchNearDriver();
+                    android.util.Log.i(";;;;;", "setOnCameraIdleListener: ");
+
+                     if (nearServiceCamerachengebool == 1){
+
+                        nearServiceCamerachenge = true;
+                        fetchNearDriver();
+                    }else{
+                         nearServiceCamerachengebool++;
+                     }
+
                 }
 
             }
@@ -1761,7 +1639,8 @@ updateFitur();
                             if (ActivityCompat.checkSelfPermission(SendActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SendActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                                 return;
                             }
-
+                            android.util.Log.i(";;;;;", "onGetCurrentLocation: ");
+                            firstTimeGetDrivers = true;
                             fetchNearDriver();
                         }
                     }
@@ -1780,7 +1659,10 @@ updateFitur();
     }
 
     private void fetchNearDriver(double latitude, double longitude, int IsSelected) {
+        android.util.Log.i("ebikhare", "fetchNearDriver1:  ");
         if (lastKnowLocation != null) {
+            android.util.Log.i("ebikhare", "fetchNearDriver2:  ");
+
             UserData loginUser = GoTaxiApplication.getInstance(this).getLoginUserD();
 
             BookService service = ServiceGenerator.createService(BookService.class, loginUser.getEmail(), loginUser.getPassword());
@@ -1793,7 +1675,10 @@ updateFitur();
                     @Override
                     public void onResponse(Call<GetNearRideDriverResponseJson> call, Response<GetNearRideDriverResponseJson> response) {
                         if (response.isSuccessful()) {
+                            android.util.Log.i("ebikhare", "fetchNearDriver3:  ");
+
                             driverAvailable = response.body().getData();
+                            android.util.Log.i("ebikhare", "driverAvailable size: "+driverAvailable.size());
                             createMarker();
 
                         }
@@ -1805,10 +1690,13 @@ updateFitur();
                     }
                 });
             } else if (designedFitur.getIdFeature() == 11) {
+                android.util.Log.i("ebikhare", "fetchNearDriver4:  ");
+
                 service.getNearsendvanet(param).enqueue(new Callback<GetNearRideDriverResponseJson>() {
                     @Override
                     public void onResponse(Call<GetNearRideDriverResponseJson> call, Response<GetNearRideDriverResponseJson> response) {
                         if (response.isSuccessful()) {
+                            android.util.Log.i("ebikhare", "fetchNearDriver5:  ");
 
                             android.util.Log.i("resid", "resid: ");
                             driverAvailable = response.body().getData();
@@ -1826,6 +1714,9 @@ updateFitur();
                     @Override
                     public void onResponse(Call<GetNearRideDriverResponseJson> call, Response<GetNearRideDriverResponseJson> response) {
                         if (response.isSuccessful()) {
+
+                            android.util.Log.i("ebikhare", "fetchNearDriver6:  ");
+
                             driverAvailable = response.body().getData();
                             createMarker();
                         }
@@ -1853,15 +1744,19 @@ updateFitur();
             BookService service = ServiceGenerator.createService(BookService.class, loginUser.getEmail(), loginUser.getPassword());
             GetNearRideCarRequestJson param = new GetNearRideCarRequestJson();
 
-
-            if (nearServiceCamerachenge) {
+            if (firstTimeGetDrivers) {
+                firstTimeGetDrivers = false;
+                android.util.Log.i("fetchNearDriver", "param lat: "+lastKnowLocation.getLatitude()+"  long : "+lastKnowLocation.getLongitude());
+                 param.setLatitude(lastKnowLocation.getLatitude());
+                param.setLongitude(lastKnowLocation.getLongitude());
+            } else {
                 nearServiceCamerachenge = false;
+                android.util.Log.i("fetchNearDriver", "nearServiceCamerachenge lat: "+CurentMarkerPostion.latitude+"  long : "+CurentMarkerPostion.longitude);
+
                 param.setLatitude(CurentMarkerPostion.latitude);
                 param.setLongitude(CurentMarkerPostion.longitude);
-            } else {
-                param.setLatitude(lastKnowLocation.getLatitude());
-                param.setLongitude(lastKnowLocation.getLongitude());
             }
+
 
             if (designedFitur.getIdFeature() == 9) {
                 service.getNearsendMotor(param).enqueue(new Callback<GetNearRideDriverResponseJson>() {
@@ -1913,6 +1808,8 @@ updateFitur();
     }
 
     private void createMarker() {
+        android.util.Log.i("ebikhare", "createMarker driverAvailable size: "+driverAvailable.size());
+
         if (!driverAvailable.isEmpty()) {
             isDriverAvailable = true;
             try {
@@ -1990,7 +1887,7 @@ updateFitur();
             destinationLatLang = null;
         LatLng centerPos = mMap.getCameraPosition().target;
         pickUpLatLang = centerPos;
-
+        android.util.Log.i("pdlfgskpkgfesko", "lat"+pickUpLatLang.latitude+ "long"+pickUpLatLang.longitude);
 
         selectBoxNormal();
         fetchNearDriver(pickUpLatLang.latitude, pickUpLatLang.longitude, 1);
@@ -2349,12 +2246,12 @@ updateFitur();
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
+        /*realm.close();*/
     }
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(Gravity.RIGHT)){
+        if (drawer.isDrawerOpen(Gravity.RIGHT)) {
             drawer.closeDrawer(Gravity.RIGHT);
             return;
         }
@@ -2378,6 +2275,7 @@ updateFitur();
 
                         return;
                     }
+                    Toast.makeText(this, "finish", Toast.LENGTH_SHORT).show();
                     super.onBackPressed();
                     finish();
                 } else {
@@ -2630,8 +2528,6 @@ updateFitur();
      **/
 
 
-
-
     ///////////////////////////////////////////
     // editText price
     @BindView(R.id.editText3)
@@ -2659,13 +2555,13 @@ updateFitur();
     private Boolean isFirst = false;
 
 
-    private void updatetext(){
+    private void updateBalance() {
         userLogin = GoTaxiApplication.getInstance(getApplication()).getLoginUserD();
         txtBalance.setText(formatMony(userLogin.getBalance()));
     }
 
 
-    private void selectorBtnWallet10Toman(){
+    private void selectorBtnWallet10Toman() {
         btnWallet10Toman.setSelected(true);
         btnWallet20Toman.setSelected(false);
         btnWallet50Toman.setSelected(false);
@@ -2674,7 +2570,7 @@ updateFitur();
         edtTextPrice.setText("10000");
     }
 
-    private void selectorBtnWallet20Toman(){
+    private void selectorBtnWallet20Toman() {
         btnWallet10Toman.setSelected(false);
         btnWallet20Toman.setSelected(true);
         btnWallet50Toman.setSelected(false);
@@ -2683,7 +2579,7 @@ updateFitur();
         edtTextPrice.setText("20000");
     }
 
-    private void selectorBtnWallet50Toman(){
+    private void selectorBtnWallet50Toman() {
         btnWallet10Toman.setSelected(false);
         btnWallet20Toman.setSelected(false);
         btnWallet50Toman.setSelected(true);
@@ -2693,11 +2589,59 @@ updateFitur();
     }
 
 
-    public String formatMony(String price) {
-        String formattedText = price + " " + General.MONEY;
+    private void setupTabLayoutViewPager() {
+        GoTaxiTabProvider tabProvider = new GoTaxiTabProvider(this);
+        selector = (MenuSelector) tabProvider;
+        mainTabLayout.setCustomTabView(tabProvider);
 
-        return formattedText;
+        /*adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add(R.string.main_menuHome, HomeFragment.class)
+                .add(R.string.main_menuHistory, HistoryFragment.class)
+                .add(R.string.main_menuHelp, HelpFragment.class)
+                .add(R.string.main_menuSetting, SettingFragment.class)
+                .create());*/
+
+
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add("", Fragment.class)
+                .add("", Fragment.class)
+                .add("", Fragment.class)
+                .create());
+
+
+        viewPager = new ViewPager(getApplicationContext());
+        viewPager.setAdapter(adapter);
+        mainTabLayout.setViewPager(viewPager);
+        //mainViewPager.setPagingEnabled(false);
+
+
+        mainTabLayout.setOnTabClickListener(new SmartTabLayout.OnTabClickListener() {
+            @Override
+            public void onTabClicked(int position) {
+                selector.selectMenu(position);
+
+                // remove shodow
+                drawer.setScrimColor(Color.TRANSPARENT);
+                drawer.setDrawerElevation(0);
+
+                // bottom nav item click
+                if (position == 0) {
+                    design_wallet.setVisibility(View.VISIBLE);
+                    drawer.closeDrawers();
+                } else if (position == 1) {
+                    design_wallet.setVisibility(View.GONE);
+                    drawer.closeDrawers();
+                } else if (position == 2) {
+                    drawer.openDrawer(Gravity.RIGHT);
+                    //design_wallet.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
+
     public static void saveUser(Context context, UserData user) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -2708,4 +2652,69 @@ updateFitur();
         GoTaxiApplication.getInstance(context).setLoginUserD(user);
     }
 
+    private void onSelectButtonRequest() {
+        btn_request.setSelected(true);
+        mSend_next.setSelected(true);
+    }
+
+    private void offSelectButtonRequest() {
+        btn_request.setSelected(false);
+        mSend_next.setSelected(false);
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    public void selectVanet() {
+        kamionSelect.setSelected(false);
+        vanetSelect.setSelected(true);
+        savariSelect.setSelected(false);
+        motorSelect.setSelected(false);
+        if (designedFitur.getIdFeature() == 11)
+            return;
+        designedFitur = realm.where(Fitur.class).equalTo("id_feature", 11).findFirst();
+
+        updateFitur();
+    }
+
+    public void selectSavari() {
+        kamionSelect.setSelected(false);
+        vanetSelect.setSelected(false);
+        savariSelect.setSelected(true);
+        motorSelect.setSelected(false);
+        if (designedFitur.getIdFeature() == 10)
+            return;
+        designedFitur = realm.where(Fitur.class).equalTo("id_feature", 10).findFirst();
+
+        updateFitur();
+
+    }
+
+    public void selectMotor() {
+        kamionSelect.setSelected(false);
+        vanetSelect.setSelected(false);
+        savariSelect.setSelected(false);
+        motorSelect.setSelected(true);
+        if (designedFitur.getIdFeature() == 9)
+            return;
+        designedFitur = realm.where(Fitur.class).equalTo("id_feature", 9).findFirst();
+        updateFitur();
+    }
+
+    public String formatMony(String price) {
+        String formattedText = price + " " + General.MONEY;
+
+        return formattedText;
+    }
+
+    public void selectKamion() {
+
+        Toast.makeText(this, "بزودی ...", Toast.LENGTH_SHORT).show();
+    }
 }

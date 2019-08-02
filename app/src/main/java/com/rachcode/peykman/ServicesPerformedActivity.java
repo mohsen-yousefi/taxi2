@@ -105,7 +105,7 @@ public class ServicesPerformedActivity extends AppCompatActivity {
             startActivity(new Intent(this, SplashActivity.class));
             finish();
         }
-        updatetext();
+        updateBalance();
 
         selectorBtnWallet10Toman();
 
@@ -457,7 +457,7 @@ public class ServicesPerformedActivity extends AppCompatActivity {
     private Boolean isFirst = false;
     UserData userLogin;
 
-    private void updatetext(){
+    private void updateBalance(){
         userLogin = GoTaxiApplication.getInstance(getApplication()).getLoginUserD();
         txtBalance.setText(formatMony(userLogin.getBalance()));
     }

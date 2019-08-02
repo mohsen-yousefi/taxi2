@@ -44,7 +44,10 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.rachcode.peykman.mRideCar.InProgressActivity;
+import com.rachcode.peykman.mRideCar.RateDriverActivity;
 import com.rachcode.peykman.mSend.SendActivity;
+import com.rachcode.peykman.model.Fitur;
+import com.rachcode.peykman.model.RateDriverS;
 import com.rachcode.peykman.model.UserData;
 import com.rachcode.peykman.model.json.fcm.DriverRequest;
 import com.rachcode.peykman.model.json.user.InprogressTransaction;
@@ -67,10 +70,16 @@ import com.rachcode.peykman.signIn.SignInActivity;
 import com.rachcode.peykman.utils.ConnectivityUtils;
 import com.rachcode.peykman.utils.Log;
 import com.rachcode.peykman.utils.SnackbarController;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -165,44 +174,7 @@ public class SplashActivity extends AppCompatActivity implements GoogleApiClient
         }
 
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        Log.d("onActivityResult()", Integer.toString(resultCode));
 
-        //final LocationSettingsStates states = LocationSettingsStates.fromIntent(data);
-        switch (requestCode)
-        {
-            case MY_PERMISSIONS_REQUEST_LOCATION:
-                switch (resultCode)
-                {
-                    case Activity.RESULT_OK:
-                    {
-                        // All required changes were successfully made
-
-                        chekAppVersion();
-                        break;
-                    }
-                    case 85:
-                        ActivityCompat.requestPermissions(SplashActivity.this,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                                MY_PERMISSIONS_REQUEST_LOCATION);
-                       break;
-                    case Activity.RESULT_CANCELED:
-                    {
-                        // The user was asked to change settings, but chose not to
-                        Toast.makeText(SplashActivity.this, "برای استفاده از نرم افزار  باید لوکیشن شما فعال باشد", Toast.LENGTH_LONG).show();
-                        getLocation();
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
-                }
-                break;
-        }
-    }
     public void chekAppVersion() {
         PackageInfo pInfo;
         VersionRequestJson request = new VersionRequestJson();
@@ -394,25 +366,43 @@ public void ChekUserStatus() {
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public boolean checkLocationPermission() {
-
+///if don have permission for ACCESS_COARSE_LOCATION
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            // No explanation needed, we can request the permission.
+            android.util.Log.i("perrrrr", "checkLocationPermission: perrrrr");
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed, we can request the permission.
-                if (checkDrawOverlayPermission()){
-                    ActivityCompat.requestPermissions(SplashActivity.this,
+            AndPermission.with(this)
+                    .runtime()
+                    .permission(Permission.Group.LOCATION)
+                   .onGranted(new Action<List<String>>() {
+                       @Override
+                       public void onAction(List<String> data) {
+                            chekAppVersion();
+                       }
+                   })
+                    .onDenied(new Action<List<String>>() {
+                        @Override
+                        public void onAction(List<String> data) {
+                            Toast.makeText(SplashActivity.this, "برای استفاده از نرم افزار  باید لوکیشن شما فعال باشد", Toast.LENGTH_LONG).show();
+                             new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            },2000);
+                            finish();
+                        }
+                    })
+
+                    .start();
+    /*                ActivityCompat.requestPermissions(SplashActivity.this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_LOCATION);
-                }
+                            MY_PERMISSIONS_REQUEST_LOCATION);*/
 
-            }
+
             return false;
         } else {
             if (!isLocationEnabled(this)) {
@@ -464,21 +454,7 @@ public void ChekUserStatus() {
 
         return md;
     }*/
-    int REQUEST_CODE=85;
 
-    public boolean checkDrawOverlayPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (!Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, REQUEST_CODE);
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     private void showPopupHold(String message) {
         final AlertDialog.Builder popupBuilder = new AlertDialog.Builder(this);
@@ -529,17 +505,38 @@ public void ChekUserStatus() {
     private void start() {
         progressBar.setVisibility(View.GONE);
         UserData user = GoTaxiApplication.getInstance(this).getLoginUserD();
-        Intent intent;
 
-        if (user != null) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RateDriverS> rateDriverS=realm.where(RateDriverS.class).findAll();
 
-            ChekUserStatus();
-        } else {
-            intent = new Intent(SplashActivity.this, VerificationActivity.class);
-            startActivity(intent);
+        if (!rateDriverS.toString().equals("[]")){
+            RateDriverS rateDriverS1 = rateDriverS.get(0);
+            Intent intent = new Intent(SplashActivity.this, RateDriverActivity.class);
+            intent.putExtra("transaction_id", rateDriverS1.getTransaction_id());
+            intent.putExtra("customer_id", rateDriverS1.getCustomer_id());
+            intent.putExtra("driver_photo", rateDriverS1.getDriver_photo());
+            intent.putExtra("dfirst_name", rateDriverS1.getDfirst_name());
+            intent.putExtra("dlast_name", rateDriverS1.getDlast_name());
+            intent.putExtra("brand", rateDriverS1.getBrand());
+            intent.putExtra("type", rateDriverS1.getType());
+            intent.putExtra("color", rateDriverS1.getColor());
+            intent.putExtra("id_driver", rateDriverS1.getId_driver());
+             startActivity(intent);
             finish();
+          }else{
+            Intent intent;
 
+            if (user != null) {
+
+                ChekUserStatus();
+            } else {
+                intent = new Intent(SplashActivity.this, VerificationActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
         }
+
 
 
     }

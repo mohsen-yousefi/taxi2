@@ -74,7 +74,7 @@ public class FragmentWallet extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-         updatetext();
+         updateBalance();
 
         selectorBtnWallet10Toman();
 
@@ -132,7 +132,7 @@ public class FragmentWallet extends Fragment {
             }
         });
     }
- private void updatetext(){
+ private void updateBalance(){
      userLogin = GoTaxiApplication.getInstance(getContext()).getLoginUserD();
      txtBalance.setText(formatMony(userLogin.getBalance()));
  }
@@ -170,7 +170,7 @@ public class FragmentWallet extends Fragment {
         super.onResume();
 
 
-        updatetext();
+        updateBalance();
 
     }
 
