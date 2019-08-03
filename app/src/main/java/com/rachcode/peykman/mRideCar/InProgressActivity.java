@@ -365,7 +365,7 @@ public class InProgressActivity extends AppCompatActivity
 
 
         priceText.setText(formatMony(request.getPrice()));
-//
+// kos
         Glide.with(getApplicationContext()).load(driver.getPhoto()).into(driverImage);
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         orderNumber.setText("Order no. " + request.getid());
