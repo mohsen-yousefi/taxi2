@@ -91,6 +91,7 @@ import com.rachcode.peykman.api.service.BookService;
 import com.rachcode.peykman.config.General;
 import com.rachcode.peykman.gmap.directions.Directions;
 import com.rachcode.peykman.gmap.directions.Route;
+import com.rachcode.peykman.home.submenu.home.HomeFragment;
 import com.rachcode.peykman.mMart.PlaceAutocompleteAdapter;
 import com.rachcode.peykman.model.AdditionalMbox;
 import com.rachcode.peykman.model.Driver;
@@ -351,6 +352,7 @@ public class SendActivity extends AppCompatActivity implements
     private List<Marker> driverMarkers;
     private Realm realm;
     private Fitur designedFitur;
+    private int designedFiturId;
     private static Location lastKnowLocation;
     private double Unit_distance;
     private double timeDistance = 0;
@@ -436,6 +438,11 @@ public class SendActivity extends AppCompatActivity implements
         updateBalance();
 
         selectorBtnWallet10Toman();
+
+realm = HomeFragment.inc.realm;
+
+
+
 
 
         btnWallet10Toman.setOnClickListener(new View.OnClickListener() {
@@ -853,15 +860,17 @@ public class SendActivity extends AppCompatActivity implements
                     .build();
         }
 
-        realm = Realm.getDefaultInstance();
-
         Intent intent = getIntent();
         if (intent.hasExtra(FITUR_KEY)) {
             fiturId = intent.getIntExtra(FITUR_KEY, -1);
 
             if (fiturId != -1)
+            {
                 designedFitur = realm.where(Fitur.class).equalTo("id_feature", fiturId).findFirst();
+
+            }
         } else {
+            android.util.Log.i("realmtest", "onCreate: ");
             designedFitur = realm.where(Fitur.class).equalTo("id_feature", 9).findFirst();
         }
 
@@ -2246,7 +2255,7 @@ public class SendActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        /*realm.close();*/
+         realm.close();
     }
 
     @Override
@@ -2276,8 +2285,9 @@ public class SendActivity extends AppCompatActivity implements
                         return;
                     }
                     Toast.makeText(this, "finish", Toast.LENGTH_SHORT).show();
-                    super.onBackPressed();
                     finish();
+                    super.onBackPressed();
+
                 } else {
 
                     if (pickUpMarker != null) pickUpMarker.remove();

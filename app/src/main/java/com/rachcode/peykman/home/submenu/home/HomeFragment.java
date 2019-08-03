@@ -135,7 +135,8 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
     private SnackbarController snackbarController;
     private boolean connectionAvailable;
     private boolean isDataLoaded = false;
-    private Realm realm;
+   public Realm realm;
+   public static HomeFragment inc;
     private int successfulCall;
     boolean doubleBackToExitPressedOnce = false;
     @BindView(R.id.recyclerView_main_home)
@@ -150,6 +151,12 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback, Googl
 
     @BindView(R.id.slider)
     Slider slider;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        inc = this;
+    }
 
     /********** find view **********/
     private String[] name = {
