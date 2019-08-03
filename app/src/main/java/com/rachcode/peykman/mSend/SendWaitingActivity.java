@@ -250,7 +250,7 @@ public class SendWaitingActivity extends AppCompatActivity {
                         aginRequest=true;
                         Toast.makeText(SendWaitingActivity.this, "سفر شما کنسل شد!", Toast.LENGTH_SHORT).show();
                         threadRun = false;
-                        finish();
+                        finish();//
                     } else {
                         Toast.makeText(SendWaitingActivity.this, "خطا!", Toast.LENGTH_SHORT).show();
                     }
