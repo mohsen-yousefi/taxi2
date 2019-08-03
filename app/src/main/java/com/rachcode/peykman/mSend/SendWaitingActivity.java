@@ -247,6 +247,7 @@ public class SendWaitingActivity extends AppCompatActivity {
             public void onResponse(Call<CancelBookResponseJson> call, Response<CancelBookResponseJson> response) {
                 if (response.isSuccessful()) {
                     if (response.body().mesage.equals("order canceled")) {
+                        aginRequest=true;
                         Toast.makeText(SendWaitingActivity.this, "سفر شما کنسل شد!", Toast.LENGTH_SHORT).show();
                         threadRun = false;
                         finish();

@@ -352,19 +352,6 @@ public class InProgressActivity extends AppCompatActivity
         mSend_price.setText(String.valueOf(request.getTotalPrice()));
         mSend_price.setText(String.valueOf(request.getFinal_price()));
 
-        RateDriverS transactionS = new RateDriverS();
-        transactionS.setBrand(driver.getBrand());
-
-        transactionS.setColor(driver.getColor());
-        transactionS.setCustomer_id(request.getCustomerId());
-        transactionS.setDfirst_name(driver.getFirstName());
-        transactionS.setDlast_name(driver.getLastName());
-        transactionS.setDriver_photo(driver.getPhoto());
-        transactionS.setId_driver(driver.getId());
-        transactionS.setTransaction_id(request.getid());
-        transactionS.setTransaction_id(request.getid());
-        transactionS.setType(driver.getType());
-        readTransaction(transactionS);
         android.util.Log.i("driverLog", " drivergetPhoto: " + driver.getPhoto());
 
         Log.e("DATA DRIVER", driver.getFirstName() + " " + driver.getLastName());
@@ -1147,10 +1134,7 @@ private void ShowDoialg(final String is_pay){
 
     }
 
-    private void readTransaction(RateDriverS rateDriverS) {
-        android.util.Log.i("rateDriverS", "readTransaction: "+rateDriverS);
-        Utils.saveRateDriverS(InProgressActivity.this,rateDriverS);
-    }
+
     public void selectBoxNaghdi() {
         select_box_naghdi.setSelected(true);
         txt_box_naghdi.setSelected(true);
@@ -1189,8 +1173,7 @@ private void ShowDoialg(final String is_pay){
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-        finish();
+
     }
 
     @Override

@@ -3,10 +3,12 @@ package com.rachcode.peykman.mSend;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -91,6 +93,7 @@ import com.rachcode.peykman.api.service.BookService;
 import com.rachcode.peykman.config.General;
 import com.rachcode.peykman.gmap.directions.Directions;
 import com.rachcode.peykman.gmap.directions.Route;
+import com.rachcode.peykman.home.MainActivity;
 import com.rachcode.peykman.home.submenu.home.HomeFragment;
 import com.rachcode.peykman.mMart.PlaceAutocompleteAdapter;
 import com.rachcode.peykman.model.AdditionalMbox;
@@ -116,6 +119,7 @@ import com.rachcode.peykman.utils.MenuSelector;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -141,7 +145,8 @@ public class SendActivity extends AppCompatActivity implements
     public static final String FITUR_KEY = "mSendFiturKey";
     private static final String TAG = "mSendActivity";
     private FusedLocationProviderClient fusedLocationClient;
-
+    @BindView(R.id.imageView21)
+    de.hdodenhof.circleimageview.CircleImageView profile_image;
     private static final int REQUEST_PERMISSION_LOCATION = 991;
     @BindView(R.id.mSend_title)
     TextView title;
@@ -363,6 +368,7 @@ public class SendActivity extends AppCompatActivity implements
     private int ProductTypeItemSelected = 0;
     private int Insurances_id_clicked = 0;
     UserData userLogin;
+    private Bitmap bitmap;
     LatLng CurentMarkerPostion;
     private boolean isMapReady = false;
     private PlaceAutocompleteAdapter mAdapter;
@@ -435,6 +441,7 @@ public class SendActivity extends AppCompatActivity implements
 
 
         // updagte Balance
+
         updateBalance();
 
         selectorBtnWallet10Toman();
@@ -2691,6 +2698,31 @@ realm = HomeFragment.inc.realm;
         designedFitur = realm.where(Fitur.class).equalTo("id_feature", 11).findFirst();
 
         updateFitur();
+    }
+    private void loadImageFromStorage() {
+
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("photoDriver", Context.MODE_PRIVATE);
+        File f = new File(directory, "profile.jpg");
+        Bitmap tryDec = decodeFile(f.toString(),200);
+        profile_image.setImageBitmap(tryDec);
+
+    }
+    private Bitmap decodeFile(final String path, final int thumbnailSize) {
+
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, o);
+        if ((o.outWidth == -1) || (o.outHeight == -1)) {
+            bitmap = null;
+        }
+
+        int originalSize = (o.outHeight > o.outWidth) ? o.outHeight
+                : o.outWidth;
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inSampleSize = originalSize / thumbnailSize;
+        bitmap = BitmapFactory.decodeFile(path, opts);
+        return bitmap;
     }
 
     public void selectSavari() {

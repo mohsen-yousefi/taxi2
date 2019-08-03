@@ -24,6 +24,7 @@ import com.rachcode.peykman.api.ServiceGenerator;
 import com.rachcode.peykman.api.service.UserService;
 import com.rachcode.peykman.config.General;
 import com.rachcode.peykman.home.MainActivity;
+import com.rachcode.peykman.model.RateDriverS;
 import com.rachcode.peykman.model.User;
 import com.rachcode.peykman.model.UserData;
 import com.rachcode.peykman.model.json.book.RateDriverRequestJson;
@@ -75,7 +76,18 @@ public class RateDriverActivity extends AppCompatActivity {
                 getIntent().getStringExtra("dlast_name");
 
         final String driver_type ;
+        RateDriverS transactionS = new RateDriverS();
+        transactionS.setBrand(getIntent().getStringExtra("brand"));
 
+        transactionS.setColor(getIntent().getStringExtra("color"));
+        transactionS.setCustomer_id(customer_id);
+        transactionS.setDfirst_name(getIntent().getStringExtra("dfirst_name"));
+        transactionS.setDlast_name(getIntent().getStringExtra("dlast_name"));
+        transactionS.setDriver_photo(driver_photo);
+        transactionS.setId_driver(idDriver);
+        transactionS.setTransaction_id(transaction_id);
+         transactionS.setType(getIntent().getStringExtra("type"));
+        readTransaction(transactionS);
         String driverType =  "نوع سرویس: " + getIntent().getStringExtra("brand")+ " " +  getIntent().getStringExtra("type")+ " (" + getIntent().getStringExtra("color") + ")";
 
         this.driver_name.setText(driver_name);
@@ -126,7 +138,10 @@ public class RateDriverActivity extends AppCompatActivity {
         });
     }
 
-
+    private void readTransaction(RateDriverS rateDriverS) {
+        android.util.Log.i("rateDriverS", "readTransaction: "+rateDriverS);
+        Utils.saveRateDriverS(RateDriverActivity.this,rateDriverS);
+    }
     private void ratingUser(RateDriverRequestJson request) {
 
         UserData loginUser = GoTaxiApplication.getInstance(RateDriverActivity.this).getLoginUserD();

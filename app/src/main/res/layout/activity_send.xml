@@ -1967,7 +1967,7 @@
                     app:layout_constraintTop_toTopOf="@+id/txt"
                     app:srcCompat="@drawable/ic_increase18_green" />
             </LinearLayout>
-            c
+
 
             <TextView
                 android:id="@+id/txtBalance"
