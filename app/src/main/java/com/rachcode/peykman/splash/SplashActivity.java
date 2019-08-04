@@ -43,6 +43,8 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
 import com.rachcode.peykman.mRideCar.InProgressActivity;
 import com.rachcode.peykman.mRideCar.RateDriverActivity;
 import com.rachcode.peykman.mSend.SendActivity;
@@ -70,10 +72,9 @@ import com.rachcode.peykman.signIn.SignInActivity;
 import com.rachcode.peykman.utils.ConnectivityUtils;
 import com.rachcode.peykman.utils.Log;
 import com.rachcode.peykman.utils.SnackbarController;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -364,7 +365,6 @@ public void ChekUserStatus() {
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
     public boolean checkLocationPermission() {
 ///if don have permission for ACCESS_COARSE_LOCATION
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -374,34 +374,39 @@ public void ChekUserStatus() {
             // No explanation needed, we can request the permission.
             android.util.Log.i("perrrrr", "checkLocationPermission: perrrrr");
 
-            AndPermission.with(this)
-                    .runtime()
-                    .permission(Permission.Group.LOCATION)
-                   .onGranted(new Action<List<String>>() {
-                       @Override
-                       public void onAction(List<String> data) {
-                            chekAppVersion();
-                       }
-                   })
-                    .onDenied(new Action<List<String>>() {
+            ///////////////
+            String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+            String rationale = "لطفا دسترسی مکان را بدهید!";
+            Permissions.Options options = new Permissions.Options()
+                    .setRationaleDialogTitle("اطلاعات")
+                    .setSettingsDialogTitle("خطا");
+
+            Permissions.check(this/*context*/, permissions, rationale, options, new PermissionHandler() {
+                @Override
+                public void onGranted() {
+                    // do your task.
+                    chekAppVersion();
+                }
+
+                @Override
+                public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                    // permission denied, block the feature.
+                    Toast.makeText(SplashActivity.this, "برای استفاده از نرم افزار  باید لوکیشن شما فعال باشد", Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
                         @Override
-                        public void onAction(List<String> data) {
-                            Toast.makeText(SplashActivity.this, "برای استفاده از نرم افزار  باید لوکیشن شما فعال باشد", Toast.LENGTH_LONG).show();
-                             new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                        public void run() {
 
-                                }
-                            },2000);
-                            finish();
                         }
-                    })
+                    },2000);
+                    finish();
+                }
+            });
 
-                    .start();
-    /*                ActivityCompat.requestPermissions(SplashActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_LOCATION);*/
 
+            ActivityCompat.requestPermissions(SplashActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+            ///////////////
 
             return false;
         } else {
@@ -416,6 +421,8 @@ public void ChekUserStatus() {
             return true;
         }
     }
+
+
 
     /*private MaterialDialog showPopupHold(String message) {
         final MaterialDialog md = new MaterialDialog.Builder(this)

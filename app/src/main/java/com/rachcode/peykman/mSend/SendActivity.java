@@ -725,7 +725,7 @@ realm = HomeFragment.inc.realm;
                 // hide keybord
                 dismissKeyboard();
                 detail.setVisibility(View.VISIBLE);
-
+                btnTopAddressGozineha.setVisibility(View.VISIBLE);
                 String Phonedes = Ephone_des.getText().toString();
                 String Namedec = Ename_des.getText().toString();
                 if (Namedec.isEmpty() || Namedec.length() < 2) {
@@ -1470,7 +1470,11 @@ realm = HomeFragment.inc.realm;
                 android.util.Log.i("pdlfgskpkgfesko", "lat"+pickUpLatLang.latitude+ "long"+pickUpLatLang.longitude);
             }
         }else{
+
+
+/*
             updateFitur();
+*/
             updateBalance();
         }
 
@@ -1874,6 +1878,8 @@ realm = HomeFragment.inc.realm;
 
 
     private void onDestinationClick() {
+        btnTopAddressGozineha.setVisibility(View.GONE);
+
         centerPos = mMap.getCameraPosition().target;
         switch (DestinationNumber) {
             case 0:
@@ -1995,7 +2001,6 @@ realm = HomeFragment.inc.realm;
                 destinationLatLang = centerPos;
                 buttont.setVisibility(View.VISIBLE);
                 setDestinationContainer.setVisibility(View.GONE);
-                btnTopAddressGozineha.setVisibility(View.VISIBLE);
                 fillAddress(2, destinationLatLang);
                 break;
             case 1:

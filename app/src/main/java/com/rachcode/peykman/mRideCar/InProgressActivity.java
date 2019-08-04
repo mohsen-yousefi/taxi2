@@ -125,6 +125,8 @@ public class InProgressActivity extends AppCompatActivity
     private static final int REQUEST_PERMISSION_CALL = 992;
     @BindView(R.id.rideCar_pickUpText)
     EditText pickUpText;
+    @BindView(R.id.design_request)
+    ConstraintLayout request_datile;
     @BindView(R.id.rideCar_destinationText)
     EditText destinationText;
     @BindView(R.id.rideCar_distance)
@@ -214,8 +216,6 @@ public class InProgressActivity extends AppCompatActivity
 
     @BindView(R.id.scroll_view_design)
     ScrollView scroll_view_design;
-    @BindView(R.id.design_request)
-    ConstraintLayout design_request;
 
 
     @BindView(R.id.driver_arriving_time)
@@ -301,8 +301,9 @@ public class InProgressActivity extends AppCompatActivity
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cancelBook.setVisibility(View.GONE);
                 scroll_view_design.setVisibility(View.VISIBLE);
-                design_request.setVisibility(View.VISIBLE);
+                request_datile.setVisibility(View.VISIBLE);
             }
         });
 
@@ -329,8 +330,9 @@ public class InProgressActivity extends AppCompatActivity
         btn_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cancelBook.setVisibility(View.VISIBLE);
                 scroll_view_design.setVisibility(View.GONE);
-                design_request.setVisibility(View.GONE);
+                request_datile.setVisibility(View.GONE);
             }
         });
 
@@ -1173,7 +1175,11 @@ private void ShowDoialg(final String is_pay){
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-
+        if (request_datile.getVisibility() == View.VISIBLE) {
+            cancelBook.setVisibility(View.VISIBLE);
+            scroll_view_design.setVisibility(View.GONE);
+            request_datile.setVisibility(View.GONE);
+        }
     }
 
     @Override
